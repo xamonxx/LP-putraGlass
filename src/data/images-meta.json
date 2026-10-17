@@ -1,0 +1,282 @@
+{
+  "detail-bevel": {
+    "originalWidth": 587,
+    "originalHeight": 1000,
+    "aspectRatio": 0.587,
+    "files": {
+      "webp": {
+        "640": "/img/detail-bevel-640w.webp",
+        "1024": "/img/detail-bevel-1024w.webp",
+        "1600": "/img/detail-bevel-1600w.webp",
+        "default": "/img/detail-bevel.webp"
+      },
+      "avif": {
+        "640": "/img/detail-bevel-640w.avif",
+        "1024": "/img/detail-bevel-1024w.avif",
+        "1600": "/img/detail-bevel-1600w.avif",
+        "default": "/img/detail-bevel.avif"
+      },
+      "fallback": "/assets/detail-bevel.jpg"
+    }
+  },
+  "detail-led": {
+    "originalWidth": 549,
+    "originalHeight": 1000,
+    "aspectRatio": 0.549,
+    "files": {
+      "webp": {
+        "640": "/img/detail-led-640w.webp",
+        "1024": "/img/detail-led-1024w.webp",
+        "1600": "/img/detail-led-1600w.webp",
+        "default": "/img/detail-led.webp"
+      },
+      "avif": {
+        "640": "/img/detail-led-640w.avif",
+        "1024": "/img/detail-led-1024w.avif",
+        "1600": "/img/detail-led-1600w.avif",
+        "default": "/img/detail-led.avif"
+      },
+      "fallback": "/assets/detail-led.jpg"
+    }
+  },
+  "detail-touch": {
+    "originalWidth": 452,
+    "originalHeight": 800,
+    "aspectRatio": 0.565,
+    "files": {
+      "webp": {
+        "640": "/img/detail-touch-640w.webp",
+        "1024": "/img/detail-touch-1024w.webp",
+        "1600": "/img/detail-touch-1600w.webp",
+        "default": "/img/detail-touch.webp"
+      },
+      "avif": {
+        "640": "/img/detail-touch-640w.avif",
+        "1024": "/img/detail-touch-1024w.avif",
+        "1600": "/img/detail-touch-1600w.avif",
+        "default": "/img/detail-touch.avif"
+      },
+      "fallback": "/assets/detail-touch.jpg"
+    }
+  },
+  "logo-mark-dari-pdf": {
+    "originalWidth": 260,
+    "originalHeight": 152,
+    "aspectRatio": 1.7105,
+    "files": {
+      "webp": {
+        "640": "/img/logo-mark-dari-pdf-640w.webp",
+        "1024": "/img/logo-mark-dari-pdf-1024w.webp",
+        "1600": "/img/logo-mark-dari-pdf-1600w.webp",
+        "default": "/img/logo-mark-dari-pdf.webp"
+      },
+      "avif": {
+        "640": "/img/logo-mark-dari-pdf-640w.avif",
+        "1024": "/img/logo-mark-dari-pdf-1024w.avif",
+        "1600": "/img/logo-mark-dari-pdf-1600w.avif",
+        "default": "/img/logo-mark-dari-pdf.avif"
+      },
+      "fallback": "/assets/logo-mark-dari-pdf.png"
+    }
+  },
+  "pasang-cafe": {
+    "originalWidth": 578,
+    "originalHeight": 1000,
+    "aspectRatio": 0.578,
+    "files": {
+      "webp": {
+        "640": "/img/pasang-cafe-640w.webp",
+        "1024": "/img/pasang-cafe-1024w.webp",
+        "1600": "/img/pasang-cafe-1600w.webp",
+        "default": "/img/pasang-cafe.webp"
+      },
+      "avif": {
+        "640": "/img/pasang-cafe-640w.avif",
+        "1024": "/img/pasang-cafe-1024w.avif",
+        "1600": "/img/pasang-cafe-1600w.avif",
+        "default": "/img/pasang-cafe.avif"
+      },
+      "fallback": "/assets/pasang-cafe.jpg"
+    }
+  },
+  "pasang-capsul": {
+    "originalWidth": 619,
+    "originalHeight": 1100,
+    "aspectRatio": 0.5627,
+    "files": {
+      "webp": {
+        "640": "/img/pasang-capsul-640w.webp",
+        "1024": "/img/pasang-capsul-1024w.webp",
+        "1600": "/img/pasang-capsul-1600w.webp",
+        "default": "/img/pasang-capsul.webp"
+      },
+      "avif": {
+        "640": "/img/pasang-capsul-640w.avif",
+        "1024": "/img/pasang-capsul-1024w.avif",
+        "1600": "/img/pasang-capsul-1600w.avif",
+        "default": "/img/pasang-capsul.avif"
+      },
+      "fallback": "/assets/pasang-capsul.jpg"
+    }
+  },
+  "pasang-hotel": {
+    "originalWidth": 1100,
+    "originalHeight": 495,
+    "aspectRatio": 2.2222,
+    "files": {
+      "webp": {
+        "640": "/img/pasang-hotel-640w.webp",
+        "1024": "/img/pasang-hotel-1024w.webp",
+        "1600": "/img/pasang-hotel-1600w.webp",
+        "default": "/img/pasang-hotel.webp"
+      },
+      "avif": {
+        "640": "/img/pasang-hotel-640w.avif",
+        "1024": "/img/pasang-hotel-1024w.avif",
+        "1600": "/img/pasang-hotel-1600w.avif",
+        "default": "/img/pasang-hotel.avif"
+      },
+      "fallback": "/assets/pasang-hotel.jpg"
+    }
+  },
+  "proses-led": {
+    "originalWidth": 561,
+    "originalHeight": 960,
+    "aspectRatio": 0.5844,
+    "files": {
+      "webp": {
+        "640": "/img/proses-led-640w.webp",
+        "1024": "/img/proses-led-1024w.webp",
+        "1600": "/img/proses-led-1600w.webp",
+        "default": "/img/proses-led.webp"
+      },
+      "avif": {
+        "640": "/img/proses-led-640w.avif",
+        "1024": "/img/proses-led-1024w.avif",
+        "1600": "/img/proses-led-1600w.avif",
+        "default": "/img/proses-led.avif"
+      },
+      "fallback": "/assets/proses-led.jpg"
+    }
+  },
+  "render-capsul": {
+    "originalWidth": 445,
+    "originalHeight": 443,
+    "aspectRatio": 1.0045,
+    "files": {
+      "webp": {
+        "640": "/img/render-capsul-640w.webp",
+        "1024": "/img/render-capsul-1024w.webp",
+        "1600": "/img/render-capsul-1600w.webp",
+        "default": "/img/render-capsul.webp"
+      },
+      "avif": {
+        "640": "/img/render-capsul-640w.avif",
+        "1024": "/img/render-capsul-1024w.avif",
+        "1600": "/img/render-capsul-1600w.avif",
+        "default": "/img/render-capsul.avif"
+      },
+      "fallback": "/assets/render-capsul.jpg"
+    }
+  },
+  "render-halfmoon": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "640": "/img/render-halfmoon-640w.webp",
+        "1024": "/img/render-halfmoon-1024w.webp",
+        "1600": "/img/render-halfmoon-1600w.webp",
+        "default": "/img/render-halfmoon.webp"
+      },
+      "avif": {
+        "640": "/img/render-halfmoon-640w.avif",
+        "1024": "/img/render-halfmoon-1024w.avif",
+        "1600": "/img/render-halfmoon-1600w.avif",
+        "default": "/img/render-halfmoon.avif"
+      },
+      "fallback": "/assets/render-halfmoon.jpg"
+    }
+  },
+  "render-leaf": {
+    "originalWidth": 446,
+    "originalHeight": 443,
+    "aspectRatio": 1.0068,
+    "files": {
+      "webp": {
+        "640": "/img/render-leaf-640w.webp",
+        "1024": "/img/render-leaf-1024w.webp",
+        "1600": "/img/render-leaf-1600w.webp",
+        "default": "/img/render-leaf.webp"
+      },
+      "avif": {
+        "640": "/img/render-leaf-640w.avif",
+        "1024": "/img/render-leaf-1024w.avif",
+        "1600": "/img/render-leaf-1600w.avif",
+        "default": "/img/render-leaf.avif"
+      },
+      "fallback": "/assets/render-leaf.jpg"
+    }
+  },
+  "render-rect": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "640": "/img/render-rect-640w.webp",
+        "1024": "/img/render-rect-1024w.webp",
+        "1600": "/img/render-rect-1600w.webp",
+        "default": "/img/render-rect.webp"
+      },
+      "avif": {
+        "640": "/img/render-rect-640w.avif",
+        "1024": "/img/render-rect-1024w.avif",
+        "1600": "/img/render-rect-1600w.avif",
+        "default": "/img/render-rect.avif"
+      },
+      "fallback": "/assets/render-rect.jpg"
+    }
+  },
+  "workshop-led": {
+    "originalWidth": 576,
+    "originalHeight": 768,
+    "aspectRatio": 0.75,
+    "files": {
+      "webp": {
+        "640": "/img/workshop-led-640w.webp",
+        "1024": "/img/workshop-led-1024w.webp",
+        "1600": "/img/workshop-led-1600w.webp",
+        "default": "/img/workshop-led.webp"
+      },
+      "avif": {
+        "640": "/img/workshop-led-640w.avif",
+        "1024": "/img/workshop-led-1024w.avif",
+        "1600": "/img/workshop-led-1600w.avif",
+        "default": "/img/workshop-led.avif"
+      },
+      "fallback": "/assets/workshop-led.jpg"
+    }
+  },
+  "workshop-poles": {
+    "originalWidth": 368,
+    "originalHeight": 640,
+    "aspectRatio": 0.575,
+    "files": {
+      "webp": {
+        "640": "/img/workshop-poles-640w.webp",
+        "1024": "/img/workshop-poles-1024w.webp",
+        "1600": "/img/workshop-poles-1600w.webp",
+        "default": "/img/workshop-poles.webp"
+      },
+      "avif": {
+        "640": "/img/workshop-poles-640w.avif",
+        "1024": "/img/workshop-poles-1024w.avif",
+        "1600": "/img/workshop-poles-1600w.avif",
+        "default": "/img/workshop-poles.avif"
+      },
+      "fallback": "/assets/workshop-poles.jpg"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "putraglass-landing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "node scripts/generate-harga.js && next build",
+    "start": "npx serve out"
+  }
+}
