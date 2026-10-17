@@ -1,0 +1,7 @@
+out/
+.next/
+lighthouse-report.json
+actual-*.png
+komparasi-*.png
+test-*.png
+screenshot-*.png
