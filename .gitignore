@@ -1,5 +1,6 @@
 out/
 .next/
+node_modules/
 lighthouse-report.json
 actual-*.png
 komparasi-*.png
