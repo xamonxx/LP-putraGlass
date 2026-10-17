@@ -19,7 +19,7 @@ export function ModelSection() {
               custom
             </h3>
             <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.6, color: '#4A5468', maxWidth: '28em' }}>
-              Ukuran dan bentuk bebas, dihitung per m². Untuk kamar mandi, kamar tidur, ruang tamu, toko, atau dinding dengan ukuran tidak standar.
+              Ukuran dan bentuk bebas. Untuk kamar mandi, kamar tidur, ruang tamu, toko, atau dinding dengan ukuran tidak standar.
             </p>
             <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '15px', lineHeight: 1.8, color: '#1B2233' }}>
               <li>LED 3 warna atau LED 1 warna</li>
@@ -27,7 +27,7 @@ export function ModelSection() {
               <li>Antifog bisa ditambahkan</li>
             </ul>
             <a href="#rancang" style={{ fontSize: '16px', fontWeight: 600, color: '#275087' }}>
-              Hitung estimasi custom
+              Rancang ukuran custom
             </a>
             <div style={{ marginTop: '14px', maxWidth: '320px' }}>
               <PictureImage

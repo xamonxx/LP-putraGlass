@@ -136,6 +136,23 @@ export function trackConfiguratorStart() {
     // no-op
   }
 }
+export function trackConfiguratorSend() {
+  if (typeof window === 'undefined') return;
+  try {
+    if (window.fbq) {
+      window.fbq('trackCustom', 'configurator_send');
+    }
+    if (window.ttq?.track) {
+      window.ttq.track('configurator_send');
+    }
+    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
+      window.gtag('event', 'configurator_send');
+    }
+  } catch {
+    // no-op
+  }
+}
+
 
 export function trackLeadClick(sourceButton: string) {
   if (typeof window === 'undefined') return;

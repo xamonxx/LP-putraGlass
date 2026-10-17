@@ -111,37 +111,10 @@ export function GallerySection() {
         </div>
 
         {/* Gallery Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '32px',
-            marginTop: '44px',
-          }}
-        >
+        <div className="gallery-grid">
           {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              style={{
-                background: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #DCE3ED',
-                padding: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '14px',
-              }}
-            >
-              <div
-                style={{
-                  width: '100%',
-                  aspectRatio: '4 / 5',
-                  borderRadius: item.frameRadius,
-                  overflow: 'hidden',
-                  background: '#0F1528',
-                  boxShadow: '0 8px 24px rgba(20,28,51,0.08)',
-                }}
-              >
+            <div key={item.id} className="gallery-card">
+              <div className="gallery-card-img" style={{ width: '100%', borderRadius: item.frameRadius, overflow: 'hidden', background: '#0F1528', boxShadow: '0 8px 24px rgba(20,28,51,0.08)' }}>
                 <PictureImage
                   name={item.imgName}
                   alt={item.title}

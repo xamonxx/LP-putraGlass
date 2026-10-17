@@ -53,17 +53,7 @@ export function ProjectBannerSection() {
           </div>
 
           {/* Kartu Ringkasan Proyek */}
-          <div
-            style={{
-              borderRadius: '20px',
-              background: '#1A233A',
-              border: '1px solid #3A4766',
-              padding: '36px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-            }}
-          >
+          <div className="project-card" style={{ borderRadius: '20px', background: '#1A233A', border: '1px solid #3A4766', display: 'flex', flexDirection: 'column' }}>
             <h3 className="disp" style={{ margin: 0, fontSize: '22px', color: '#FFFFFF' }}>
               Kapasitas Workshop Putra Glass
             </h3>

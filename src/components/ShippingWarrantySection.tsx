@@ -12,24 +12,9 @@ export function ShippingWarrantySection() {
           Kami memastikan setiap cermin sampai di lokasimu dalam kondisi utuh dan siap dinyalakan.
         </p>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '32px',
-            marginTop: '48px',
-          }}
-        >
+        <div className="shipping-grid">
           {/* Blok Pengiriman */}
-          <div
-            style={{
-              background: '#FFFFFF',
-              borderRadius: '16px',
-              border: '1.5px solid #DCE3ED',
-              padding: '36px',
-              boxShadow: '0 8px 24px rgba(20, 28, 51, 0.04)',
-            }}
-          >
+          <div className="shipping-card" style={{ background: '#FFFFFF', borderRadius: '16px', border: '1.5px solid #DCE3ED', boxShadow: '0 8px 24px rgba(20, 28, 51, 0.04)' }}>
             <div style={{ display: 'inline-flex', padding: '10px', borderRadius: '12px', background: 'rgba(39,80,135,0.08)', color: '#275087' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="1" y="3" width="15" height="13" />
@@ -47,15 +32,7 @@ export function ShippingWarrantySection() {
           </div>
 
           {/* Blok Garansi */}
-          <div
-            style={{
-              background: '#FFFFFF',
-              borderRadius: '16px',
-              border: '1.5px solid #DCE3ED',
-              padding: '36px',
-              boxShadow: '0 8px 24px rgba(20, 28, 51, 0.04)',
-            }}
-          >
+          <div className="shipping-card" style={{ background: '#FFFFFF', borderRadius: '16px', border: '1.5px solid #DCE3ED', boxShadow: '0 8px 24px rgba(20, 28, 51, 0.04)' }}>
             <div style={{ display: 'inline-flex', padding: '10px', borderRadius: '12px', background: 'rgba(37,211,102,0.1)', color: '#06301A' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

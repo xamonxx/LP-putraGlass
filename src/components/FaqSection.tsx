@@ -20,7 +20,7 @@ export function FaqSection() {
           Hal-hal yang sering ditanyakan pembeli sebelum memesan cermin custom.
         </p>
 
-        <div style={{ marginTop: '48px', maxWidth: '820px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="faq-container" style={{ maxWidth: '820px', display: 'flex', flexDirection: 'column' }}>
           {FAQ_LIST.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
@@ -38,9 +38,9 @@ export function FaqSection() {
                   type="button"
                   onClick={() => toggle(idx)}
                   aria-expanded={isOpen}
+                  className="faq-btn"
                   style={{
                     width: '100%',
-                    padding: '24px 28px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
@@ -72,9 +72,8 @@ export function FaqSection() {
 
                 {isOpen && (
                   <div
+                    className="faq-answer"
                     style={{
-                      padding: '0 28px 24px',
-                      fontSize: '15px',
                       lineHeight: 1.65,
                       color: '#4A5468',
                       borderTop: '1px solid #F1F4F8',

@@ -119,7 +119,7 @@ export function HeroSection() {
                 boxSizing: 'border-box',
               }}
             >
-              Hitung estimasi harga
+              Rancang ukuranmu
             </a>
           </div>
           <p style={{ margin: '26px 0 0', fontSize: '14px', lineHeight: 1.5, color: '#9FB0C8', maxWidth: '34em' }}>

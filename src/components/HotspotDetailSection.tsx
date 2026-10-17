@@ -127,19 +127,7 @@ export function HotspotDetailSection() {
           </div>
 
           {/* Panel Detail Aktif */}
-          <div
-            style={{
-              borderRadius: '18px',
-              background: '#FFFFFF',
-              border: '1.5px solid #D5DCE6',
-              padding: '32px',
-              boxShadow: '0 12px 30px rgba(37,50,84,0.06)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '18px',
-              transition: 'opacity 220ms ease',
-            }}
-          >
+          <div className="hotspot-panel" style={{ borderRadius: '18px', background: '#FFFFFF', border: '1.5px solid #D5DCE6', boxShadow: '0 12px 30px rgba(37,50,84,0.06)', display: 'flex', flexDirection: 'column', transition: 'opacity 220ms ease' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               <span
                 style={{

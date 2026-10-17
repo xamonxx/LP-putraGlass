@@ -20,7 +20,7 @@ export function HeaderNav() {
 
         <nav className="nav-links" aria-label="Menu utama" style={{ gap: '32px', fontSize: '15px' }}>
           <a href="#model" style={{ color: '#C9D2E0', textDecoration: 'none' }}>Model</a>
-          <a href="#rancang" style={{ color: '#C9D2E0', textDecoration: 'none' }}>Hitung harga</a>
+          <a href="#rancang" style={{ color: '#C9D2E0', textDecoration: 'none' }}>Rancang</a>
           <a href="#cara-pesan" style={{ color: '#C9D2E0', textDecoration: 'none' }}>Cara pesan</a>
           <a href="#workshop" style={{ color: '#C9D2E0', textDecoration: 'none' }}>Workshop</a>
         </nav>
