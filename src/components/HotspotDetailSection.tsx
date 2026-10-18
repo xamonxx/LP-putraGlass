@@ -102,23 +102,13 @@ export function HotspotDetailSection() {
         </p>
 
         <div className="detail-layout" style={{ marginTop: '48px' }}>
-          {/* Kolom Kiri: Foto Utama (16:9) + Hotspots + Tab Bar */}
+          {/* Kolom Kiri: Foto Utama (16:9, uncropped) + Hotspots + Tab Bar */}
           <div className="detail-base-col">
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                aspectRatio: '16 / 9',
-                borderRadius: '18px',
-                overflow: 'hidden',
-                background: '#0F1528',
-                boxShadow: '0 16px 40px rgba(20, 28, 51, 0.12)',
-              }}
-            >
+            <div className="detail-base-wrapper">
               <PictureImage
                 name="detail-base"
                 alt="Foto cermin LED Putra Glass terpasang di dinding wastafel untuk eksplorasi detail"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
               />
 
               {/* 6 Interactive Hotspot Dots */}
@@ -180,9 +170,9 @@ export function HotspotDetailSection() {
 
           {/* Kolom Kanan: Detail Card (Media 4:3 + Badge + Konten + Prev/Next) */}
           <div className="detail-card-col">
-            <div className="detail-info-card" style={{ background: '#FFFFFF', borderRadius: '20px', border: '1.5px solid #E2E8F0', boxShadow: '0 16px 40px rgba(20, 28, 51, 0.06)', display: 'flex', flexDirection: 'column' }}>
+            <div className="detail-info-card">
               {/* Media 4:3 */}
-              <div className="detail-media-wrap" style={{ position: 'relative', width: '100%', borderRadius: '14px', overflow: 'hidden', background: '#0F1528' }}>
+              <div className="detail-media-wrap">
                 {cur.isSvg ? (
                   <img
                     src="/ilustrasi/lapisan-belakang.svg"
@@ -267,6 +257,36 @@ export function HotspotDetailSection() {
           grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
           gap: 40px;
           align-items: start;
+        }
+
+        .detail-base-wrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          border-radius: 18px;
+          overflow: hidden;
+          background: #0F1528;
+          box-shadow: 0 16px 40px rgba(20, 28, 51, 0.12);
+        }
+
+        .detail-info-card {
+          background: #FFFFFF;
+          border-radius: 20px;
+          border: 1.5px solid #E2E8F0;
+          padding: 24px;
+          box-shadow: 0 16px 40px rgba(20, 28, 51, 0.06);
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .detail-media-wrap {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          border-radius: 14px;
+          overflow: hidden;
+          background: #0F1528;
         }
 
         .hotspot-circle {
@@ -381,25 +401,27 @@ export function HotspotDetailSection() {
         @media (max-width: 860px) {
           .detail-layout {
             grid-template-columns: minmax(0, 1fr) !important;
-            gap: 16px !important;
+            gap: 20px !important;
+          }
+
+          .detail-base-wrapper {
+            border-radius: 0 !important;
+            margin-left: -20px !important;
+            margin-right: -20px !important;
+            width: calc(100% + 40px) !important;
           }
 
           .detail-info-card {
-            padding: 14px !important;
-            gap: 10px !important;
-          }
-
-          .detail-media-wrap {
-            aspect-ratio: 16 / 10 !important;
-            max-height: 180px !important;
+            padding: 16px !important;
+            gap: 12px !important;
           }
 
           .detail-info-card h3.disp {
-            font-size: 19px !important;
+            font-size: 20px !important;
           }
 
           .detail-info-card p {
-            font-size: 13px !important;
+            font-size: 14px !important;
             line-height: 1.5 !important;
           }
 
@@ -409,7 +431,7 @@ export function HotspotDetailSection() {
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 4px;
-            margin-top: 10px !important;
+            margin-top: 14px !important;
           }
 
           .detail-tabs-bar::-webkit-scrollbar {
@@ -418,9 +440,8 @@ export function HotspotDetailSection() {
 
           .detail-tab-btn {
             flex-shrink: 0;
-            padding: 0 12px;
-            font-size: 12px;
-            min-height: 34px !important;
+            padding: 0 14px;
+            font-size: 13px;
           }
         }
       `}</style>

@@ -71,15 +71,15 @@ export function AntifogDemoSection() {
             </div>
           </div>
 
-          {/* Kolom Kanan: Slider 4:5 (Maks 520 px) */}
+          {/* Kolom Kanan: Slider 5:4 (Maks 640 px) */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
             <div
               className="slider-frame"
               style={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: '520px',
-                aspectRatio: '4 / 5',
+                maxWidth: '640px',
+                aspectRatio: '5 / 4',
                 borderRadius: '20px',
                 overflow: 'hidden',
                 boxShadow: '0 24px 70px rgba(0, 0, 0, 0.55)',
@@ -87,16 +87,16 @@ export function AntifogDemoSection() {
                 userSelect: 'none',
               }}
             >
-              {/* Layer Bawah: antifog-dengan (Foto Asli Bersih) */}
+              {/* Layer Bawah: antifog-dengan (Render Katalog Asli) */}
               <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
                 <PictureImage
                   name="antifog-dengan"
-                  alt="Cermin LED Putra Glass jernih bebas embun dengan pad antifog"
+                  alt="Kaca cermin LED Putra Glass jernih dengan antifog dari render katalog"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
 
-              {/* Layer Atas: antifog-tanpa (Simulasi Embun) dengan Clip-Path */}
+              {/* Layer Atas: antifog-tanpa (Simulasi Kaca Berembun) dengan Clip-Path */}
               <div
                 style={{
                   position: 'absolute',
@@ -109,7 +109,7 @@ export function AntifogDemoSection() {
               >
                 <PictureImage
                   name="antifog-tanpa"
-                  alt="Simulasi cermin berembun tanpa pad antifog"
+                  alt="Simulasi kaca cermin berembun tanpa antifog dari render katalog"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
@@ -222,7 +222,7 @@ export function AntifogDemoSection() {
             </div>
 
             <p style={{ margin: '14px 0 0', fontSize: '13px', color: '#9FB0C8', textAlign: 'center', lineHeight: 1.5 }}>
-              Geser garisnya. Kiri: simulasi embun pada foto. Kanan: foto asli cermin Putra Glass.
+              Geser garisnya. Kiri: simulasi kaca berembun. Kanan: kaca dengan antifog. Gambar dari render katalog Putra Glass.
             </p>
           </div>
         </div>
@@ -231,7 +231,7 @@ export function AntifogDemoSection() {
       <style jsx>{`
         .antifog-layout {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
           gap: 56px;
           align-items: center;
         }
@@ -239,11 +239,12 @@ export function AntifogDemoSection() {
         @media (max-width: 860px) {
           .antifog-layout {
             grid-template-columns: minmax(0, 1fr) !important;
-            gap: 20px !important;
+            gap: 24px !important;
           }
+
           .slider-frame {
-            aspect-ratio: 16 / 10 !important;
-            max-height: 240px !important;
+            aspect-ratio: 5 / 4 !important;
+            max-height: 280px !important;
           }
         }
       `}</style>

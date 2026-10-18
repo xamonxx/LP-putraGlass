@@ -1,8 +1,8 @@
 {
   "antifog-dengan": {
-    "originalWidth": 1020,
-    "originalHeight": 1275,
-    "aspectRatio": 0.8,
+    "originalWidth": 1300,
+    "originalHeight": 1040,
+    "aspectRatio": 1.25,
     "files": {
       "webp": {
         "320": "/img/antifog-dengan-320w.webp",
@@ -24,9 +24,9 @@
     }
   },
   "antifog-tanpa": {
-    "originalWidth": 1020,
-    "originalHeight": 1275,
-    "aspectRatio": 0.8,
+    "originalWidth": 1300,
+    "originalHeight": 1040,
+    "aspectRatio": 1.25,
     "files": {
       "webp": {
         "320": "/img/antifog-tanpa-320w.webp",
@@ -45,6 +45,30 @@
         "default": "/img/antifog-tanpa.avif"
       },
       "fallback": "/assets/antifog-tanpa.webp"
+    }
+  },
+  "custom-octagon": {
+    "originalWidth": 1200,
+    "originalHeight": 900,
+    "aspectRatio": 1.3333,
+    "files": {
+      "webp": {
+        "320": "/img/custom-octagon-320w.webp",
+        "480": "/img/custom-octagon-480w.webp",
+        "640": "/img/custom-octagon-640w.webp",
+        "1024": "/img/custom-octagon-1024w.webp",
+        "1600": "/img/custom-octagon-1600w.webp",
+        "default": "/img/custom-octagon.webp"
+      },
+      "avif": {
+        "320": "/img/custom-octagon-320w.avif",
+        "480": "/img/custom-octagon-480w.avif",
+        "640": "/img/custom-octagon-640w.avif",
+        "1024": "/img/custom-octagon-1024w.avif",
+        "1600": "/img/custom-octagon-1600w.avif",
+        "default": "/img/custom-octagon.avif"
+      },
+      "fallback": "/assets/custom-octagon.webp"
     }
   },
   "detail-antifog": {
@@ -212,7 +236,103 @@
         "1600": "/img/logo-mark-dari-pdf-1600w.avif",
         "default": "/img/logo-mark-dari-pdf.avif"
       },
-      "fallback": "/assets/logo-mark-dari-pdf.png"
+      "fallback": "/assets/logo-mark-dari-pdf.webp"
+    }
+  },
+  "model-capsul": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-capsul-320w.webp",
+        "480": "/img/model-capsul-480w.webp",
+        "640": "/img/model-capsul-640w.webp",
+        "1024": "/img/model-capsul-1024w.webp",
+        "1600": "/img/model-capsul-1600w.webp",
+        "default": "/img/model-capsul.webp"
+      },
+      "avif": {
+        "320": "/img/model-capsul-320w.avif",
+        "480": "/img/model-capsul-480w.avif",
+        "640": "/img/model-capsul-640w.avif",
+        "1024": "/img/model-capsul-1024w.avif",
+        "1600": "/img/model-capsul-1600w.avif",
+        "default": "/img/model-capsul.avif"
+      },
+      "fallback": "/assets/model-capsul.webp"
+    }
+  },
+  "model-halfmoon": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-halfmoon-320w.webp",
+        "480": "/img/model-halfmoon-480w.webp",
+        "640": "/img/model-halfmoon-640w.webp",
+        "1024": "/img/model-halfmoon-1024w.webp",
+        "1600": "/img/model-halfmoon-1600w.webp",
+        "default": "/img/model-halfmoon.webp"
+      },
+      "avif": {
+        "320": "/img/model-halfmoon-320w.avif",
+        "480": "/img/model-halfmoon-480w.avif",
+        "640": "/img/model-halfmoon-640w.avif",
+        "1024": "/img/model-halfmoon-1024w.avif",
+        "1600": "/img/model-halfmoon-1600w.avif",
+        "default": "/img/model-halfmoon.avif"
+      },
+      "fallback": "/assets/model-halfmoon.webp"
+    }
+  },
+  "model-leaf": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-leaf-320w.webp",
+        "480": "/img/model-leaf-480w.webp",
+        "640": "/img/model-leaf-640w.webp",
+        "1024": "/img/model-leaf-1024w.webp",
+        "1600": "/img/model-leaf-1600w.webp",
+        "default": "/img/model-leaf.webp"
+      },
+      "avif": {
+        "320": "/img/model-leaf-320w.avif",
+        "480": "/img/model-leaf-480w.avif",
+        "640": "/img/model-leaf-640w.avif",
+        "1024": "/img/model-leaf-1024w.avif",
+        "1600": "/img/model-leaf-1600w.avif",
+        "default": "/img/model-leaf.avif"
+      },
+      "fallback": "/assets/model-leaf.webp"
+    }
+  },
+  "model-rectangle": {
+    "originalWidth": 900,
+    "originalHeight": 900,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-rectangle-320w.webp",
+        "480": "/img/model-rectangle-480w.webp",
+        "640": "/img/model-rectangle-640w.webp",
+        "1024": "/img/model-rectangle-1024w.webp",
+        "1600": "/img/model-rectangle-1600w.webp",
+        "default": "/img/model-rectangle.webp"
+      },
+      "avif": {
+        "320": "/img/model-rectangle-320w.avif",
+        "480": "/img/model-rectangle-480w.avif",
+        "640": "/img/model-rectangle-640w.avif",
+        "1024": "/img/model-rectangle-1024w.avif",
+        "1600": "/img/model-rectangle-1600w.avif",
+        "default": "/img/model-rectangle.avif"
+      },
+      "fallback": "/assets/model-rectangle.webp"
     }
   },
   "pasang-cafe": {
@@ -404,7 +524,7 @@
         "1600": "/img/render-capsul-1600w.avif",
         "default": "/img/render-capsul.avif"
       },
-      "fallback": "/assets/render-capsul.jpg"
+      "fallback": "/assets/render-capsul.webp"
     }
   },
   "render-halfmoon": {
@@ -428,7 +548,7 @@
         "1600": "/img/render-halfmoon-1600w.avif",
         "default": "/img/render-halfmoon.avif"
       },
-      "fallback": "/assets/render-halfmoon.jpg"
+      "fallback": "/assets/render-halfmoon.webp"
     }
   },
   "render-leaf": {
@@ -452,7 +572,7 @@
         "1600": "/img/render-leaf-1600w.avif",
         "default": "/img/render-leaf.avif"
       },
-      "fallback": "/assets/render-leaf.jpg"
+      "fallback": "/assets/render-leaf.webp"
     }
   },
   "render-rect": {
@@ -476,7 +596,7 @@
         "1600": "/img/render-rect-1600w.avif",
         "default": "/img/render-rect.avif"
       },
-      "fallback": "/assets/render-rect.jpg"
+      "fallback": "/assets/render-rect.webp"
     }
   },
   "workshop-led": {

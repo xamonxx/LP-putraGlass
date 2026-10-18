@@ -3,7 +3,7 @@ import { PictureImage } from './PictureImage';
 
 export function ModelSection() {
   return (
-    <section id="model" style={{ background: '#F3F5F8', color: '#1B2233', padding: '104px 0' }}>
+    <section id="model" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
       <div className="wrap">
         <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
           custom atau model jadi?
@@ -12,7 +12,7 @@ export function ModelSection() {
           Pilih custom kalau ukuran dindingmu tidak standar. Pilih model jadi kalau mau cepat dari katalog.
         </p>
 
-        <div className="two model-two">
+        <div className="two model-two" style={{ marginTop: '56px' }}>
           {/* Jalur Custom */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <h3 className="disp" style={{ margin: 0, fontSize: '30px', color: '#253254' }}>
@@ -29,16 +29,17 @@ export function ModelSection() {
             <a href="#rancang" style={{ fontSize: '16px', fontWeight: 600, color: '#275087' }}>
               Rancang ukuran custom
             </a>
-            <div style={{ marginTop: '14px', maxWidth: '320px' }}>
+            <div style={{ marginTop: '14px', width: '100%' }}>
               <PictureImage
-                name="pasang-capsul"
-                alt="Cermin LED bentuk kapsul terpasang di atas wastafel dengan dinding kayu"
-                className="custom-photo"
+                name="custom-octagon"
+                alt="Cermin LED bentuk oktagon dengan bingkai cahaya, memantulkan sofa dan dekorasi ruang tamu"
+                className="custom-photo-octagon"
                 style={{
                   width: '100%',
-                  aspectRatio: '9 / 16',
+                  aspectRatio: '4 / 3',
                   objectFit: 'cover',
-                  borderRadius: '999px',
+                  borderRadius: '16px',
+                  boxShadow: '0 16px 40px rgba(20, 28, 51, 0.08)',
                   display: 'block',
                 }}
               />
@@ -59,9 +60,10 @@ export function ModelSection() {
             <div className="shapes" style={{ marginTop: '14px' }}>
               <figure style={{ margin: 0 }}>
                 <PictureImage
-                  name="render-capsul"
+                  name="model-capsul"
                   alt="Cermin LED bentuk capsul"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '6px', display: 'block' }}
+                  sizes="(max-width: 600px) 40vw, 200px"
+                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   capsul
@@ -69,9 +71,10 @@ export function ModelSection() {
               </figure>
               <figure style={{ margin: 0 }}>
                 <PictureImage
-                  name="render-leaf"
+                  name="model-leaf"
                   alt="Cermin LED bentuk leaf"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '6px', display: 'block' }}
+                  sizes="(max-width: 600px) 40vw, 200px"
+                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   leaf
@@ -79,9 +82,10 @@ export function ModelSection() {
               </figure>
               <figure style={{ margin: 0 }}>
                 <PictureImage
-                  name="render-halfmoon"
+                  name="model-halfmoon"
                   alt="Cermin LED bentuk half moon"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '6px', display: 'block' }}
+                  sizes="(max-width: 600px) 40vw, 200px"
+                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   half moon
@@ -89,9 +93,10 @@ export function ModelSection() {
               </figure>
               <figure style={{ margin: 0 }}>
                 <PictureImage
-                  name="render-rect"
+                  name="model-rectangle"
                   alt="Cermin LED bentuk rectangle"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '6px', display: 'block' }}
+                  sizes="(max-width: 600px) 40vw, 200px"
+                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   rectangle
