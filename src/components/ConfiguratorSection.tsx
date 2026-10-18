@@ -87,6 +87,7 @@ export function ConfiguratorSection() {
   // Smooth requestAnimationFrame tween for width & height
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (Math.abs(animW - targetW) < 0.5 && Math.abs(animH - targetH) < 0.5) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
