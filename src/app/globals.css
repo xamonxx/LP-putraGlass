@@ -412,11 +412,14 @@ a:focus-visible {
     line-height: 1.5 !important;
   }
   .shapes figure img {
-    max-height: 48px !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
   }
   .shapes figcaption {
-    font-size: 11px !important;
-    margin-top: 2px !important;
+    font-size: 13px !important;
+    margin-top: 6px !important;
   }
   #workshop h3.disp {
     margin-top: 20px !important;
@@ -510,12 +513,6 @@ a:focus-visible {
   }
   #antifog ul li {
     font-size: 13px !important;
-  }
-  #model .custom-photo {
-    max-height: 80px !important;
-  }
-  #model .shapes figure img {
-    max-height: 55px !important;
   }
   #rancang .control-card {
     padding: 10px 12px !important;
@@ -617,25 +614,16 @@ a:focus-visible {
   .footer-bottom-wrap > div:first-child {
     padding-top: 14px !important;
   }
-  .custom-photo {
-    max-width: 200px !important;
-    aspect-ratio: 9 / 16 !important;
-    max-height: 350px !important;
-    border-radius: 999px !important;
+  .custom-photo-octagon {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
     object-fit: cover !important;
-    margin: 14px auto 0 !important;
+    border-radius: 16px !important;
   }
   .shapes {
-    gap: 8px !important;
-    margin-top: 8px !important;
-  }
-  .shapes figure img {
-    max-height: 65px !important;
-    aspect-ratio: 1 / 1 !important;
-  }
-  .shapes figcaption {
-    margin-top: 4px !important;
-    font-size: 12px !important;
+    gap: 12px !important;
+    margin-top: 12px !important;
   }
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

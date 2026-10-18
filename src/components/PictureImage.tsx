@@ -64,7 +64,11 @@ export function PictureImage({
         width={meta.originalWidth}
         height={meta.originalHeight}
         className={className}
-        style={style}
+        style={{
+          width: '100%',
+          height: 'auto',
+          ...style,
+        }}
         loading={priority ? 'eager' : loading}
         decoding={priority ? 'sync' : 'async'}
       />

@@ -33,9 +33,10 @@ export function ModelSection() {
               <PictureImage
                 name="custom-octagon"
                 alt="Cermin LED bentuk oktagon dengan bingkai cahaya, memantulkan sofa dan dekorasi ruang tamu"
-                className="custom-photo-octagon"
+                sizes="(max-width: 860px) 100vw, 560px"
                 style={{
                   width: '100%',
+                  height: 'auto',
                   aspectRatio: '4 / 3',
                   objectFit: 'cover',
                   borderRadius: '16px',
@@ -62,8 +63,8 @@ export function ModelSection() {
                 <PictureImage
                   name="model-capsul"
                   alt="Cermin LED bentuk capsul"
-                  sizes="(max-width: 600px) 40vw, 200px"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
+                  sizes="(max-width: 860px) 50vw, 300px"
+                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   capsul
@@ -73,8 +74,8 @@ export function ModelSection() {
                 <PictureImage
                   name="model-leaf"
                   alt="Cermin LED bentuk leaf"
-                  sizes="(max-width: 600px) 40vw, 200px"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
+                  sizes="(max-width: 860px) 50vw, 300px"
+                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   leaf
@@ -84,8 +85,8 @@ export function ModelSection() {
                 <PictureImage
                   name="model-halfmoon"
                   alt="Cermin LED bentuk half moon"
-                  sizes="(max-width: 600px) 40vw, 200px"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
+                  sizes="(max-width: 860px) 50vw, 300px"
+                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   half moon
@@ -95,8 +96,8 @@ export function ModelSection() {
                 <PictureImage
                   name="model-rectangle"
                   alt="Cermin LED bentuk rectangle"
-                  sizes="(max-width: 600px) 40vw, 200px"
-                  style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
+                  sizes="(max-width: 860px) 50vw, 300px"
+                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
                 />
                 <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
                   rectangle
