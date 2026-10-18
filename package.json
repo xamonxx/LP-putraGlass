@@ -3,8 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ../node_modules/next/dist/bin/next dev -p 3001",
-    "build": "node ../node_modules/tsx/dist/cli.mjs scripts/build-gambaran-harga.ts && node ../node_modules/next/dist/bin/next build && node scripts/post-build.js",
-    "start": "node serve.js"
+    "dev": "next dev",
+    "build": "next build && node scripts/post-build.js",
+    "start": "node serve.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.1.0",
+    "typescript": "^5.7.2"
   }
 }

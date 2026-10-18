@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import gambaranHarga from '../data/gambaran-harga.json';
+import { GAMBARAN_HARGA_CONTOH } from '../config/harga-contoh';
 import {
   LeadSourceCode,
   buildWhatsAppLink,
@@ -848,7 +848,7 @@ export function ConfiguratorSection() {
               <div style={{ borderTop: '1px dashed rgba(255,255,255,0.18)', marginTop: '4px' }} />
 
               <p style={{ margin: 0, fontSize: '12px', color: '#8A97A8', lineHeight: 1.5 }}>
-                {gambaranHarga.teks}
+                {GAMBARAN_HARGA_CONTOH.teks}
               </p>
             </div>
           </div>
