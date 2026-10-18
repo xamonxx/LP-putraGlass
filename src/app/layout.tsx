@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/assets/pasang-hotel.jpg',
+        url: '/og.jpg',
         width: 1200,
         height: 630,
         alt: 'Cermin LED Putra Glass',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Cermin LED Custom Bandung – Putra Glass',
     description: 'Dibuat per pesanan di workshop Citatah, Bandung Barat. Bentuk bebas, tiga warna cahaya dalam satu sentuhan.',
-    images: ['/assets/pasang-hotel.jpg'],
+    images: ['/og.jpg'],
   },
   robots: {
     index: true,
@@ -44,9 +44,10 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Putra Glass',
-  image: 'https://putraglass.id/assets/pasang-hotel.jpg',
+  image: 'https://putraglass.id/og.jpg',
   description: 'Spesialis fabrikasi cermin LED custom, kaca es, kaca moru, dan kaca arsitektural di Bandung Barat.',
   telephone: '+6281237533173',
+  hasMap: 'https://maps.app.goo.gl/EfXTbzY7PCQ4TPUn6',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Jalan Nasional III, Citatah',
@@ -55,13 +56,7 @@ const jsonLd = {
     postalCode: '40554',
     addressCountry: 'ID',
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: -6.845,
-    longitude: 107.425,
-  },
   url: 'https://putraglass.id',
-  priceRange: 'Rp500.000 - Rp4.000.000',
   sameAs: [INSTAGRAM_URL, TIKTOK_URL],
 };
 
@@ -100,7 +95,7 @@ export default function RootLayout({
         {metaPixelId && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '${metaPixelId}');fbq('track', 'PageView');`,
+              __html: `(function(){try{if(localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '${metaPixelId}');fbq('track', 'PageView');})();`,
             }}
           />
         )}
@@ -109,7 +104,7 @@ export default function RootLayout({
         {tiktokPixelId && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('${tiktokPixelId}');ttq.page();}(window, document, 'ttq');`,
+              __html: `(function(){try{if(localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('${tiktokPixelId}');ttq.page();}(window, document, 'ttq');})();`,
             }}
           />
         )}
@@ -120,7 +115,7 @@ export default function RootLayout({
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${gaId}');`,
+                __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}try{if(localStorage.getItem('pg_cookie_consent')==='denied'){gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});}}catch(e){}gtag('js', new Date());gtag('config', '${gaId}');`,
               }}
             />
           </>

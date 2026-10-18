@@ -430,8 +430,7 @@ a:focus-visible {
     padding-top: 10px !important;
   }
   #workshop .step-img {
-    aspect-ratio: 16 / 10 !important;
-    max-height: 120px !important;
+    aspect-ratio: 4 / 5 !important;
   }
   #antifog > div.wrap > div {
     margin-top: 20px !important;
@@ -503,10 +502,6 @@ a:focus-visible {
   .detail-card-col > div > div:first-child {
     aspect-ratio: 16 / 9 !important;
     max-height: 150px !important;
-  }
-  #antifog .slider-frame {
-    aspect-ratio: 16 / 10 !important;
-    max-height: 220px !important;
   }
   #antifog ul {
     gap: 6px !important;
@@ -602,7 +597,7 @@ a:focus-visible {
     right: 20px;
   }
   .step {
-    flex: 0 0 76%;
+    flex: 0 0 64%;
     scroll-snap-align: start;
   }
   .nav-links {

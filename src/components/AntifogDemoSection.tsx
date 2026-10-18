@@ -92,6 +92,7 @@ export function AntifogDemoSection() {
                 <PictureImage
                   name="antifog-dengan"
                   alt="Kaca cermin LED Putra Glass jernih dengan antifog dari render katalog"
+                  sizes="(max-width: 860px) calc(100vw - 40px), 640px"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
@@ -110,6 +111,7 @@ export function AntifogDemoSection() {
                 <PictureImage
                   name="antifog-tanpa"
                   alt="Simulasi kaca cermin berembun tanpa antifog dari render katalog"
+                  sizes="(max-width: 860px) calc(100vw - 40px), 640px"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
@@ -244,7 +246,7 @@ export function AntifogDemoSection() {
 
           .slider-frame {
             aspect-ratio: 5 / 4 !important;
-            max-height: 280px !important;
+            border-radius: 16px !important;
           }
         }
       `}</style>

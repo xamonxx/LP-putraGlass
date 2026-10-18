@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { buildWhatsAppLink, trackLeadClick } from '../lib/tracking';
+import { buildWhatsAppLink, getStoredLeadSource, trackLeadClick } from '../lib/tracking';
 
 export function HeaderNav() {
-  const waUrl = buildWhatsAppLink('Halo Putra Glass, saya mau tanya cermin LED.');
+  const WA_MSG = 'Halo Putra Glass, saya mau tanya cermin LED.';
+  const waUrl = buildWhatsAppLink(WA_MSG);
 
   return (
     <header style={{ padding: '22px 0', position: 'relative', zIndex: 10 }}>
@@ -30,7 +31,11 @@ export function HeaderNav() {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackLeadClick('header_nav')}
+          onClick={(e) => {
+            // Hitung ulang saat diklik supaya kode sumber iklan (UTM) yang terbaru ikut terkirim
+            e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());
+            trackLeadClick('header_nav');
+          }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',

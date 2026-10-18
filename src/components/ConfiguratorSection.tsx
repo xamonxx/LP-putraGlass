@@ -122,6 +122,7 @@ export function ConfiguratorSection() {
 
     rafId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- tween berangkat dari posisi animasi terakhir
   }, [targetW, targetH]);
 
   const activeColorObj = COLOR_TEMPS.find((t) => t.id === colorTemp) || COLOR_TEMPS[0];
@@ -866,6 +867,52 @@ export function ConfiguratorSection() {
         .rancang-preview-col {
           position: sticky;
           top: 24px;
+        }
+
+        .rancang-top-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          flex-wrap: wrap;
+          margin-bottom: 14px;
+        }
+
+        .color-temp-btn,
+        .lamp-toggle-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          min-height: 40px;
+          padding: 0 14px;
+          border-radius: 999px;
+          border: 1.5px solid rgba(191, 203, 217, 0.35);
+          background: rgba(255, 255, 255, 0.03);
+          color: #ffffff;
+          font: 600 13px 'Plus Jakarta Sans', system-ui, sans-serif;
+          cursor: pointer;
+          transition: background 200ms ease-out, border-color 200ms ease-out;
+        }
+
+        .color-temp-btn:hover,
+        .lamp-toggle-btn:hover {
+          border-color: rgba(156, 207, 194, 0.7);
+        }
+
+        .color-temp-btn.selected {
+          border-color: #9ccfc2;
+          background: rgba(156, 207, 194, 0.14);
+        }
+
+        .lamp-toggle-btn.selected {
+          border-color: #ffc98a;
+          color: #ffe9c7;
+        }
+
+        .color-temp-btn:focus-visible,
+        .lamp-toggle-btn:focus-visible {
+          outline: 3px solid #6e9be0;
+          outline-offset: 3px;
         }
 
         .control-card {

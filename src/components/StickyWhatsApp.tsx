@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { buildWhatsAppLink, trackLeadClick } from '../lib/tracking';
+import { buildWhatsAppLink, getStoredLeadSource, trackLeadClick } from '../lib/tracking';
 
 export function StickyWhatsApp() {
   const [showSticky, setShowSticky] = useState<boolean>(false);
@@ -25,7 +25,8 @@ export function StickyWhatsApp() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const waUrl = buildWhatsAppLink('Halo Putra Glass, saya mau konsultasi cermin LED custom.');
+  const WA_MSG = 'Halo Putra Glass, saya mau konsultasi cermin LED custom.';
+  const waUrl = buildWhatsAppLink(WA_MSG);
 
   return (
     <div
@@ -50,7 +51,11 @@ export function StickyWhatsApp() {
         href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => trackLeadClick('sticky_mobile_wa')}
+        onClick={(e) => {
+            // Hitung ulang saat diklik supaya kode sumber iklan (UTM) yang terbaru ikut terkirim
+            e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());
+            trackLeadClick('sticky_mobile_wa');
+          }}
         style={{
           display: 'flex',
           alignItems: 'center',

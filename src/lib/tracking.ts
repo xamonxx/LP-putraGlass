@@ -9,29 +9,29 @@ export type LeadSourceCode = 'LP-META' | 'LP-TIKTOK' | 'LP-IG' | 'LP-GOOGLE' | '
 
 const STORAGE_KEY = 'pg_utm_source_code';
 
+const META_SOURCES = new Set(['facebook', 'fb', 'meta', 'facebook_ads', 'fb_ads', 'messenger', 'an']);
+const IG_SOURCES = new Set(['instagram', 'ig', 'instagram_ads', 'ig_ads']);
+const TIKTOK_SOURCES = new Set(['tiktok', 'tt', 'tiktok_ads', 'tt_ads']);
+const GOOGLE_SOURCES = new Set(['google', 'adwords', 'google_ads', 'gads', 'youtube']);
+
 export function resolveLeadSource(urlOrSearch?: string): LeadSourceCode {
-  if (typeof window === 'undefined') return 'LP-LANGSUNG';
+  if (typeof window === 'undefined' && urlOrSearch === undefined) return 'LP-LANGSUNG';
 
   try {
     const search = urlOrSearch !== undefined ? urlOrSearch : window.location.search;
     const params = new URLSearchParams(search);
-    const utmSource = (params.get('utm_source') || '').toLowerCase().trim();
-    const utmMedium = (params.get('utm_medium') || '').toLowerCase().trim();
+    const source = (params.get('utm_source') || '').toLowerCase().trim();
+    const medium = (params.get('utm_medium') || '').toLowerCase().trim();
 
-    if (utmSource.includes('meta') || utmSource.includes('fb') || utmSource.includes('facebook') || utmMedium.includes('fb_ads')) {
-      return 'LP-META';
-    }
-    if (utmSource.includes('tiktok') || utmMedium.includes('tt_ads')) {
-      return 'LP-TIKTOK';
-    }
-    if (utmSource.includes('instagram') || utmSource.includes('ig')) {
-      return 'LP-IG';
-    }
-    if (utmSource.includes('google') || utmSource.includes('adwords') || utmMedium.includes('cpc')) {
-      return 'LP-GOOGLE';
-    }
+    // Instagram dicek sebelum Meta, karena iklan IG juga lewat Meta Ads.
+    if (IG_SOURCES.has(source)) return 'LP-IG';
+    if (META_SOURCES.has(source) || medium === 'fb_ads' || medium === 'paid_social_meta') return 'LP-META';
+    if (TIKTOK_SOURCES.has(source) || medium === 'tt_ads') return 'LP-TIKTOK';
+    if (GOOGLE_SOURCES.has(source) || params.has('gclid')) return 'LP-GOOGLE';
+    if (params.has('fbclid')) return 'LP-META';
+    if (params.has('ttclid')) return 'LP-TIKTOK';
   } catch {
-    // fallback
+    // abaikan URL rusak
   }
 
   return 'LP-LANGSUNG';
@@ -41,12 +41,13 @@ export function initUtmTracking(): LeadSourceCode {
   if (typeof window === 'undefined') return 'LP-LANGSUNG';
 
   try {
+    const detected = resolveLeadSource();
     const existing = window.sessionStorage.getItem(STORAGE_KEY) as LeadSourceCode | null;
-    if (existing) {
+    // Kunjungan tanpa UTM tidak boleh menimpa sumber iklan yang sudah tercatat di sesi ini.
+    if (existing && detected === 'LP-LANGSUNG') {
       return existing;
     }
 
-    const detected = resolveLeadSource();
     window.sessionStorage.setItem(STORAGE_KEY, detected);
     return detected;
   } catch {
@@ -87,19 +88,6 @@ declare global {
     };
     gtag?: (...args: unknown[]) => void;
     dataLayer?: unknown[];
-  }
-}
-
-export function trackPageView() {
-  if (typeof window === 'undefined') return;
-  try {
-    if (window.fbq) window.fbq('track', 'PageView');
-    if (window.ttq?.page) window.ttq.page();
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
-      window.gtag('event', 'page_view', { page_path: window.location.pathname });
-    }
-  } catch {
-    // no-op
   }
 }
 

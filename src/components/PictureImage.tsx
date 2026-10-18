@@ -18,7 +18,7 @@ export function PictureImage({
   style,
   loading = 'lazy',
   priority = false,
-  sizes = '(max-width: 600px) 48vw, (max-width: 860px) 50vw, 400px',
+  sizes = '100vw',
 }: PictureImageProps) {
   const meta = (imagesMeta as Record<string, {
     originalWidth: number;
@@ -32,6 +32,7 @@ export function PictureImage({
 
   if (!meta) {
     return (
+      // eslint-disable-next-line @next/next/no-img-element -- ekspor statis: optimasi gambar dibuat sendiri (AVIF/WebP + srcset)
       <img
         src={`/assets/${name}.jpg`}
         alt={alt}
@@ -58,6 +59,7 @@ export function PictureImage({
     <picture>
       <source type="image/avif" srcSet={avifSrcSet} sizes={sizes} />
       <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} />
+      {/* eslint-disable-next-line @next/next/no-img-element -- ekspor statis, srcset dibuat sendiri */}
       <img
         src={meta.files.fallback}
         alt={alt}

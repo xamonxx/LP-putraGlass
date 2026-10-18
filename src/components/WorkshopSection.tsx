@@ -11,6 +11,7 @@ export function WorkshopSection() {
           <PictureImage
             name="pasang-hotel"
             alt="Cermin LED panjang hasil workshop Putra Glass terpasang di area wastafel komersial"
+            sizes="(max-width: 860px) calc(100vw - 40px), 1144px"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           />
           <div
@@ -102,6 +103,7 @@ export function WorkshopSection() {
               <PictureImage
                 name="workshop-poles"
                 alt="Pekerja memoles tepi kaca cermin"
+                sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
@@ -119,6 +121,7 @@ export function WorkshopSection() {
               <PictureImage
                 name="proses-led"
                 alt="Strip LED menyala di cermin persegi yang sedang dirakit"
+                sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
@@ -136,6 +139,7 @@ export function WorkshopSection() {
               <PictureImage
                 name="workshop-led"
                 alt="Uji nyala cermin bentuk leaf pada malam hari"
+                sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>
@@ -153,6 +157,7 @@ export function WorkshopSection() {
               <PictureImage
                 name="pasang-cafe"
                 alt="Cermin LED kapsul terpasang di dinding kafe"
+                sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </div>

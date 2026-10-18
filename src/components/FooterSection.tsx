@@ -9,10 +9,11 @@ import {
   TIKTOK_HANDLE,
   TIKTOK_URL,
 } from '../lib/constants';
-import { buildWhatsAppLink, trackLeadClick } from '../lib/tracking';
+import { buildWhatsAppLink, getStoredLeadSource, trackLeadClick } from '../lib/tracking';
 
 export function FooterSection() {
-  const waUrl = buildWhatsAppLink('Halo Putra Glass, saya mau kirim ukuran cermin.');
+  const WA_MSG = 'Halo Putra Glass, saya mau kirim ukuran cermin.';
+  const waUrl = buildWhatsAppLink(WA_MSG);
 
   return (
     <footer id="proyek" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0 64px' }}>
@@ -31,7 +32,11 @@ export function FooterSection() {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackLeadClick('footer_wa_btn')}
+          onClick={(e) => {
+            // Hitung ulang saat diklik supaya kode sumber iklan (UTM) yang terbaru ikut terkirim
+            e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());
+            trackLeadClick('footer_wa_btn');
+          }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -74,7 +79,16 @@ export function FooterSection() {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 32px', fontSize: '14px', lineHeight: 1.5, color: '#4A5468' }}>
             <span>{WORKSHOP_ADDRESS}</span>
-            <a href={waUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#275087', fontWeight: 600 }}>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());
+                trackLeadClick('footer_wa_text');
+              }}
+              style={{ color: '#275087', fontWeight: 600 }}
+            >
               WhatsApp {PHONE_DISPLAY}
             </a>
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#275087' }}>
