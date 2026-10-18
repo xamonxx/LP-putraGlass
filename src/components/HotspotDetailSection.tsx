@@ -2,17 +2,15 @@
 
 import React, { useState } from 'react';
 import { PictureImage } from './PictureImage';
+import { DETAIL_ANIMASI_SVGS } from '../data/detail-animations';
 
 interface HotspotItem {
   id: number;
   x: number; // percentage from left
   y: number; // percentage from top
   tabLabel: string;
-  badgeLabel: string;
   title: string;
   desc: string;
-  imgName?: string;
-  isSvg?: boolean;
 }
 
 const DETAIL_ITEMS: HotspotItem[] = [
@@ -21,60 +19,48 @@ const DETAIL_ITEMS: HotspotItem[] = [
     x: 22.5,
     y: 55,
     tabLabel: 'Kaca',
-    badgeLabel: 'Foto workshop',
     title: 'Kaca cermin 5 mm grade 1',
     desc: 'Kaca cermin grade 1 setebal 5 mm, dipotong presisi sesuai ukuranmu. Bayangannya lurus, tidak bergelombang seperti cermin tipis.',
-    imgName: 'detail-kaca',
   },
   {
     id: 2,
     x: 86,
     y: 29,
     tabLabel: 'Bevel',
-    badgeLabel: 'Foto produk',
     title: 'Bevel 10 mm, dipoles halus',
     desc: 'Tepi kaca dibevel selebar 10 mm lalu dipoles sampai halus dan berkilau. Aman disentuh dan rapi dilihat dari samping.',
-    imgName: 'detail-bevel',
   },
   {
     id: 3,
     x: 53.75,
     y: 81,
     tabLabel: 'LED',
-    badgeLabel: 'Uji nyala di workshop',
     title: 'LED 3 warna, menyala rata',
     desc: 'Cahaya mengikuti bentuk cermin tanpa titik-titik. Hangat, natural, atau putih, ganti dengan satu sentuhan.',
-    imgName: 'detail-led',
   },
   {
     id: 4,
     x: 41.25,
     y: 69,
     tabLabel: 'Touchscreen',
-    badgeLabel: 'Foto produk',
     title: 'Touchscreen atau sensor tangan',
     desc: 'Sentuh sekali untuk nyala, sentuh lagi untuk ganti warna. Mau tanpa colokan? Pilih sensor tangan dengan baterai 6000 mAh, cas Type-C.',
-    imgName: 'detail-touch',
   },
   {
     id: 5,
     x: 75,
     y: 45,
     tabLabel: 'Antifog',
-    badgeLabel: 'Simulasi embun',
     title: 'Antifog, tidak berembun',
     desc: 'Pad pemanas tipis di balik kaca menjaga permukaan tetap jernih setelah mandi air panas. Lihat bedanya di bagian berikutnya.',
-    imgName: 'detail-antifog',
   },
   {
     id: 6,
     x: 10,
     y: 40,
-    tabLabel: 'Bagian belakang',
-    badgeLabel: 'Ilustrasi',
+    tabLabel: 'Belakang',
     title: 'Siap gantung dari pabrik',
     desc: 'Di belakang kaca ada frame EVA foam dan gantungan kayu plus besi yang sudah terpasang. Sampai di rumah, cermin tinggal digantung.',
-    isSvg: true,
   },
 ];
 
@@ -102,13 +88,14 @@ export function HotspotDetailSection() {
         </p>
 
         <div className="detail-layout" style={{ marginTop: '48px' }}>
-          {/* Kolom Kiri: Foto Utama (16:9, uncropped) + Hotspots + Tab Bar */}
+          {/* Kolom Kiri: Foto Utama (16:9 utuh, tanpa crop) + Hotspots + Tab Bar */}
           <div className="detail-base-col">
             <div className="detail-base-wrapper">
               <PictureImage
                 name="detail-base"
                 alt="Foto cermin LED Putra Glass terpasang di dinding wastafel untuk eksplorasi detail"
-                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                sizes="(max-width: 860px) 100vw, 680px"
+                style={{ width: '100%', height: 'auto', aspectRatio: '16 / 9', display: 'block' }}
               />
 
               {/* 6 Interactive Hotspot Dots */}
@@ -147,7 +134,7 @@ export function HotspotDetailSection() {
               })}
             </div>
 
-            {/* Pill Tabs 1 - 6 (Scrollable on HP) */}
+            {/* Pill Tabs 1 - 6: muat satu baris di desktop, geser di HP */}
             <div className="detail-tabs-bar" role="tablist" aria-label="Daftar titik detail">
               {DETAIL_ITEMS.map((item, idx) => {
                 const isActive = idx === activeIdx;
@@ -168,28 +155,18 @@ export function HotspotDetailSection() {
             </div>
           </div>
 
-          {/* Kolom Kanan: Detail Card (Media 4:3 + Badge + Konten + Prev/Next) */}
+          {/* Kolom Kanan: Detail Card (Animasi SVG 4:3 Inline + Konten + Prev/Next) */}
           <div className="detail-card-col">
             <div className="detail-info-card">
-              {/* Media 4:3 */}
+              {/* Media Animasi SVG 4:3 (Inline rendering dengan key agar restart saat dibuka) */}
               <div className="detail-media-wrap">
-                {cur.isSvg ? (
-                  <img
-                    src="/ilustrasi/lapisan-belakang.svg"
-                    alt="Ilustrasi lapisan belakang cermin: kaca, LED, frame EVA foam, gantungan"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                ) : (
-                  cur.imgName && (
-                    <PictureImage
-                      name={cur.imgName}
-                      alt={cur.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  )
-                )}
+                <div
+                  key={activeIdx}
+                  dangerouslySetInnerHTML={{ __html: DETAIL_ANIMASI_SVGS[activeIdx] }}
+                  style={{ width: '100%', height: '100%', display: 'flex' }}
+                />
 
-                {/* Badge Label Pojok Kiri Atas */}
+                {/* Label Kecil Pojok Kiri Atas: "Animasi" */}
                 <span
                   style={{
                     position: 'absolute',
@@ -204,9 +181,11 @@ export function HotspotDetailSection() {
                     padding: '4px 10px',
                     borderRadius: '6px',
                     letterSpacing: '0.02em',
+                    pointerEvents: 'none',
+                    zIndex: 5,
                   }}
                 >
-                  {cur.badgeLabel}
+                  Animasi
                 </span>
               </div>
 
@@ -286,7 +265,13 @@ export function HotspotDetailSection() {
           aspect-ratio: 4 / 3;
           border-radius: 14px;
           overflow: hidden;
-          background: #0F1528;
+          background: #111830;
+        }
+
+        .detail-media-wrap :global(svg) {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
 
         .hotspot-circle {
@@ -347,6 +332,7 @@ export function HotspotDetailSection() {
           align-items: center;
           gap: 8px;
           margin-top: 16px;
+          flex-wrap: nowrap;
         }
 
         .detail-tab-btn {
