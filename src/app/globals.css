@@ -113,6 +113,7 @@ a:hover {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 64px;
   align-items: start;
+  margin-top: 56px;
 }
 
 .shapes {
@@ -376,28 +377,46 @@ a:focus-visible {
   .wrap {
     padding: 0 20px;
   }
-  section,
+  section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
   footer {
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
+    padding-top: 72px !important;
+    padding-bottom: 36px !important;
   }
   #hero {
     padding-top: 16px !important;
-    padding-bottom: 44px !important;
+    padding-bottom: 34px !important;
   }
-  #workshop,
-  #proyek-banner,
-  #model,
-  #rancang,
-  #detail-produk,
-  #antifog,
-  #galeri,
-  #cara-pesan,
-  #pengiriman-garansi,
-  #faq,
-  #proyek {
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
+  #model .two,
+  #rancang .rancang-container,
+  #detail .detail-layout,
+  #cara-pesan .cara-pesan-layout,
+  #galeri .gallery-grid {
+    margin-top: 18px !important;
+  }
+  .model-two {
+    margin-top: 14px !important;
+    gap: 14px !important;
+  }
+  .model-two h3.disp {
+    font-size: 22px !important;
+  }
+  .model-two p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+  .model-two ul {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+  .shapes figure img {
+    max-height: 48px !important;
+  }
+  .shapes figcaption {
+    font-size: 11px !important;
+    margin-top: 2px !important;
   }
   #workshop h3.disp {
     margin-top: 20px !important;
@@ -458,6 +477,54 @@ a:focus-visible {
   #proyek-banner .project-card {
     display: none !important;
   }
+  .card-mulai {
+    padding: 18px !important;
+    gap: 12px !important;
+  }
+  .card-mulai h3.disp {
+    font-size: 24px !important;
+  }
+  .timeline-list {
+    gap: 10px !important;
+  }
+  .timeline-card {
+    padding: 10px 14px !important;
+  }
+  .detail-card-col > div {
+    padding: 12px !important;
+    gap: 8px !important;
+  }
+  .detail-card-col h3.disp {
+    font-size: 18px !important;
+  }
+  .detail-card-col > div > div:first-child {
+    aspect-ratio: 16 / 9 !important;
+    max-height: 150px !important;
+  }
+  #antifog .slider-frame {
+    aspect-ratio: 16 / 10 !important;
+    max-height: 220px !important;
+  }
+  #antifog ul {
+    gap: 6px !important;
+  }
+  #antifog ul li {
+    font-size: 13px !important;
+  }
+  #model .custom-photo {
+    max-height: 80px !important;
+  }
+  #model .shapes figure img {
+    max-height: 55px !important;
+  }
+  #rancang .control-card {
+    padding: 10px 12px !important;
+    gap: 6px !important;
+  }
+  #rancang .feature-box,
+  #rancang .antifog-check-btn {
+    padding: 8px 10px !important;
+  }
   #workshop {
     overflow-x: clip !important;
   }
@@ -511,11 +578,11 @@ a:focus-visible {
   .specs {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 16px;
+    gap: 8px 12px !important;
   }
   .specs li,
   .specs li:first-child {
-    padding: 0 0 0 12px;
+    padding: 0 0 0 10px;
     border-left: 1px solid rgba(255, 255, 255, 0.22);
   }
   .proc {
@@ -543,6 +610,12 @@ a:focus-visible {
   }
   .nav-links {
     display: none;
+  }
+  .footer-bottom-wrap {
+    margin-top: 14px !important;
+  }
+  .footer-bottom-wrap > div:first-child {
+    padding-top: 14px !important;
   }
   .custom-photo {
     max-width: 100% !important;
@@ -577,20 +650,20 @@ a:focus-visible {
   }
   .shipping-grid {
     grid-template-columns: minmax(0, 1fr) !important;
-    gap: 10px !important;
-    margin-top: 14px !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
   }
   .shipping-card {
-    padding: 14px !important;
+    padding: 10px 14px !important;
   }
   .shipping-card h3.disp {
-    font-size: 16px !important;
-    margin-top: 6px !important;
+    font-size: 15px !important;
+    margin-top: 4px !important;
   }
   .shipping-card p {
     font-size: 12px !important;
     line-height: 1.4 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
   }
   .hotspot-grid,
   .project-grid {
@@ -642,17 +715,17 @@ a:focus-visible {
     margin-top: 4px !important;
   }
   .faq-container {
-    margin-top: 14px !important;
-    gap: 8px !important;
+    margin-top: 10px !important;
+    gap: 6px !important;
   }
   .faq-btn {
-    padding: 10px 12px !important;
+    padding: 8px 12px !important;
   }
   .faq-btn span.disp {
     font-size: 14px !important;
   }
   .faq-answer {
-    padding: 0 12px 10px !important;
+    padding: 0 12px 8px !important;
     font-size: 12px !important;
   }
   #proyek .wrap {

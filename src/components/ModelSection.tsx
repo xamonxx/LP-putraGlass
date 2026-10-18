@@ -12,7 +12,7 @@ export function ModelSection() {
           Pilih custom kalau ukuran dindingmu tidak standar. Pilih model jadi kalau mau cepat dari katalog.
         </p>
 
-        <div className="two" style={{ marginTop: '56px' }}>
+        <div className="two model-two">
           {/* Jalur Custom */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <h3 className="disp" style={{ margin: 0, fontSize: '30px', color: '#253254' }}>

@@ -3,192 +3,427 @@
 import React, { useState } from 'react';
 import { PictureImage } from './PictureImage';
 
-interface Hotspot {
+interface HotspotItem {
   id: number;
-  x: number; // percentage
-  y: number; // percentage
+  x: number; // percentage from left
+  y: number; // percentage from top
+  tabLabel: string;
+  badgeLabel: string;
   title: string;
   desc: string;
   imgName?: string;
-  placeholder?: string;
+  isSvg?: boolean;
 }
 
-const HOTSPOTS: Hotspot[] = [
+const DETAIL_ITEMS: HotspotItem[] = [
   {
     id: 1,
-    x: 32,
-    y: 18,
+    x: 22.5,
+    y: 55,
+    tabLabel: 'Kaca',
+    badgeLabel: 'Foto workshop',
     title: 'Kaca cermin 5 mm grade 1',
-    desc: 'Bebas distorsi gelombang dengan lapisan perak murni yang memantulkan bayangan jernih dan awet bertahun-tahun.',
-    placeholder: '[foto kaca cermin 5 mm potongan presisi]',
+    desc: 'Kaca cermin grade 1 setebal 5 mm, dipotong presisi sesuai ukuranmu. Bayangannya lurus, tidak bergelombang seperti cermin tipis.',
+    imgName: 'detail-kaca',
   },
   {
     id: 2,
-    x: 84,
-    y: 35,
-    title: 'Bevel 10 mm dipoles rapi',
-    desc: 'Setiap sudut dan tepian kaca dibevel selebar 10 mm lalu dipoles mesin hingga licin, aman disentuh dan berkilau mewah.',
+    x: 86,
+    y: 29,
+    tabLabel: 'Bevel',
+    badgeLabel: 'Foto produk',
+    title: 'Bevel 10 mm, dipoles halus',
+    desc: 'Tepi kaca dibevel selebar 10 mm lalu dipoles sampai halus dan berkilau. Aman disentuh dan rapi dilihat dari samping.',
     imgName: 'detail-bevel',
   },
   {
     id: 3,
-    x: 76,
-    y: 65,
-    title: 'LED 3 warna premium',
-    desc: 'Strip LED 5050 lurus dengan kerapatan tinggi terbungkus rapi di balik bingkai, menghasilkan bias cahaya merata tanpa bayang titik.',
+    x: 53.75,
+    y: 81,
+    tabLabel: 'LED',
+    badgeLabel: 'Uji nyala di workshop',
+    title: 'LED 3 warna, menyala rata',
+    desc: 'Cahaya mengikuti bentuk cermin tanpa titik-titik. Hangat, natural, atau putih, ganti dengan satu sentuhan.',
     imgName: 'detail-led',
   },
   {
     id: 4,
-    x: 48,
-    y: 82,
+    x: 41.25,
+    y: 69,
+    tabLabel: 'Touchscreen',
+    badgeLabel: 'Foto produk',
     title: 'Touchscreen atau sensor tangan',
-    desc: 'Sensor cerdas responsif langsung di permukaan kaca. Sentuh lembut untuk menyalakan, mematikan, atau mengganti warna cahaya.',
+    desc: 'Sentuh sekali untuk nyala, sentuh lagi untuk ganti warna. Mau tanpa colokan? Pilih sensor tangan dengan baterai 6000 mAh, cas Type-C.',
     imgName: 'detail-touch',
   },
   {
     id: 5,
-    x: 20,
-    y: 68,
-    title: 'Versi baterai 6000 mAh Type-C',
-    desc: 'Solusi estetik tanpa kabel menjuntai dan tanpa bobok dinding. Dapat diisi ulang dengan kabel Type-C HP standar.',
-    placeholder: '[foto baterai 6000 mAh cas Type-C]',
+    x: 75,
+    y: 45,
+    tabLabel: 'Antifog',
+    badgeLabel: 'Simulasi embun',
+    title: 'Antifog, tidak berembun',
+    desc: 'Pad pemanas tipis di balik kaca menjaga permukaan tetap jernih setelah mandi air panas. Lihat bedanya di bagian berikutnya.',
+    imgName: 'detail-antifog',
   },
   {
     id: 6,
-    x: 22,
-    y: 38,
-    title: 'Rangka belakang & gantungan siap pasang',
-    desc: 'Kombinasi frame EVA foam penahan lembap dan plat gantungan kayu + besi presisi. Cermin terpasang kokoh dan rata ke dinding.',
-    placeholder: '[foto frame EVA foam dan gantungan]',
+    x: 10,
+    y: 40,
+    tabLabel: 'Bagian belakang',
+    badgeLabel: 'Ilustrasi',
+    title: 'Siap gantung dari pabrik',
+    desc: 'Di belakang kaca ada frame EVA foam dan gantungan kayu plus besi yang sudah terpasang. Sampai di rumah, cermin tinggal digantung.',
+    isSvg: true,
   },
 ];
 
 export function HotspotDetailSection() {
-  const [activeSpot, setActiveSpot] = useState<Hotspot>(HOTSPOTS[1]);
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+
+  const cur = DETAIL_ITEMS[activeIdx];
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev > 0 ? prev - 1 : DETAIL_ITEMS.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev < DETAIL_ITEMS.length - 1 ? prev + 1 : 0));
+  };
 
   return (
-    <section id="detail-produk" style={{ background: '#F3F5F8', color: '#1B2233', padding: '104px 0' }}>
+    <section id="detail" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
       <div className="wrap">
         <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
           detail yang tidak terlihat di foto biasa.
         </h2>
-        <p style={{ margin: '18px 0 0', maxWidth: '36em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
-          Dari kaca cermin 5 mm grade 1, bevel 10 mm, hingga rangka penahan lembap di bagian belakang. Sentuh titik-titik di bawah untuk melihat detailnya.
+        <p style={{ margin: '16px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
+          Sentuh titik di foto. Tiap titik membuka bagian cermin yang biasanya tersembunyi.
         </p>
 
-        <div className="hotspot-grid" style={{ marginTop: '56px' }}>
-          {/* Foto Utama dengan Titik Hotspot */}
-          <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', background: '#0F1528', boxShadow: '0 20px 50px rgba(20,28,51,0.12)' }}>
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 11' }}>
+        <div className="detail-layout" style={{ marginTop: '48px' }}>
+          {/* Kolom Kiri: Foto Utama (16:9) + Hotspots + Tab Bar */}
+          <div className="detail-base-col">
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                background: '#0F1528',
+                boxShadow: '0 16px 40px rgba(20, 28, 51, 0.12)',
+              }}
+            >
               <PictureImage
-                name="pasang-hotel"
-                alt="Cermin LED Putra Glass tampilan depan untuk inspeksi detail"
+                name="detail-base"
+                alt="Foto cermin LED Putra Glass terpasang di dinding wastafel untuk eksplorasi detail"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
 
-              {/* Hotspot Dots */}
-              {HOTSPOTS.map((spot) => {
-                const isActive = spot.id === activeSpot.id;
+              {/* 6 Interactive Hotspot Dots */}
+              {DETAIL_ITEMS.map((item, idx) => {
+                const isActive = idx === activeIdx;
                 return (
                   <button
-                    key={spot.id}
+                    key={item.id}
                     type="button"
-                    onClick={() => setActiveSpot(spot)}
-                    aria-label={`Titik ${spot.id}: ${spot.title}`}
+                    onClick={() => setActiveIdx(idx)}
+                    aria-pressed={isActive}
+                    aria-label={`Titik ${item.id}: ${item.tabLabel}`}
                     style={{
                       position: 'absolute',
-                      left: `${spot.x}%`,
-                      top: `${spot.y}%`,
+                      left: `${item.x}%`,
+                      top: `${item.y}%`,
                       transform: 'translate(-50%, -50%)',
-                      width: isActive ? '36px' : '28px',
-                      height: isActive ? '36px' : '28px',
-                      borderRadius: '999px',
-                      background: isActive ? '#9CCFC2' : '#253254',
-                      border: '2px solid #FFFFFF',
-                      boxShadow: isActive ? '0 0 0 6px rgba(156,207,194,0.35), 0 4px 12px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.25)',
-                      color: isActive ? '#06301A' : '#FFFFFF',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      cursor: 'pointer',
+                      width: '44px',
+                      height: '44px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      background: 'transparent',
+                      border: 'none',
                       padding: 0,
-                      transition: 'all 220ms ease-out',
-                      zIndex: 5,
+                      cursor: 'pointer',
+                      zIndex: 10,
                     }}
                   >
-                    {spot.id}
+                    <span className={`hotspot-circle ${isActive ? 'active' : ''}`}>
+                      {item.id}
+                      {isActive && <span className="hotspot-pulse" aria-hidden="true" />}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Pill Tabs 1 - 6 (Scrollable on HP) */}
+            <div className="detail-tabs-bar" role="tablist" aria-label="Daftar titik detail">
+              {DETAIL_ITEMS.map((item, idx) => {
+                const isActive = idx === activeIdx;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`detail-tab-btn ${isActive ? 'active' : ''}`}
+                  >
+                    <span className="tab-num">{item.id}</span>
+                    <span>{item.tabLabel}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Panel Detail Aktif */}
-          <div className="hotspot-panel" style={{ borderRadius: '18px', background: '#FFFFFF', border: '1.5px solid #D5DCE6', boxShadow: '0 12px 30px rgba(37,50,84,0.06)', display: 'flex', flexDirection: 'column', transition: 'opacity 220ms ease' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '26px',
-                  height: '26px',
-                  borderRadius: '999px',
-                  background: 'rgba(156,207,194,0.2)',
-                  color: '#275087',
-                  fontSize: '13px',
-                  fontWeight: 800,
-                }}
-              >
-                {activeSpot.id}
-              </span>
-              <span style={{ fontSize: '13px', fontWeight: 600, color: '#455268', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Titik Spesifikasi
-              </span>
-            </div>
-
-            <h3 className="disp" style={{ margin: 0, fontSize: '24px', color: '#253254' }}>
-              {activeSpot.title}
-            </h3>
-
-            <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.6, color: '#4A5468' }}>
-              {activeSpot.desc}
-            </p>
-
-            {/* Foto Close-up atau Placeholder Terlabel */}
-            <div style={{ marginTop: '8px', borderRadius: '12px', overflow: 'hidden', background: '#F3F5F8', border: '1px solid #E2E8F0' }}>
-              {activeSpot.imgName ? (
-                <div style={{ position: 'relative', width: '100%', height: '180px' }}>
-                  <PictureImage
-                    name={activeSpot.imgName}
-                    alt={activeSpot.title}
+          {/* Kolom Kanan: Detail Card (Media 4:3 + Badge + Konten + Prev/Next) */}
+          <div className="detail-card-col">
+            <div className="detail-info-card" style={{ background: '#FFFFFF', borderRadius: '20px', border: '1.5px solid #E2E8F0', boxShadow: '0 16px 40px rgba(20, 28, 51, 0.06)', display: 'flex', flexDirection: 'column' }}>
+              {/* Media 4:3 */}
+              <div className="detail-media-wrap" style={{ position: 'relative', width: '100%', borderRadius: '14px', overflow: 'hidden', background: '#0F1528' }}>
+                {cur.isSvg ? (
+                  <img
+                    src="/ilustrasi/lapisan-belakang.svg"
+                    alt="Ilustrasi lapisan belakang cermin: kaca, LED, frame EVA foam, gantungan"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
-                </div>
-              ) : (
-                <div
+                ) : (
+                  cur.imgName && (
+                    <PictureImage
+                      name={cur.imgName}
+                      alt={cur.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                  )
+                )}
+
+                {/* Badge Label Pojok Kiri Atas */}
+                <span
                   style={{
-                    height: '140px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '16px',
-                    textAlign: 'center',
-                    color: '#8A97A8',
-                    fontSize: '14px',
-                    fontStyle: 'italic',
+                    position: 'absolute',
+                    left: '12px',
+                    top: '12px',
+                    background: 'rgba(20, 28, 51, 0.78)',
+                    backdropFilter: 'blur(6px)',
+                    WebkitBackdropFilter: 'blur(6px)',
+                    color: '#FFFFFF',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    letterSpacing: '0.02em',
                   }}
                 >
-                  {activeSpot.placeholder}
-                </div>
-              )}
+                  {cur.badgeLabel}
+                </span>
+              </div>
+
+              {/* Teks Informasi */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: '#275087' }}>
+                  {cur.id} dari {DETAIL_ITEMS.length}
+                </span>
+                <h3 className="disp" style={{ margin: 0, fontSize: '24px', color: '#253254', lineHeight: 1.2 }}>
+                  {cur.title}
+                </h3>
+                <p style={{ margin: '4px 0 0', fontSize: '15px', lineHeight: 1.6, color: '#4A5468' }}>
+                  {cur.desc}
+                </p>
+              </div>
+
+              {/* Tombol Sebelumnya & Berikutnya */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '6px' }}>
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Titik detail sebelumnya"
+                  className="nav-arrow-btn"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Titik detail berikutnya"
+                  className="nav-arrow-btn"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .detail-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+          gap: 40px;
+          align-items: start;
+        }
+
+        .hotspot-circle {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 999px;
+          background: #253254;
+          border: 2px solid rgba(255, 255, 255, 0.95);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+          color: #FFFFFF;
+          font-size: 13px;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 200ms ease, color 200ms ease;
+        }
+
+        .hotspot-circle.active {
+          background: #9CCFC2;
+          color: #06301A;
+          border-color: #FFFFFF;
+        }
+
+        .hotspot-pulse {
+          position: absolute;
+          inset: -6px;
+          border-radius: 999px;
+          border: 2px solid #9CCFC2;
+          animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+          0% {
+            transform: scale(0.9);
+            opacity: 0.9;
+          }
+          70% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hotspot-pulse {
+            animation: none !important;
+            display: none !important;
+          }
+        }
+
+        .detail-tabs-bar {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 16px;
+        }
+
+        .detail-tab-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          min-height: 40px;
+          padding: 0 16px;
+          border-radius: 999px;
+          border: 1.5px solid #D5DCE6;
+          background: #FFFFFF;
+          color: #253254;
+          font-family: inherit;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 180ms ease;
+        }
+
+        .detail-tab-btn.active {
+          background: #141C33;
+          border-color: #141C33;
+          color: #FFFFFF;
+        }
+
+        .tab-num {
+          font-size: 12px;
+          font-weight: 800;
+          opacity: 0.75;
+        }
+
+        .nav-arrow-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+          border: 1.5px solid #D5DCE6;
+          background: #FFFFFF;
+          color: #253254;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: border-color 150ms ease, background 150ms ease;
+        }
+
+        .nav-arrow-btn:hover {
+          border-color: #275087;
+          background: #F8FAFC;
+        }
+
+        @media (max-width: 860px) {
+          .detail-layout {
+            grid-template-columns: minmax(0, 1fr) !important;
+            gap: 16px !important;
+          }
+
+          .detail-info-card {
+            padding: 14px !important;
+            gap: 10px !important;
+          }
+
+          .detail-media-wrap {
+            aspect-ratio: 16 / 10 !important;
+            max-height: 180px !important;
+          }
+
+          .detail-info-card h3.disp {
+            font-size: 19px !important;
+          }
+
+          .detail-info-card p {
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+          }
+
+          .detail-tabs-bar {
+            overflow-x: auto;
+            scroll-padding-inline: 16px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+            margin-top: 10px !important;
+          }
+
+          .detail-tabs-bar::-webkit-scrollbar {
+            display: none;
+          }
+
+          .detail-tab-btn {
+            flex-shrink: 0;
+            padding: 0 12px;
+            font-size: 12px;
+            min-height: 34px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

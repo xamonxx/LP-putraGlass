@@ -49,7 +49,7 @@ export function FooterSection() {
         </a>
       </div>
 
-      <div className="wrap" style={{ marginTop: '72px' }}>
+      <div className="wrap footer-bottom-wrap">
         <div
           style={{
             paddingTop: '28px',

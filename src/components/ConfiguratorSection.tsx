@@ -1016,9 +1016,36 @@ export function ConfiguratorSection() {
         @media (max-width: 860px) {
           .rancang-container {
             grid-template-columns: minmax(0, 1fr) !important;
-            gap: 32px !important;
+            gap: 10px !important;
           }
 
+          .control-card {
+            padding: 10px !important;
+          }
+
+          .shape-btn {
+            padding: 6px 4px !important;
+            gap: 3px !important;
+          }
+
+          .shape-btn svg {
+            width: 18px !important;
+            height: 24px !important;
+          }
+
+          .fld-inner {
+            min-height: 38px !important;
+            padding: 0 34px 0 10px !important;
+            font-size: 14px !important;
+          }
+
+          .feature-box {
+            padding: 6px 8px !important;
+          }
+
+          .antifog-check-btn {
+            padding: 6px 8px !important;
+          }
           .rancang-preview-col {
             position: sticky;
             top: 8px;
@@ -1031,6 +1058,7 @@ export function ConfiguratorSection() {
 
           .shape-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+            gap: 6px !important;
           }
 
           .lamp-btn-text {
