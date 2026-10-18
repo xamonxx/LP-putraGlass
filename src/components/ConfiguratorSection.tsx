@@ -89,13 +89,7 @@ export function ConfiguratorSection() {
     if (typeof window === 'undefined') return;
     if (Math.abs(animW - targetW) < 0.5 && Math.abs(animH - targetH) < 0.5) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      setAnimW(targetW);
-      setAnimH(targetH);
-      return;
-    }
-
+    // Animasi ukuran sengaja selalu jalan (termasuk mode hemat daya) atas permintaan pemilik.
     let rafId: number;
     const startW = animW;
     const startH = animH;

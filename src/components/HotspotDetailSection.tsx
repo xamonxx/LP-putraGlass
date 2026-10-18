@@ -320,13 +320,6 @@ export function HotspotDetailSection() {
           }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-          .hotspot-pulse {
-            animation: none !important;
-            display: none !important;
-          }
-        }
-
         .detail-tabs-bar {
           display: flex;
           align-items: center;

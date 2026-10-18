@@ -354,24 +354,8 @@ a:focus-visible {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .ws-hero > img,
-  .step-img img,
-  .pv-mirror,
-  .pill,
-  .opt,
-  .fld,
-  .wa {
-    transition: none !important;
-  }
-  .led-trace,
-  .halo {
-    animation: none !important;
-  }
-}
+/* Animasi sengaja tetap jalan di semua perangkat, termasuk mode hemat daya /
+   kurangi gerakan, atas permintaan pemilik: animasi di sini menjelaskan produk. */
 
 @media (max-width: 860px) {
   .wrap {
