@@ -6,11 +6,15 @@ import { ModelSection } from '../components/ModelSection';
 import { ConfiguratorSection } from '../components/ConfiguratorSection';
 import { HotspotDetailSection } from '../components/HotspotDetailSection';
 import { AntifogDemoSection } from '../components/AntifogDemoSection';
+import { TestimonialSection } from '../components/TestimonialSection';
 import { HowToOrderSection } from '../components/HowToOrderSection';
+import { LeadFormSection } from '../components/LeadFormSection';
 import { WorkshopSection } from '../components/WorkshopSection';
+import { FaqSection } from '../components/FaqSection';
 import { FooterSection } from '../components/FooterSection';
 import { StickyWhatsApp } from '../components/StickyWhatsApp';
 import { CookieBanner } from '../components/CookieBanner';
+import { ExitIntentDialog } from '../components/ExitIntentDialog';
 
 export default function LandingPage() {
   return (
@@ -36,14 +40,23 @@ export default function LandingPage() {
         {/* 5. Antifog */}
         <AntifogDemoSection />
 
-        {/* 6. Cara pesan */}
+        {/* 6. Bukti sosial */}
+        <TestimonialSection />
+
+        {/* 7. Cara pesan */}
         <HowToOrderSection />
 
-        {/* 7. Workshop */}
+        {/* 8. Tangkap lead */}
+        <LeadFormSection />
+
+        {/* 9. Workshop */}
         <WorkshopSection />
+
+        {/* 10. FAQ */}
+        <FaqSection />
       </main>
 
-      {/* 8. Penutup */}
+      {/* 11. Penutup */}
       <FooterSection />
 
       {/* Tombol WhatsApp Menempel (HP Only) */}
@@ -51,6 +64,9 @@ export default function LandingPage() {
 
       {/* Cookie Banner */}
       <CookieBanner />
+
+      {/* Penawaran saat user hendak pergi */}
+      <ExitIntentDialog />
     </div>
   );
 }

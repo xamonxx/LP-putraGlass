@@ -1,8 +1,77 @@
-import React from 'react';
+'use client';
+
+import React, { useCallback, useState } from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
 import { MAPS_URL } from '../lib/constants';
+import { trackEvent } from '../lib/tracking';
 import { PictureImage } from './PictureImage';
+import styles from './WorkshopSection.module.css';
+
+/** Foto yang bisa dibuka besar di lightbox, urutannya sama dengan urutan di halaman. */
+const FOTO_WORKSHOP = [
+  {
+    name: 'pasang-hotel',
+    judul: 'Cermin LED panjang terpasang di area wastafel',
+    alt: 'Cermin LED panjang hasil workshop Putra Glass terpasang di area wastafel komersial',
+    keterangan: 'Hasil pemasangan di area wastafel komersial, cermin dibuat per pesanan di workshop Citatah.',
+  },
+  {
+    name: 'workshop-poles',
+    judul: 'Potong dan bevel',
+    alt: 'Pekerja memoles tepi kaca cermin',
+    keterangan: 'Kaca dipotong sesuai ukuranmu, tepinya dibevel 10 mm lalu dipoles mesin.',
+  },
+  {
+    name: 'proses-led',
+    judul: 'Pasang LED',
+    alt: 'Strip LED menyala di cermin persegi yang sedang dirakit',
+    keterangan: 'Strip LED dipasang lurus mengikuti bentuk, lengkap dengan touchscreen atau sensor tangan.',
+  },
+  {
+    name: 'workshop-led',
+    judul: 'Uji nyala',
+    alt: 'Uji nyala cermin bentuk leaf pada malam hari',
+    keterangan: 'Setiap cermin dinyalakan dan dicek tiga warnanya sebelum dikemas.',
+  },
+  {
+    name: 'pasang-cafe',
+    judul: 'Terpasang di tempatmu',
+    alt: 'Cermin LED kapsul terpasang di dinding kafe',
+    keterangan: 'Dikirim dengan paking kayu bertulang, atau ambil sendiri di workshop.',
+  },
+] as const;
 
 export function WorkshopSection() {
+  const [indexFoto, setIndexFoto] = useState<number | null>(null);
+  const fotoAktif = indexFoto === null ? null : FOTO_WORKSHOP[indexFoto];
+
+  const bukaFoto = useCallback((index: number) => {
+    setIndexFoto(index);
+    trackEvent('workshop_photo_open', { photo: FOTO_WORKSHOP[index].name });
+  }, []);
+
+  // Pindah foto berputar (prev dari foto pertama lompat ke foto terakhir)
+  const geserFoto = useCallback(
+    (arah: 1 | -1) => {
+      if (indexFoto === null) return;
+      const berikut = (indexFoto + arah + FOTO_WORKSHOP.length) % FOTO_WORKSHOP.length;
+      setIndexFoto(berikut);
+      trackEvent('workshop_photo_open', { photo: FOTO_WORKSHOP[berikut].name });
+    },
+    [indexFoto],
+  );
+
+  // Panah kiri/kanan ikut jalan selain tombol prev/next
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      geserFoto(1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      geserFoto(-1);
+    }
+  };
+
   return (
     <section id="workshop" style={{ background: '#141C33', color: '#FFFFFF', padding: '104px 0' }}>
       <div className="wrap">
@@ -22,6 +91,18 @@ export function WorkshopSection() {
               background: 'linear-gradient(to top, rgba(10,14,28,0.94) 0%, rgba(10,14,28,0.62) 42%, rgba(10,14,28,0.12) 100%), linear-gradient(to right, rgba(10,14,28,0.55), rgba(10,14,28,0) 60%)',
             }}
           />
+          <button
+            type="button"
+            className={styles.zoomHero}
+            onClick={() => bukaFoto(0)}
+            aria-label="Perbesar foto: cermin LED panjang terpasang di area wastafel"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.6-3.6M11 8.4v5.2M8.4 11h5.2" />
+            </svg>
+            Perbesar foto
+          </button>
           <div className="ws-content" style={{ position: 'relative', padding: '56px', maxWidth: '820px', zIndex: 2 }}>
             <p style={{ margin: 0, display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 600, color: '#FFE9C7' }}>
               <span
@@ -99,14 +180,19 @@ export function WorkshopSection() {
         <ol className="proc" style={{ listStyle: 'none', margin: '40px 0 0', padding: '26px 0 0' }}>
           <li className="step">
             <span className="step-dot" aria-hidden="true" />
-            <div className="step-img">
+            <button
+              type="button"
+              className={`step-img ${styles.fotoTrigger}`}
+              onClick={() => bukaFoto(1)}
+              aria-label="Perbesar foto: potong dan bevel"
+            >
               <PictureImage
                 name="workshop-poles"
                 alt="Pekerja memoles tepi kaca cermin"
                 sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
-            </div>
+            </button>
             <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
               1. Potong dan bevel
             </p>
@@ -117,14 +203,19 @@ export function WorkshopSection() {
 
           <li className="step">
             <span className="step-dot" aria-hidden="true" />
-            <div className="step-img">
+            <button
+              type="button"
+              className={`step-img ${styles.fotoTrigger}`}
+              onClick={() => bukaFoto(2)}
+              aria-label="Perbesar foto: pasang LED"
+            >
               <PictureImage
                 name="proses-led"
                 alt="Strip LED menyala di cermin persegi yang sedang dirakit"
                 sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
-            </div>
+            </button>
             <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
               2. Pasang LED
             </p>
@@ -135,14 +226,19 @@ export function WorkshopSection() {
 
           <li className="step">
             <span className="step-dot" aria-hidden="true" />
-            <div className="step-img">
+            <button
+              type="button"
+              className={`step-img ${styles.fotoTrigger}`}
+              onClick={() => bukaFoto(3)}
+              aria-label="Perbesar foto: uji nyala"
+            >
               <PictureImage
                 name="workshop-led"
                 alt="Uji nyala cermin bentuk leaf pada malam hari"
                 sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
-            </div>
+            </button>
             <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
               3. Uji nyala
             </p>
@@ -153,14 +249,19 @@ export function WorkshopSection() {
 
           <li className="step">
             <span className="step-dot" aria-hidden="true" />
-            <div className="step-img">
+            <button
+              type="button"
+              className={`step-img ${styles.fotoTrigger}`}
+              onClick={() => bukaFoto(4)}
+              aria-label="Perbesar foto: terpasang di tempatmu"
+            >
               <PictureImage
                 name="pasang-cafe"
                 alt="Cermin LED kapsul terpasang di dinding kafe"
                 sizes="(max-width: 860px) 72vw, 280px"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
-            </div>
+            </button>
             <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
               4. Terpasang di tempatmu
             </p>
@@ -170,6 +271,73 @@ export function WorkshopSection() {
           </li>
         </ol>
       </div>
+
+      {/* Lightbox foto workshop: Esc, klik overlay, dan panah kiri/kanan menutup atau berpindah */}
+      <Dialog.Root
+        open={indexFoto !== null}
+        onOpenChange={(terbuka) => {
+          if (!terbuka) setIndexFoto(null);
+        }}
+      >
+        <Dialog.Portal>
+          <Dialog.Overlay className={styles.overlay} />
+          <Dialog.Content className={styles.lightbox} onKeyDown={handleKeyDown}>
+            {fotoAktif && (
+              <>
+                <div className={styles.topbar}>
+                  <Dialog.Close className={styles.close} aria-label="Tutup foto">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
+                      <path d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                  </Dialog.Close>
+                </div>
+
+                <div className={styles.stage}>
+                  <PictureImage
+                    key={fotoAktif.name}
+                    name={fotoAktif.name}
+                    alt={fotoAktif.alt}
+                    priority
+                    sizes="(max-width: 860px) calc(100vw - 24px), 1080px"
+                    style={{ width: 'auto', maxWidth: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
+                  />
+                </div>
+
+                <div className={styles.info}>
+                  <Dialog.Title className={styles.judul}>{fotoAktif.judul}</Dialog.Title>
+                  <Dialog.Description className={styles.keterangan}>{fotoAktif.keterangan}</Dialog.Description>
+                </div>
+
+                <div className={styles.controls}>
+                  <button
+                    type="button"
+                    className={styles.nav}
+                    onClick={() => geserFoto(-1)}
+                    aria-label="Foto sebelumnya"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="15 6 9 12 15 18" />
+                    </svg>
+                  </button>
+                  <span className={styles.hitung} aria-live="polite">
+                    {(indexFoto ?? 0) + 1} / {FOTO_WORKSHOP.length}
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.nav}
+                    onClick={() => geserFoto(1)}
+                    aria-label="Foto berikutnya"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="9 6 15 12 9 18" />
+                    </svg>
+                  </button>
+                </div>
+              </>
+            )}
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </section>
   );
 }

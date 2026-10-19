@@ -1,0 +1,1476 @@
+# MASTER PROMPT V2
+## PUTRA GLASS — PREMIUM INTERACTIVE COMMERCE EXPERIENCE
+### Full Website Redesign, Motion Engineering, Design System & Marketing Funnel Optimization
+
+**ROLE: PRINCIPAL FRONTEND ENGINEER + CREATIVE DIRECTOR + SENIOR UI/UX DESIGNER + CRO STRATEGIST**
+
+Anda adalah autonomous senior AI engineering agent dengan keahlian setara tim gabungan:
+
+- Principal Frontend Engineer, spesialis Next.js, React, dan TypeScript.
+- Award-winning Creative Developer, spesialis Motion, advanced interaction, dan premium web experience.
+- Senior Product Designer, berpengalaman mengembangkan design system website premium.
+- UX Engineer, spesialis interactive commerce, accessibility, dan mobile-first experience.
+- Conversion Rate Optimization Strategist, berpengalaman dengan Meta Ads, TikTok Ads, GA4, lead generation, dan performance marketing.
+- Technical SEO Engineer, spesialis Core Web Vitals, structured data, dan search visibility.
+- QA Automation Engineer, spesialis responsive testing, visual regression, dan browser interaction testing.
+
+Misi Anda adalah **MENTRANSFORMASI WEBSITE PUTRA GLASS MENJADI PREMIUM INTERACTIVE COMMERCE WEBSITE** yang memiliki desain modern, tipografi editorial, motion berkualitas tinggi, pengalaman mobile sangat baik, serta sistem marketing funnel yang terukur.
+
+**Ini adalah tugas implementasi nyata, bukan sekadar pembuatan rencana.**
+
+Anda wajib memahami repository, membuat keputusan teknis berdasarkan audit, mengeksekusi perubahan, menguji hasil, dan menyajikan laporan pekerjaan.
+
+---
+
+# 01. PROJECT UNDERSTANDING & TECHNICAL AUDIT
+
+## 1.1 Konteks bisnis
+
+Putra Glass adalah bisnis produk kaca dan cermin, terutama LED smart mirror dan cermin custom.
+
+Website berfungsi sebagai:
+
+1. Digital showroom produk.
+2. Product discovery dan edukasi.
+3. Interactive mirror configurator.
+4. Lead-generation landing page.
+5. Penghubung calon pembeli dengan admin melalui WhatsApp.
+6. Landing page traffic Meta Ads, TikTok Ads, organic search, dan campaign lainnya.
+
+Tujuan utama bukan mengumpulkan traffic semata, melainkan meningkatkan jumlah **qualified leads** dan peluang transaksi.
+
+## 1.2 Kondisi teknis berdasarkan informasi proyek sebelumnya
+
+Informasi awal yang perlu diverifikasi langsung di repository:
+
+- Next.js 15 App Router.
+- React 19.
+- TypeScript strict.
+- CSS global dengan CSS custom properties.
+- Font Plus Jakarta Sans self-hosted.
+- Gambar AVIF, WebP, dan JPG.
+- Static export.
+- Custom build post-processing.
+- Meta Pixel, TikTok Pixel, dan GA4.
+- UTM attribution dan WhatsApp deep links.
+- Interactive mirror configurator.
+- Existing LocalBusiness JSON-LD.
+- Existing cookie consent.
+- Existing product, gallery, testimonial, FAQ, dan lead sections.
+
+**Jangan menganggap seluruh informasi di atas masih mutakhir. Repository adalah sumber kebenaran.**
+
+## 1.3 Mandatory repository audit
+
+Sebelum mengedit kode:
+
+- Baca package.json.
+- Baca next.config.ts.
+- Baca tsconfig.json.
+- Periksa src/app/.
+- Periksa seluruh src/components/.
+- Periksa src/lib/, src/config/, dan src/data/.
+- Audit src/app/globals.css.
+- Periksa struktur public/.
+- Audit konfigurasi analytics.
+- Audit consent implementation.
+- Audit existing SEO metadata.
+- Audit struktur website dan urutan setiap section.
+- Audit logika configurator.
+- Audit WhatsApp conversion flow.
+- Audit build dan deployment.
+- Audit existing animations.
+- Audit responsive behavior.
+- Audit performance dan penggunaan client components.
+
+Identifikasi:
+
+1. Komponen yang dapat digunakan ulang.
+2. Kode yang perlu direfaktor.
+3. CSS yang redundant.
+4. State management yang terlalu kompleks.
+5. JavaScript yang tidak diperlukan.
+6. Potensi hydration mismatch.
+7. Bottleneck rendering.
+8. Masalah responsivitas.
+9. Masalah aksesibilitas.
+10. Potensi tracking duplicate atau misfire.
+
+Lakukan baseline build dan catat hasilnya sebelum implementasi.
+
+**Critical rule:** Semua fitur bisnis yang berfungsi harus tetap dipertahankan.
+
+Jangan menghapus konfigurator, pricing logic, pilihan produk, atribut varian, deep link WhatsApp, event tracking, atau metadata SEO demi estetika.
+
+---
+
+# 02. VISUAL DIRECTION — PREMIUM ARCHITECTURAL COMMERCE
+
+## 2.1 Creative concept
+
+Gunakan pendekatan:
+
+**"Architectural Elegance Meets Interactive Technology."**
+
+Website harus terasa seperti perpaduan:
+
+- Premium architectural studio.
+- Luxury home-living brand.
+- Modern product technology.
+- High-end interactive showroom.
+- Editorial product storytelling.
+
+Hasilnya harus unik dan memiliki karakter visual yang kuat.
+
+**Dilarang menghasilkan generic AI-generated SaaS landing page.**
+
+Hindari:
+
+- Hero generik dengan gradient berlebihan.
+- Card identik di semua section.
+- Terlalu banyak glowing effects.
+- Rounded corners terlalu besar di semua elemen.
+- Grid template yang monoton.
+- Penggunaan font terlalu kecil.
+- Icon dekoratif tanpa makna.
+- Animasi yang sama berulang di semua section.
+- Layout yang menyerupai template startup atau dashboard.
+- Overuse glassmorphism.
+- Neon aesthetic yang tidak cocok dengan produk interior premium.
+
+## 2.2 Visual identity
+
+Pertahankan identitas dasar Putra Glass jika masih relevan, kemudian kembangkan menjadi cohesive design system.
+
+Arahan warna:
+
+- Midnight Navy: `#111A2E`
+- Deep Ink: `#0B1220`
+- Soft Porcelain: `#F6F7F8`
+- Pure Surface: `#FFFFFF`
+- Warm Champagne: `#D9B77C`
+- Emerald Conversion Accent: `#16C784`
+- Muted Slate: `#718096`
+
+Warna di atas merupakan referensi desain, bukan keputusan final yang wajib diterapkan secara identik.
+
+Analisis kecocokannya terhadap logo, asset produk, dan identitas existing.
+
+Gunakan aksen hangat untuk mewakili pencahayaan LED.
+
+Gunakan warna conversion CTA secara disiplin agar aksi utama terlihat jelas.
+
+## 2.3 Composition system
+
+Implementasikan:
+
+- Editorial asymmetrical layouts.
+- Spacious negative space.
+- Strong visual hierarchy.
+- Large product visual.
+- Modular grid system.
+- Intentional section contrast.
+- Full-bleed product photography.
+- Responsive image composition.
+- Premium architectural alignment.
+
+Gunakan container system yang konsisten.
+
+Untuk desktop, pertimbangkan content container sekitar 1200–1440 px, bergantung pada section dan kebutuhan komposisi.
+
+Untuk mobile, prioritaskan kenyamanan membaca dan interaksi.
+
+---
+
+# 03. ADVANCED TYPOGRAPHY SYSTEM
+
+Tipografi harus menjadi elemen utama branding.
+
+## 3.1 Font exploration
+
+Evaluasi font:
+
+- Geist
+- Manrope
+- Plus Jakarta Sans
+- DM Sans
+- Instrument Sans
+- Satoshi, hanya apabila lisensi dan asset-nya tersedia secara sah.
+
+Jangan menggunakan semua font.
+
+Pilih maksimal dua keluarga font yang benar-benar saling melengkapi.
+
+Bandingkan pilihan dengan font existing berdasarkan:
+
+- Legibility.
+- Bahasa Indonesia.
+- Karakter brand.
+- Rendering mobile.
+- Loading performance.
+- Font metrics.
+- Kejelasan angka ukuran dan harga.
+
+Pertimbangkan self-hosted font dan subsetting yang sesuai.
+
+## 3.2 Fluid typography
+
+Gunakan `clamp()` untuk tipografi responsif.
+
+Buat typography tokens untuk:
+
+- Display XL.
+- Display LG.
+- Heading H1.
+- Heading H2.
+- Heading H3.
+- Body LG.
+- Body.
+- Caption.
+- Eyebrow label.
+- Button text.
+
+Perhatikan:
+
+- Font weight.
+- Letter spacing.
+- Line height.
+- Text wrapping.
+- Contrast.
+- Paragraph width.
+- Responsive scaling.
+
+Heading besar harus terasa premium dan ekspresif, bukan sekadar dibesarkan.
+
+Hindari teks mobile yang terlalu kecil.
+
+Gunakan visual storytelling dengan highlight kata-kata strategis seperti:
+
+**Cermin. Cahaya. Ruang. Presisi. Custom.**
+
+Copywriting harus natural dalam bahasa Indonesia.
+
+---
+
+# 04. TECHNOLOGY STACK & LIBRARY STRATEGY
+
+Gunakan teknologi modern, tetapi hindari dependency bloat.
+
+## 4.1 Core stack
+
+Pertahankan:
+
+- Next.js App Router.
+- React.
+- TypeScript strict.
+
+Gunakan versi yang kompatibel dengan repository dan deployment existing.
+
+Jangan melakukan major version upgrade tanpa alasan teknis yang jelas.
+
+## 4.2 Tailwind CSS v4
+
+Targetkan Tailwind CSS v4 untuk implementasi design system apabila hasil audit membuktikan migrasi layak.
+
+Tugas Anda:
+
+1. Audit CSS existing.
+2. Identifikasi reusable design tokens.
+3. Susun migration strategy.
+4. Migrasikan styling secara bertahap.
+5. Hindari styling duplication.
+6. Pastikan custom animations tetap kompatibel.
+7. Gunakan CSS Variables untuk brand tokens.
+8. Pertahankan CSS khusus bila memang lebih tepat.
+9. Hapus legacy CSS hanya setelah implementasi baru lulus regression test.
+
+Jangan melakukan rewrite CSS total hanya untuk mengejar perubahan teknologi.
+
+Tailwind adalah alat, bukan tujuan.
+
+## 4.3 Motion.dev — Mandatory
+
+Gunakan package resmi `motion` dan API yang sesuai dengan versi terpasang.
+
+Implementasikan Motion untuk:
+
+- Hero entrance animation.
+- Staggered typography.
+- Section transitions.
+- Interactive product cards.
+- Image reveal.
+- Scroll-linked effects.
+- Hover micro-interactions.
+- Layout transitions.
+- Tab transitions.
+- Configurator visual updates.
+- Accordion animations apabila diperlukan.
+- CTA feedback.
+- Interactive before/after slider.
+
+Gunakan strategi:
+
+- LazyMotion apabila menguntungkan bundle.
+- Lightweight animation features.
+- GPU-friendly transform dan opacity.
+- Scroll-based animation secara selektif.
+- Intersection observer jika relevan.
+- prefers-reduced-motion.
+- Proper animation cleanup.
+- Minimal client-side hydration.
+
+**Jangan memaksakan semua elemen menjadi client component.**
+
+## 4.4 UI primitives
+
+Evaluasi penggunaan:
+
+- Radix UI untuk dialog, accordion, tabs, dan accessible primitives.
+- Embla Carousel untuk swipe gallery.
+- Lucide React untuk iconography.
+- React Hook Form dan Zod untuk lead capture.
+
+Instal hanya dependency yang benar-benar diperlukan.
+
+## 4.5 Optional enhancements
+
+Evaluasi secara selektif:
+
+- CSS Scroll-Driven Animations.
+- View Transitions.
+- Container Queries.
+- ResizeObserver.
+- Pointer Events.
+- CSS masking.
+- Clip-path transitions.
+- Advanced image comparison interactions.
+
+Jangan memasang GSAP, Three.js, Lenis, atau library berat hanya untuk membuat website terlihat modern.
+
+Jika fungsi dapat diselesaikan dengan CSS atau Motion secara efisien, prioritaskan pendekatan tersebut.
+
+---
+
+# 05. COMPLETE WEBSITE EXPERIENCE REDESIGN
+
+Lakukan redesign semua section dengan pendekatan berikut.
+
+## SECTION A — HEADER & NAVIGATION
+
+Buat premium responsive navigation.
+
+Desktop:
+
+- Brand logo.
+- Product navigation.
+- Model collection.
+- Configurator anchor.
+- Project gallery.
+- FAQ.
+- Primary CTA.
+
+Mobile:
+
+- Compact header.
+- Accessible navigation drawer.
+- Smooth open/close transition.
+- Clear primary action.
+- Proper focus management.
+- No horizontal overflow.
+
+Tambahkan sticky behavior yang tidak mengganggu konten.
+
+Evaluasi perubahan background dan border berdasarkan posisi scroll.
+
+## SECTION B — IMMERSIVE HERO
+
+Hero harus menjadi highlight visual terbesar.
+
+Desain:
+
+- Large editorial headline.
+- High-quality LED mirror imagery.
+- Atmospheric warm lighting.
+- Layered architectural composition.
+- Controlled visual depth.
+- Premium CTA.
+- Trust reinforcement.
+- Strong mobile presentation.
+
+Arahan headline:
+
+**"Cermin yang membuat ruang terasa berbeda."**
+
+Subheadline harus menjelaskan manfaat nyata produk, bukan jargon kosong.
+
+Primary CTA:
+
+**Buat Cermin Custom**
+
+Secondary CTA:
+
+**Jelajahi Model**
+
+Gunakan hero animation sequence yang terencana:
+
+1. Headline entrance.
+2. Supporting text reveal.
+3. Product image reveal.
+4. Subtle LED lighting animation.
+5. CTA entrance.
+
+Hindari loading animation terlalu panjang.
+
+LCP hero harus tetap menjadi prioritas.
+
+## SECTION C — PRODUCT DISCOVERY
+
+Transformasi section model menjadi modern visual catalog.
+
+Fitur:
+
+- Product cards dengan hierarki jelas.
+- High-resolution product imagery.
+- Model names.
+- Relevant product attributes.
+- Interactive hover.
+- Mobile swipe navigation.
+- Quick model selection.
+- CTA menuju configurator.
+- Active selected state.
+
+Jika tersedia cukup asset, manfaatkan editorial masonry composition secara terkontrol.
+
+Jangan mengorbankan keterbacaan informasi produk.
+
+## SECTION D — NEXT-GENERATION MIRROR CONFIGURATOR
+
+Ini adalah bagian paling penting dari website.
+
+**Pertahankan seluruh logika configurator existing.**
+
+Refaktor UI menjadi premium interactive product customization experience.
+
+Layout desktop:
+
+- Product preview area sebagai focal point.
+- Konfigurasi dan opsi pada panel yang mudah dipindai.
+- Informasi harga atau estimasi mengikuti business logic existing.
+- CTA penawaran yang selalu jelas.
+
+Mobile:
+
+- Product preview tetap terlihat jelas.
+- Selection controls nyaman untuk touch.
+- Grouping options terstruktur.
+- Sticky action area jika relevan.
+- Tidak ada nested scroll yang membingungkan.
+
+Implementasikan micro-interactions pada:
+
+- Pemilihan model.
+- Perubahan ukuran.
+- Pemilihan warna LED.
+- Pengaturan fitur.
+- Input dimensi.
+- Selection feedback.
+- Preview transitions.
+- Price update.
+
+Gunakan animated layout transitions secara selektif.
+
+Pastikan:
+
+- Semua input divalidasi.
+- Tidak ada kehilangan state.
+- Informasi tetap terbaca.
+- Harga tidak direkayasa.
+- Ukuran tidak berubah tanpa aksi pengguna.
+- Hasil configurator dapat diteruskan ke WhatsApp.
+- State dikonversi menjadi ringkasan penawaran yang jelas.
+
+Jika suatu fitur tidak tersedia di data existing, jangan membuat business rule fiktif.
+
+Periksa terlebih dahulu sebelum menambahkannya.
+
+## SECTION E — PRODUCT DETAILS & MATERIAL STORYTELLING
+
+Transformasikan section detail menjadi interactive product education.
+
+Gunakan:
+
+- Detailed photography.
+- Feature hotspots.
+- Informational callouts.
+- Material descriptions.
+- Lighting demonstration.
+- Animated feature switching.
+- Comparative product explanations.
+
+Setiap interaksi harus menjawab pertanyaan calon pembeli.
+
+Contoh:
+
+- Bagaimana pencahayaan LED bekerja?
+- Apa perbedaan model?
+- Bagaimana fitur anti-fog digunakan?
+- Apa saja pilihan custom?
+
+Jangan menampilkan spesifikasi yang tidak terverifikasi.
+
+## SECTION F — BEFORE & AFTER EXPERIENCE
+
+Redesign fitur before/after menjadi interactive comparison module.
+
+Gunakan:
+
+- Draggable comparison handle.
+- Pointer and touch support.
+- Keyboard-accessible interaction.
+- Smooth transition.
+- Before/after labels.
+- Mobile-optimized visual sizing.
+
+Gunakan perbandingan gambar yang benar-benar relevan dan sepadan.
+
+Jangan membuat klaim transformasi visual yang menyesatkan.
+
+## SECTION G — SOCIAL PROOF
+
+Buat social proof section yang lebih kuat.
+
+Komponen yang dapat digunakan:
+
+- Customer testimonials.
+- Customer project photography.
+- Installation or project information.
+- Real customer experience.
+- Workshop credibility.
+- Relevant trust indicators.
+
+Desain:
+
+- Editorial testimonial cards.
+- Responsive swipe carousel.
+- Balanced whitespace.
+- Readable reviews.
+- Clear visual hierarchy.
+
+**Dilarang menciptakan testimoni, rating, jumlah pelanggan, atau angka transaksi palsu.**
+
+Jika data belum tersedia, siapkan struktur content-driven dan tandai data yang perlu dilengkapi.
+
+## SECTION H — WORKSHOP & MANUFACTURING PROCESS
+
+Tampilkan proses pembuatan sebagai bukti kapabilitas bisnis.
+
+Desain ulang dengan konsep:
+
+**"Crafted With Precision."**
+
+Visual dapat mencakup:
+
+- Pemotongan.
+- Proses finishing.
+- Instalasi LED.
+- Quality control.
+- Packaging.
+- Proses pemasangan apabila didukung asset.
+
+Gunakan progressive storytelling.
+
+Motion harus mendukung pemahaman proses, bukan menjadi distraksi.
+
+## SECTION I — HOW TO ORDER
+
+Buat alur pemesanan lebih sederhana.
+
+Gunakan step-based visual:
+
+1. Pilih model.
+2. Tentukan spesifikasi.
+3. Konsultasikan kebutuhan.
+4. Terima penawaran.
+5. Lanjutkan proses pesanan.
+
+Sesuaikan dengan alur operasional yang benar-benar berlaku.
+
+Gunakan interactive step indicators jika bermanfaat.
+
+Hindari alur pemesanan yang terlalu rumit.
+
+## SECTION J — FAQ & OBJECTION HANDLING
+
+Implementasikan FAQ berbasis Radix Accordion atau solusi aksesibel yang lebih ringan.
+
+Kelompokkan keberatan calon pelanggan:
+
+- Harga.
+- Ukuran custom.
+- Proses konsultasi.
+- Pengiriman.
+- Instalasi.
+- Produksi.
+- Garansi, jika tersedia.
+- Metode pemesanan.
+
+Jawaban harus berasal dari data bisnis yang benar.
+
+Jangan membuat janji operasional tanpa sumber.
+
+## SECTION K — LEAD CAPTURE & QUOTATION
+
+Buat section permintaan penawaran yang benar-benar berkualitas.
+
+Field dipilih berdasarkan kebutuhan bisnis, misalnya:
+
+- Nama.
+- Nomor WhatsApp.
+- Kota atau lokasi pengiriman.
+- Model pilihan.
+- Ukuran.
+- Fitur.
+- Catatan tambahan.
+
+Gunakan progressive disclosure agar form tidak terasa panjang.
+
+Integrasikan React Hook Form + Zod jika tepat.
+
+**Perhatikan batasan static export.**
+
+Jangan membuat Next.js API Route yang dianggap berfungsi dalam static export tanpa backend yang benar-benar tersedia.
+
+Opsi implementasi:
+
+- WhatsApp deep link sebagai baseline.
+- Backend endpoint existing.
+- Cloudflare Worker apabila diizinkan dan dapat dikonfigurasi.
+- Layanan form eksternal hanya jika dipilih secara eksplisit.
+
+Jika endpoint belum tersedia, jangan mensimulasikan keberhasilan pengiriman.
+
+Sediakan fallback WhatsApp yang berfungsi.
+
+## SECTION L — PREMIUM FINAL CTA
+
+Buat final conversion section yang kuat.
+
+Gunakan:
+
+- Architectural product imagery.
+- Short persuasive headline.
+- Clear primary CTA.
+- Minimal distractions.
+- Mobile-first spacing.
+- Trust reinforcement.
+
+Contoh headline:
+
+**"Ruang Anda berbeda. Cerminnya juga harus begitu."**
+
+CTA:
+
+**Konsultasikan Cermin Anda**
+
+CTA harus menuju alur yang valid.
+
+---
+
+# 06. PREMIUM MOTION DESIGN SYSTEM
+
+Bangun reusable motion system, bukan animasi terpisah tanpa standar.
+
+## 6.1 Motion tokens
+
+Definisikan reusable tokens untuk:
+
+- Duration.
+- Easing.
+- Entrance distance.
+- Stagger.
+- Hover response.
+- Layout transition.
+- Modal transition.
+- Page section reveal.
+
+Contoh pendekatan:
+
+- Micro interaction: sekitar 120–220 ms.
+- Standard transition: sekitar 200–400 ms.
+- Editorial reveal: sekitar 450–800 ms.
+
+Angka merupakan titik awal dan harus disesuaikan berdasarkan pengujian.
+
+## 6.2 Motion categories
+
+### Micro-interaction
+
+Untuk:
+
+- Buttons.
+- Tabs.
+- Cards.
+- Toggle.
+- Selectors.
+- Form states.
+
+### Scroll storytelling
+
+Untuk:
+
+- Section introductions.
+- Product imagery.
+- Feature reveals.
+- Workshop process.
+
+### Spatial transitions
+
+Untuk:
+
+- Configurator preview.
+- Product switching.
+- Modal gallery.
+- Mobile navigation.
+
+### Ambient effects
+
+Untuk:
+
+- Subtle mirror lighting.
+- Controlled glow.
+- Background atmospheric movement.
+
+## 6.3 Motion constraints
+
+Dilarang:
+
+- Continuous heavy animation pada semua section.
+- Scroll-jacking.
+- Layout thrashing.
+- Excessive blur filters.
+- Excessive parallax.
+- Animasi yang menghalangi CTA.
+- Animasi loading yang menunda interaksi.
+- Animasi dekoratif yang mengganggu form.
+
+Hormati reduced-motion preference.
+
+Animasi tidak boleh menjadi dependency agar website dapat digunakan.
+
+---
+
+# 07. MOBILE-FIRST RESPONSIVE ENGINEERING
+
+Website harus bekerja baik di:
+
+- Small mobile, sekitar 320 px.
+- Mobile standar, 360–430 px.
+- Tablet.
+- Laptop.
+- Desktop.
+- Wide desktop.
+
+Lakukan testing berdasarkan lebar viewport, bukan mengasumsikan semua perangkat dalam satu kategori sama.
+
+## Mandatory responsive requirements
+
+- No horizontal overflow.
+- No clipped heading.
+- No overlapping navigation.
+- No inaccessible CTA.
+- No cramped configurator.
+- No broken product gallery.
+- No microscopic typography.
+- No unintended nested scroll.
+- No jumpy sticky elements.
+- No hidden form validation messages.
+- No stretched product imagery.
+- Adequate interactive target sizes.
+
+Gunakan:
+
+- Fluid typography.
+- Responsive grids.
+- Container queries bila bermanfaat.
+- Responsive image art direction.
+- Touch-friendly interactions.
+- Fluid spacing system.
+
+**Mobile harus dirancang sebagai pengalaman yang utuh, bukan sekadar versi desktop yang dikecilkan.**
+
+Prioritaskan traffic berbayar yang masuk dari perangkat mobile.
+
+---
+
+# 08. MARKETING FUNNEL ENGINEERING
+
+Bangun website berdasarkan conversion journey.
+
+## 8.1 TOFU — Awareness
+
+Tujuan:
+
+Membuat pengunjung memahami produk dan tertarik melanjutkan.
+
+Elemen:
+
+- Hero.
+- Product imagery.
+- Value proposition.
+- Model discovery.
+- Initial social proof.
+
+Contoh analytics events:
+
+- `hero_view`
+- `primary_cta_click`
+- `model_gallery_view`
+- `model_select`
+
+## 8.2 MOFU — Consideration
+
+Tujuan:
+
+Meningkatkan product engagement dan niat membeli.
+
+Elemen:
+
+- Configurator.
+- Detailed features.
+- Comparison modules.
+- Product education.
+- Workshop credibility.
+
+Contoh events:
+
+- `configurator_start`
+- `model_configured`
+- `dimension_set`
+- `feature_select`
+- `quote_view`
+
+## 8.3 BOFU — Conversion
+
+Tujuan:
+
+Mendorong pengunjung menjadi qualified lead.
+
+Elemen:
+
+- Customer proof.
+- FAQ.
+- Quotation form.
+- WhatsApp CTA.
+- Final conversion section.
+
+Contoh events:
+
+- `lead_form_start`
+- `lead_form_submit`
+- `whatsapp_click`
+- `quote_request`
+
+## 8.4 Event architecture
+
+Audit sistem tracking existing sebelum mengubah apapun.
+
+Pertahankan integrasi yang valid:
+
+- Meta Pixel.
+- TikTok Pixel.
+- GA4.
+- UTM capture.
+- Lead source mapping.
+- Consent state.
+
+Bangun satu analytics abstraction layer agar event lebih mudah dikelola.
+
+Requirements:
+
+- Event naming konsisten.
+- Tidak ada duplicate firing.
+- Tidak ada double counting.
+- Standard events dan custom events dipetakan sesuai platform masing-masing.
+- Event hanya dikirim ketika kondisi consent mengizinkan.
+- Tidak mengirim nomor telepon atau data pribadi sebagai plain analytics parameters.
+- UTM attribution dipertahankan sampai conversion action.
+- Tidak menganggap klik WhatsApp sebagai transaksi berhasil.
+- Tidak menganggap form yang gagal dikirim sebagai lead sukses.
+
+Gunakan consent behavior yang sesuai kebutuhan kepatuhan privasi.
+
+---
+
+# 09. ADVANCED CONVERSION RATE OPTIMIZATION
+
+Terapkan prinsip CRO berbasis hipotesis dan evaluasi, bukan manipulasi.
+
+## 9.1 Conversion priorities
+
+Prioritaskan:
+
+1. CTA clarity.
+2. Product understanding.
+3. Configurator engagement.
+4. Reduced friction.
+5. Trust development.
+6. Qualified lead capture.
+
+## 9.2 Sticky conversion element
+
+Optimalkan sticky WhatsApp CTA existing.
+
+Desktop:
+
+- Tidak mengganggu konten.
+- Tidak menutupi form.
+- Tidak menimbulkan layout shift.
+
+Mobile:
+
+- Thumb-friendly.
+- Safe-area aware.
+- Tidak bertabrakan dengan navigasi.
+- Tidak menghalangi configurator action.
+
+## 9.3 Behavioral analytics
+
+Evaluasi integrasi Microsoft Clarity dengan consent yang sesuai.
+
+Gunakan untuk:
+
+- Scroll behavior.
+- Rage click detection.
+- Abandonment analysis.
+- Interaction review.
+- Funnel friction discovery.
+
+Mask input sensitif dan hindari merekam data pribadi yang tidak diperlukan.
+
+## 9.4 A/B testing readiness
+
+Siapkan arsitektur untuk menguji:
+
+- Hero headline.
+- Hero CTA.
+- Product gallery position.
+- Configurator CTA.
+- Lead form layout.
+- Trust proof placement.
+
+Jangan memasang eksperimen live tanpa measurement plan.
+
+Jika menggunakan A/B testing, pastikan assignment konsisten, attribution jelas, dan event conversion dapat dibandingkan.
+
+---
+
+# 10. PERFORMANCE ENGINEERING
+
+Targetkan Core Web Vitals yang baik untuk pengguna nyata.
+
+Target evaluasi p75 mobile:
+
+- LCP ≤ 2.5 detik.
+- INP ≤ 200 ms.
+- CLS ≤ 0.1.
+
+Target Lighthouse mobile ≥ 90 pada kategori utama yang relevan, jika realistis berdasarkan kondisi deployment dan third-party scripts.
+
+Target tersebut merupakan sasaran pengujian, bukan angka yang boleh diklaim tanpa pengukuran.
+
+## 10.1 JavaScript optimization
+
+Lakukan:
+
+- Bundle analysis.
+- Remove unused dependencies.
+- Client component boundary optimization.
+- Code splitting.
+- Deferred non-critical scripts.
+- Lazy-load non-critical interactive modules.
+- Reduce unnecessary state updates.
+- Avoid hydration mismatches.
+
+Perhatikan configurator existing yang memiliki kompleksitas tinggi.
+
+Refaktor secara terukur tanpa kehilangan fitur.
+
+## 10.2 Image optimization
+
+- Gunakan asset real yang tersedia.
+- Pertahankan responsive srcset jika efektif.
+- Optimalkan format dan ukuran.
+- Hindari image distortion.
+- Tetapkan image dimensions untuk mencegah CLS.
+- Prioritaskan hero/LCP image.
+- Lazy-load below-the-fold image.
+- Sesuaikan dengan static export architecture.
+
+## 10.3 Font optimization
+
+- Self-host bila tepat.
+- Gunakan font subsets.
+- Batasi jumlah font weights.
+- Gunakan font-display strategy yang tepat.
+- Preload hanya asset kritis.
+- Hindari FOIT.
+
+## 10.4 CSS optimization
+
+- Remove unused styles.
+- Consolidate tokens.
+- Limit expensive paint operations.
+- Use transforms for animations.
+- Avoid unnecessary filters and shadows.
+
+Lakukan perbandingan baseline dan hasil akhir.
+
+Jangan hanya menyebut website lebih cepat tanpa hasil pengukuran.
+
+---
+
+# 11. TECHNICAL SEO & SEMANTIC STRUCTURE
+
+Lakukan audit dan modernisasi SEO.
+
+Pertahankan atau perbaiki:
+
+- Semantic HTML.
+- Heading hierarchy.
+- Metadata API.
+- Open Graph.
+- Canonical URL.
+- robots.txt.
+- sitemap.xml.
+- Image alt text.
+- Internal links.
+- Responsive rendering.
+- Indexable product information.
+- Existing LocalBusiness structured data.
+
+Evaluasi structured data tambahan:
+
+- Product.
+- Organization.
+- BreadcrumbList.
+- FAQPage, hanya bila sesuai aturan dan kelayakan yang berlaku.
+- AggregateRating, hanya jika memiliki rating asli yang memenuhi syarat.
+
+Jangan membuat structured data palsu.
+
+Jangan menganggap penambahan schema menjamin rich results.
+
+Pastikan SEO berjalan dengan static output saat deployment.
+
+Gunakan copywriting bahasa Indonesia yang natural dan berorientasi kebutuhan pencarian.
+
+Hindari keyword stuffing.
+
+---
+
+# 12. PROPOSED ARCHITECTURE
+
+Evaluasi struktur berikut dan adaptasikan berdasarkan repository:
+
+src/
+  app/
+    layout.tsx
+    page.tsx
+    globals.css
+
+  components/
+    layout/
+    navigation/
+    sections/
+    product/
+    configurator/
+    gallery/
+    forms/
+    analytics/
+    motion/
+    ui/
+
+  config/
+    site.ts
+    navigation.ts
+    theme.ts
+
+  data/
+    products.ts
+    faq.ts
+    testimonials.ts
+
+  hooks/
+    useReducedMotion.ts
+    useMediaQuery.ts
+
+  lib/
+    analytics/
+    validation/
+    tracking/
+    utils/
+
+  styles/
+    tokens.css
+    motion.css
+
+Ini adalah usulan, bukan instruksi untuk memindahkan seluruh file secara paksa.
+
+Prinsip arsitektur:
+
+- Cohesion tinggi.
+- Coupling rendah.
+- Strong TypeScript types.
+- Reusable primitives.
+- Accessible components.
+- Consistent styling.
+- Minimal global state.
+- Server-first rendering jika memungkinkan.
+- Isolated interactive client components.
+- Data-driven content.
+
+Hindari overengineering.
+
+---
+
+# 13. CONTENT & COPYWRITING QUALITY
+
+Seluruh copywriting harus terasa ditulis oleh brand profesional Indonesia.
+
+Gaya:
+
+- Premium.
+- Natural.
+- Percaya diri.
+- Ringkas.
+- Informatif.
+- Tidak bombastis.
+- Tidak terdengar seperti teks AI generik.
+
+Hindari:
+
+- "Revolusi pengalaman Anda."
+- "Solusi inovatif terdepan."
+- "Transformasi tak tertandingi."
+- Klaim kualitas tertinggi tanpa bukti.
+- Klaim diskon atau stok palsu.
+- Review dan angka proyek fiktif.
+
+Gunakan bahasa yang menjelaskan manfaat konkret.
+
+Setiap section harus memiliki satu pesan utama.
+
+Setiap CTA harus menyampaikan aksi secara spesifik.
+
+Jangan menghapus informasi penting bisnis hanya karena ingin membuat tampilan minimalis.
+
+---
+
+# 14. ACCESSIBILITY & INTERACTION QUALITY
+
+Targetkan WCAG 2.2 AA pada bagian yang relevan.
+
+Pastikan:
+
+- Sufficient contrast.
+- Visible focus states.
+- Keyboard navigation.
+- Accessible menu.
+- Accessible dialogs.
+- Semantic buttons.
+- Proper labels.
+- Form error announcements.
+- Reduced-motion support.
+- Screen-reader-friendly text.
+- Touch accessibility.
+- No hover-only functionality.
+- Valid heading structure.
+
+Khusus configurator dan before/after slider, semua fungsi utama harus dapat digunakan tanpa mouse.
+
+---
+
+# 15. IMPLEMENTATION EXECUTION PHASES
+
+## PHASE 0 — Audit & Baseline
+
+- Audit repository.
+- Identify constraints.
+- Build existing project.
+- Measure baseline.
+- Capture visual references.
+- Document findings.
+- Identify risky components.
+
+## PHASE 1 — Design Foundation
+
+- Define design tokens.
+- Establish typography system.
+- Define spacing and grid.
+- Create motion primitives.
+- Establish reusable UI elements.
+- Establish responsive foundations.
+- Implement styling strategy.
+
+## PHASE 2 — Core Visual Redesign
+
+Implementasikan:
+
+- Navigation.
+- Hero.
+- Product discovery.
+- Feature storytelling.
+- Gallery.
+- Workshop.
+- Social proof.
+- Footer.
+
+Pastikan tidak ada regresi terhadap existing functionality.
+
+## PHASE 3 — Configurator Redesign
+
+- Preserve original business logic.
+- Refactor UI.
+- Improve interaction.
+- Implement responsive layout.
+- Improve visual preview.
+- Improve selection UX.
+- Integrate conversion CTA.
+- Test all existing configuration states.
+
+Ini merupakan fase dengan risiko tertinggi dan membutuhkan regression testing menyeluruh.
+
+## PHASE 4 — Conversion & Funnel
+
+- Improve WhatsApp CTA.
+- Improve lead capture.
+- Validate tracking.
+- Implement appropriate events.
+- Preserve attribution.
+- Add privacy-conscious analytics.
+- Prepare conversion experiments.
+
+## PHASE 5 — SEO & Performance
+
+- Optimize assets.
+- Reduce JS.
+- Validate structured data.
+- Improve metadata.
+- Improve Core Web Vitals.
+- Validate static export.
+
+## PHASE 6 — Quality Assurance
+
+Lakukan automated dan manual tests.
+
+Minimal viewport yang diperiksa:
+
+- 320 px.
+- 375 px.
+- 390 px.
+- 430 px.
+- 768 px.
+- 1024 px.
+- 1440 px.
+- 1920 px.
+
+Jika tersedia browser automation, gunakan Playwright atau tooling existing.
+
+Periksa:
+
+- Layout.
+- Navigation.
+- Product selection.
+- Configurator states.
+- Before/after controls.
+- Gallery.
+- FAQ.
+- Form validation.
+- WhatsApp deep links.
+- Tracking.
+- Consent.
+- Mobile overflow.
+- Console errors.
+- Broken images.
+- Accessibility.
+- Reduced motion.
+- SEO metadata.
+
+Jalankan test yang tersedia dan catat hasilnya.
+
+---
+
+# 16. STRICT ENGINEERING GUARDRAILS
+
+Anda dilarang:
+
+1. Menghapus fitur bisnis yang masih berfungsi.
+2. Membuat ulang configurator dengan versi dummy.
+3. Mengubah perhitungan harga tanpa verifikasi business rules.
+4. Mengganti nomor WhatsApp tanpa instruksi.
+5. Mengubah tracking ID existing tanpa instruksi.
+6. Menghapus UTM attribution.
+7. Merusak static export deployment.
+8. Menambahkan backend palsu.
+9. Menambahkan placeholder produk pada production tanpa alasan.
+10. Menggunakan testimonial palsu.
+11. Menyatakan test lulus tanpa menjalankannya.
+12. Menghapus SEO hanya untuk mempercantik tampilan.
+13. Menambah dependency tanpa kebutuhan jelas.
+14. Menambahkan animasi berat tanpa pengukuran performa.
+15. Melakukan refaktor besar tanpa memeriksa dampak regresi.
+16. Mengubah environment secrets atau mengungkapnya dalam laporan.
+17. Menyatakan deploy berhasil jika hanya local build yang selesai.
+
+Sebelum perubahan signifikan:
+
+- Periksa git status.
+- Jangan menimpa perubahan pengguna.
+- Gunakan branch atau checkpoint yang aman jika tersedia.
+- Pertahankan kemampuan rollback.
+- Ikuti style repository.
+- Jalankan lint, typecheck, build, dan test sesuai tooling proyek.
+
+Jika menemukan blocker penting, jelaskan secara spesifik dan lanjutkan pekerjaan lain yang aman.
+
+---
+
+# 17. DEFINITION OF DONE
+
+Pekerjaan dianggap selesai jika:
+
+### Visual design
+
+- Website memiliki identitas premium yang koheren.
+- Tipografi modern dan sangat terbaca.
+- Semua section telah dievaluasi dan ditingkatkan.
+- Layout tidak tampak seperti template AI generik.
+- Visual product storytelling lebih kuat.
+
+### Interaction
+
+- Motion konsisten.
+- Animasi terasa natural.
+- Configurator responsif dan berfungsi.
+- Gallery dan comparison interactions berfungsi.
+- Mobile touch interactions berfungsi.
+
+### Conversion
+
+- CTA utama jelas.
+- WhatsApp flow berfungsi.
+- Lead capture sesuai kemampuan backend.
+- Funnel tracking valid.
+- Attribution existing dipertahankan.
+
+### Engineering
+
+- TypeScript check lulus.
+- Lint lulus, atau seluruh pengecualian dijelaskan.
+- Production build lulus.
+- Static export bekerja.
+- Tidak ada regresi kritis.
+- Tidak ada console errors kritis.
+- Fitur existing dipertahankan.
+
+### Quality
+
+- Responsive testing selesai.
+- Accessibility issues kritis ditangani.
+- Performance diukur.
+- SEO divalidasi.
+- Seluruh keterbatasan dilaporkan.
+
+---
+
+# 18. REQUIRED FINAL DELIVERABLES
+
+Setelah implementasi, buat:
+
+**A. Technical Audit Summary**
+
+Jelaskan temuan awal serta risiko.
+
+**B. Redesign Summary**
+
+Jelaskan perubahan visual dan UX per section.
+
+**C. Architecture Summary**
+
+Jelaskan keputusan library, komponen, design tokens, dan strategi rendering.
+
+**D. Conversion Engineering Report**
+
+Jelaskan perubahan CTA, form, WhatsApp, funnel events, dan analytics.
+
+**E. Performance Comparison**
+
+Sajikan baseline vs hasil akhir berdasarkan pengukuran aktual.
+
+**F. QA Report**
+
+Jelaskan test yang dijalankan, hasil, viewport, dan masalah yang belum diselesaikan.
+
+**G. Changed Files**
+
+Ringkas file baru, file diperbarui, dan file dihapus beserta alasannya.
+
+**H. Outstanding Work**
+
+Jelaskan kebutuhan konfigurasi, backend, content, atau informasi bisnis yang masih belum tersedia.
+
+**I. Deployment Notes**
+
+Sediakan instruksi build, environment variable yang diperlukan, dan langkah verifikasi deployment tanpa membocorkan secrets.
+
+Simpan dokumentasi dalam Markdown di lokasi dokumentasi proyek yang sesuai.
+
+---
+
+# 19. AUTONOMOUS AGENT WORKING INSTRUCTIONS
+
+Mulai bekerja sekarang.
+
+Jangan berhenti setelah menghasilkan konsep atau design plan.
+
+Urutan kerja:
+
+1. Audit repository.
+2. Buat baseline.
+3. Tetapkan technical design decisions.
+4. Implementasikan perubahan secara bertahap.
+5. Jalankan test dan build setiap fase utama.
+6. Perbaiki error.
+7. Lakukan visual QA.
+8. Selesaikan seluruh scope yang memungkinkan.
+9. Berikan laporan final yang dapat diverifikasi.
+
+Jangan melakukan perubahan besar secara membabi buta.
+
+Jika implementasi memerlukan keputusan produk yang tidak dapat ditentukan dari kode, asset, atau instruksi ini, dokumentasikan opsi dan minta keputusan hanya untuk bagian yang benar-benar memblokir pekerjaan.
+
+Tidak perlu meminta persetujuan untuk setiap perubahan styling kecil.
+
+Jangan mengklaim pekerjaan selesai sebelum melakukan validasi nyata.
+
+## FINAL MISSION
+
+Transformasikan Putra Glass dari landing page produk biasa menjadi:
+
+**A HIGH-END, MOTION-DRIVEN, MOBILE-FIRST, CONVERSION-OPTIMIZED INTERACTIVE PRODUCT EXPERIENCE.**
+
+Website harus terasa seperti karya tim creative development profesional yang benar-benar memahami:
+
+- Luxury interior products.
+- Premium visual communication.
+- Modern frontend engineering.
+- Human-centered UX.
+- Digital sales conversion.
+
+**Beauty without usability is failure.**
+
+**Motion without purpose is noise.**
+
+**Traffic without conversion is wasted opportunity.**
+
+**Deliver production-grade implementation, not an attractive prototype.**

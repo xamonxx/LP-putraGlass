@@ -4,6 +4,7 @@
  */
 
 import { PHONE_NUMBER } from './constants';
+import { getAllVariants } from './experiments';
 
 export type LeadSourceCode = 'LP-META' | 'LP-TIKTOK' | 'LP-IG' | 'LP-GOOGLE' | 'LP-LANGSUNG';
 
@@ -88,83 +89,112 @@ declare global {
     };
     gtag?: (...args: unknown[]) => void;
     dataLayer?: unknown[];
+    clarity?: (...args: unknown[]) => void;
+  }
+}
+
+/**
+ * Satu pintu untuk semua event funnel. Meta/TikTok/GA4 dikirim sekaligus,
+ * selalu disertai kode sumber lead dan varian eksperimen aktif supaya laporan
+ * bisa dipecah per kanal iklan dan per varian tanpa join manual.
+ */
+export function trackEvent(
+  name: string,
+  params: Record<string, unknown> = {},
+  standard: { meta?: string; tiktok?: string } = {},
+) {
+  if (typeof window === 'undefined') return;
+  try {
+    const payload = {
+      ...params,
+      lead_code: getStoredLeadSource(),
+      ...getAllVariants(),
+    };
+
+    if (window.fbq) {
+      if (standard.meta) window.fbq('track', standard.meta, payload);
+      else window.fbq('trackCustom', name, payload);
+    }
+    if (window.ttq?.track) {
+      window.ttq.track(standard.tiktok || name, payload);
+    }
+    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
+      window.gtag('event', name, payload);
+    }
+    if (window.clarity) {
+      window.clarity('event', name);
+    }
+  } catch {
+    // no-op
   }
 }
 
 export function trackViewContent(sectionName: string = 'konfigurator') {
-  if (typeof window === 'undefined') return;
-  try {
-    if (window.fbq) {
-      window.fbq('track', 'ViewContent', { content_name: sectionName });
-    }
-    if (window.ttq?.track) {
-      window.ttq.track('ViewContent', { content_name: sectionName });
-    }
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
-      window.gtag('event', 'view_item', { item_name: sectionName });
-    }
-  } catch {
-    // no-op
-  }
+  trackEvent('view_item', { item_name: sectionName, content_name: sectionName }, { meta: 'ViewContent', tiktok: 'ViewContent' });
 }
 
 export function trackConfiguratorStart() {
-  if (typeof window === 'undefined') return;
-  try {
-    if (window.fbq) {
-      window.fbq('trackCustom', 'configurator_start');
-    }
-    if (window.ttq?.track) {
-      window.ttq.track('configurator_start');
-    }
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
-      window.gtag('event', 'configurator_start');
-    }
-  } catch {
-    // no-op
-  }
-}
-export function trackConfiguratorSend() {
-  if (typeof window === 'undefined') return;
-  try {
-    if (window.fbq) {
-      window.fbq('trackCustom', 'configurator_send');
-    }
-    if (window.ttq?.track) {
-      window.ttq.track('configurator_send');
-    }
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
-      window.gtag('event', 'configurator_send');
-    }
-  } catch {
-    // no-op
-  }
+  trackEvent('configurator_start');
 }
 
+export function trackConfiguratorSend() {
+  trackEvent('configurator_send');
+}
+
+// ==========================================
+// Instrumentasi funnel: kedalaman scroll & waktu tinggal
+// ==========================================
+
+const SCROLL_MILESTONES = [25, 50, 75, 100] as const;
+const DWELL_MILESTONES_MS = [30_000, 90_000] as const;
+
+/**
+ * Pasang pengukur scroll-depth dan dwell-time. Keduanya dikirim sekali saja per
+ * sesi halaman. Mengembalikan fungsi pembersih untuk dipanggil saat unmount.
+ */
+export function initFunnelTelemetry(): () => void {
+  if (typeof window === 'undefined') return () => {};
+
+  const firedScroll = new Set<number>();
+  let ticking = false;
+
+  const measure = () => {
+    ticking = false;
+    const doc = document.documentElement;
+    const scrollable = doc.scrollHeight - window.innerHeight;
+    const percent = scrollable <= 0 ? 100 : ((window.scrollY + window.innerHeight) / doc.scrollHeight) * 100;
+
+    for (const milestone of SCROLL_MILESTONES) {
+      if (percent >= milestone && !firedScroll.has(milestone)) {
+        firedScroll.add(milestone);
+        trackEvent('scroll_depth', { percent_scrolled: milestone });
+      }
+    }
+
+    if (firedScroll.size === SCROLL_MILESTONES.length) {
+      window.removeEventListener('scroll', onScroll);
+    }
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(measure);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  measure();
+
+  const timers = DWELL_MILESTONES_MS.map((ms) =>
+    window.setTimeout(() => trackEvent('dwell_time', { seconds: ms / 1000 }), ms),
+  );
+
+  return () => {
+    window.removeEventListener('scroll', onScroll);
+    timers.forEach((id) => window.clearTimeout(id));
+  };
+}
 
 export function trackLeadClick(sourceButton: string) {
-  if (typeof window === 'undefined') return;
-  try {
-    const leadCode = getStoredLeadSource();
-    if (window.fbq) {
-      window.fbq('track', 'Lead', {
-        button_source: sourceButton,
-        lead_code: leadCode,
-      });
-    }
-    if (window.ttq?.track) {
-      window.ttq.track('Contact', {
-        button_source: sourceButton,
-        lead_code: leadCode,
-      });
-    }
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
-      window.gtag('event', 'generate_lead', {
-        source_button: sourceButton,
-        lead_code: leadCode,
-      });
-    }
-  } catch {
-    // no-op
-  }
+  trackEvent('generate_lead', { button_source: sourceButton, source_button: sourceButton }, { meta: 'Lead', tiktok: 'Contact' });
 }

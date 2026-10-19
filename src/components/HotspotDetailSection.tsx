@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { PictureImage } from './PictureImage';
 import { DETAIL_ANIMASI_SVGS } from '../data/detail-animations';
+import { Reveal } from './Reveal';
 
 interface HotspotItem {
   id: number;
@@ -80,15 +81,18 @@ export function HotspotDetailSection() {
   return (
     <section id="detail" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
       <div className="wrap">
-        <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
-          detail yang tidak terlihat di foto biasa.
-        </h2>
-        <p style={{ margin: '16px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
-          Sentuh titik di foto. Tiap titik membuka bagian cermin yang biasanya tersembunyi.
-        </p>
+        <Reveal trackSection="detail">
+          <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
+            detail yang tidak terlihat di foto biasa.
+          </h2>
+          <p style={{ margin: '16px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
+            Sentuh titik di foto. Tiap titik membuka bagian cermin yang biasanya tersembunyi.
+          </p>
+        </Reveal>
 
         <div className="detail-layout" style={{ marginTop: '48px' }}>
           {/* Kolom Kiri: Foto Utama (16:9 utuh, tanpa crop) + Hotspots + Tab Bar */}
+          <Reveal>
           <div className="detail-base-col">
             <div className="detail-base-wrapper">
               <PictureImage
@@ -154,8 +158,10 @@ export function HotspotDetailSection() {
               })}
             </div>
           </div>
+          </Reveal>
 
           {/* Kolom Kanan: Detail Card (Animasi SVG 4:3 Inline + Konten + Prev/Next) */}
+          <Reveal variant="scale" delay={140}>
           <div className="detail-card-col">
             <div className="detail-info-card">
               {/* Media Animasi SVG 4:3 (Inline rendering dengan key agar restart saat dibuka) */}
@@ -227,6 +233,7 @@ export function HotspotDetailSection() {
               </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </div>
 

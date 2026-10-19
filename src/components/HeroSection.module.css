@@ -1,0 +1,173 @@
+/*
+ * HeroSection — seluruh gerak hero ditulis dengan CSS murni, tanpa library
+ * animasi dan tanpa scroll listener di JavaScript.
+ *
+ * Tiga efek:
+ * 1. Masuknya isi kolom kiri (transform saja, tanpa opacity 0) supaya judul
+ *    hero tetap terbaca penuh walau JS mati dan LCP tidak tertunda.
+ * 2. Parallax dekorasi memakai scroll-driven animation. Browser tanpa
+ *    dukungan cukup memakai posisi diam — parallax murni penyedap, bukan
+ *    syarat; tidak ada JS pengganti supaya main thread tetap lega.
+ * 3. Cahaya cermin yang "bernapas" (scale + opacity) selama hero terlihat.
+ *
+ * Semua gerak mati saat pengunjung memilih "kurangi gerakan".
+ */
+
+/* ---------- 1. Masuknya judul, teks, CTA, dan baris bukti ---------- */
+
+.enter {
+  animation: heroEnter 650ms cubic-bezier(0.22, 0.68, 0.24, 1) both;
+}
+
+/* Jeda bertingkat: 80 ms untuk anak pertama, lalu selisih 90 ms. */
+.enterStep1 {
+  animation-delay: 80ms;
+}
+
+.enterStep2 {
+  animation-delay: 170ms;
+}
+
+.enterStep3 {
+  animation-delay: 260ms;
+}
+
+.enterStep4 {
+  animation-delay: 350ms;
+}
+
+/* ---------- 2. Parallax dekorasi (scroll-driven) ---------- */
+
+/*
+ * Keadaan diam motif belah ketupat. Browser tanpa scroll-driven animation
+ * berhenti di sini: parallax hanya penyedap, bukan syarat tampilan.
+ */
+.diamondsShift {
+  transform: translate3d(0, 0, 0);
+}
+
+/*
+ * Pembungkus halo hanya mengurus geseran parallax, sementara elemen halo di
+ * dalamnya mengurus cahaya. Dipisah supaya dua animasi tidak saling menimpa
+ * lewat properti `animation` yang sama.
+ */
+.haloShift {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .diamondsShift {
+      animation: heroParallaxDiamonds linear both;
+      animation-timeline: scroll(root block);
+      /* Rentang kira-kira setinggi hero: gerak selesai saat hero tergulung keluar. */
+      animation-range: 0 100vh;
+    }
+
+    .haloShift {
+      animation: heroParallaxHalo linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+/* ---------- 3. Cahaya cermin "bernapas" ---------- */
+
+.halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 1;
+  /* Cahaya mekar sekali setelah garis LED selesai tergambar. */
+  animation: heroHaloBloom 500ms ease-out 900ms both;
+  /* Kembali tenang dengan halus saat napas dimatikan (hero keluar layar). */
+  transition: background 350ms ease-out, scale 350ms ease-out, opacity 350ms ease-out;
+}
+
+/*
+ * `scale` dan `opacity` dipakai sebagai properti tersendiri, bukan lewat
+ * `transform`, supaya tidak bertabrakan dengan parallax di pembungkusnya.
+ *
+ * `heroHaloBloom` sengaja ikut disebut ulang di daftar: namanya tetap ada
+ * saat class napas dilepas, jadi animasi mekar tidak diputar ulang dan tidak
+ * ada kedipan ketika hero keluar layar.
+ */
+.isBreathing {
+  animation: heroHaloBloom 500ms ease-out 900ms both, heroGlowBreathe 6400ms ease-in-out infinite;
+}
+
+/* ---------- Keyframes ---------- */
+
+@keyframes heroEnter {
+  from {
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroParallaxDiamonds {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 88px, 0);
+  }
+}
+
+@keyframes heroParallaxHalo {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 44px, 0);
+  }
+}
+
+@keyframes heroGlowBreathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    scale: 1;
+  }
+
+  50% {
+    opacity: 1;
+    scale: 1.05;
+  }
+}
+
+@keyframes heroHaloBloom {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Hormati "kurangi gerakan" ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .enter {
+    animation: none;
+  }
+
+  /* Napas dimatikan; mekar hanya opacity, aman untuk yang sensitif gerak. */
+  .isBreathing {
+    animation: heroHaloBloom 500ms ease-out 900ms both;
+  }
+
+  .halo {
+    transition: background 350ms ease-out;
+  }
+}

@@ -7,6 +7,7 @@ import {
   getStoredLeadSource,
   trackLeadClick,
 } from '../lib/tracking';
+import { Reveal } from './Reveal';
 
 const TIMELINE_STEPS = [
   {
@@ -85,15 +86,18 @@ export function HowToOrderSection() {
   return (
     <section id="cara-pesan" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
       <div className="wrap">
-        <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
-          cara pesan
-        </h2>
-        <p style={{ margin: '14px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
-          Dari chat pertama sampai cermin terpasang. Di setiap tahap kamu dapat kabar dan fotonya.
-        </p>
+        <Reveal trackSection="cara-pesan">
+          <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
+            cara pesan
+          </h2>
+          <p style={{ margin: '14px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
+            Dari chat pertama sampai cermin terpasang. Di setiap tahap kamu dapat kabar dan fotonya.
+          </p>
+        </Reveal>
 
         <div className="cara-pesan-layout" style={{ marginTop: '48px' }}>
           {/* Kolom Kiri: Kartu Navy 01 MULAI DI SINI */}
+          <Reveal>
           <div
             className="card-mulai"
             style={{
@@ -231,6 +235,7 @@ export function HowToOrderSection() {
               </a>
             </div>
           </div>
+          </Reveal>
 
           {/* Kolom Kanan: Timeline Vertikal 02 - 05 */}
           <div className="timeline-container">
@@ -238,8 +243,9 @@ export function HowToOrderSection() {
             <div className="timeline-line" aria-hidden="true" />
 
             <div className="timeline-list">
-              {TIMELINE_STEPS.map((step) => (
-                <div key={step.num} className="timeline-row">
+              {TIMELINE_STEPS.map((step, idx) => (
+                <Reveal key={step.num} delay={idx * 110}>
+                <div className="timeline-row">
                   {/* Node Berikon */}
                   <div className={`timeline-node ${step.isSuccess ? 'success-node' : ''}`}>
                     {step.icon}
@@ -269,6 +275,7 @@ export function HowToOrderSection() {
                     </p>
                   </div>
                 </div>
+                </Reveal>
               ))}
             </div>
           </div>

@@ -1,0 +1,454 @@
+/* Form lead 3 langkah — latar terang supaya isian terbaca jelas di HP. */
+
+.section {
+  background: var(--paper-cold);
+  color: var(--navy);
+  padding: clamp(56px, 9vw, 104px) 0;
+}
+
+.inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+.intro h2 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  word-spacing: 0.04em;
+  line-height: 1;
+  font-size: clamp(31px, 6vw, 54px);
+  color: var(--navy);
+}
+
+.lead {
+  margin: 16px 0 0;
+  max-width: 34em;
+  font-size: clamp(15px, 2.4vw, 18px);
+  line-height: 1.6;
+  color: #4A5468;
+}
+
+.points {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #4A5468;
+}
+
+.points li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--glass-edge);
+}
+
+/* ---------- Kartu form ---------- */
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid rgba(191, 203, 217, 0.55);
+  border-radius: 20px;
+  padding: clamp(20px, 3.5vw, 32px);
+  box-shadow: 0 18px 48px rgba(20, 28, 51, 0.08);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(191, 203, 217, 0.45);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--glass-edge));
+  transform-origin: left center;
+  transition: width 280ms ease-out;
+}
+
+.progressLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5A6680;
+  white-space: nowrap;
+}
+
+.stepTitle {
+  margin: 0 0 4px;
+  font-size: clamp(19px, 3vw, 24px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+.stepHint {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #5A6680;
+}
+
+/* ---------- Pilihan model ---------- */
+
+.modelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.modelBtn {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  padding: 14px 14px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(191, 203, 217, 0.7);
+  background: #FFFFFF;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease, transform 160ms ease;
+}
+
+.modelBtn:hover {
+  border-color: var(--blue);
+}
+
+.modelBtn:active {
+  transform: scale(0.985);
+}
+
+.modelBtnActive {
+  border-color: var(--glass-edge);
+  background: rgba(156, 207, 194, 0.14);
+}
+
+.modelDesc {
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #5A6680;
+}
+
+/* ---------- Field ---------- */
+
+/* Panel per langkah: jarak antar field diatur di sini, bukan lewat margin
+   per-field. Margin per-field dulu bocor ke dalam .row dan membuat kolom
+   kedua turun 14px dari kolom pertama. */
+.stepPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stepPanel[hidden] {
+  display: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.optional {
+  font-weight: 400;
+  color: #7A8599;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--navy);
+  background: var(--paper-cold);
+  border: 1.5px solid rgba(191, 203, 217, 0.75);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 86px;
+  line-height: 1.5;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #9AA4B8;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(39, 80, 135, 0.15);
+}
+
+.inputError {
+  border-color: #C0392B;
+}
+
+.error {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #C0392B;
+}
+
+.preview {
+  margin: 0;
+  font-size: 13.5px;
+  color: #5A6680;
+  background: var(--paper-cold);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+/* ---------- Aksi ---------- */
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.next,
+.submit {
+  flex: 1;
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 22px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, filter 200ms ease;
+}
+
+.next {
+  background: var(--blue);
+  color: #FFFFFF;
+}
+
+.submit {
+  background: var(--wa);
+  color: var(--wa-text);
+}
+
+.next:hover,
+.submit:hover {
+  filter: brightness(1.06);
+}
+
+.next:active,
+.submit:active {
+  transform: scale(0.985);
+}
+
+.submit:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.back {
+  appearance: none;
+  background: transparent;
+  border: 1.5px solid rgba(191, 203, 217, 0.9);
+  border-radius: 999px;
+  padding: 15px 20px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.back:hover {
+  border-color: var(--blue);
+  background: rgba(39, 80, 135, 0.06);
+}
+
+.note {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #7A8599;
+}
+
+/* ---------- Sukses ---------- */
+
+.success {
+  text-align: left;
+}
+
+.successMark {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.16);
+  color: #0F7A3D;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.successTitle {
+  margin: 0 0 8px;
+  font-size: clamp(21px, 3.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+}
+
+.successText {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4A5468;
+}
+
+.waLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--wa);
+  color: var(--wa-text);
+  border-radius: 999px;
+  padding: 15px 26px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.waLink:hover {
+  color: var(--wa-text);
+  filter: brightness(1.06);
+}
+
+.restart {
+  display: block;
+  margin-top: 16px;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ---------- Fokus keyboard ---------- */
+
+.modelBtn:focus-visible,
+.next:focus-visible,
+.back:focus-visible,
+.submit:focus-visible,
+.restart:focus-visible,
+.waLink:focus-visible,
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsif ---------- */
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 64px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .modelGrid,
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .back {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill,
+  .modelBtn,
+  .input,
+  .textarea,
+  .next,
+  .submit,
+  .back {
+    transition: none;
+  }
+
+  .modelBtn:active,
+  .next:active,
+  .submit:active {
+    transform: none;
+  }
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { INSTAGRAM_URL, TIKTOK_URL } from '../lib/constants';
+import { GAMBARAN_HARGA_CONTOH } from '../config/harga-contoh';
+import { FAQ_ITEMS } from '../data/faq';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://putraglass.id'),
@@ -60,6 +62,37 @@ const jsonLd = {
   sameAs: [INSTAGRAM_URL, TIKTOK_URL],
 };
 
+const produkJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Cermin LED Custom Putra Glass',
+  image: 'https://putraglass.id/og.jpg',
+  description:
+    'Cermin LED custom dibuat per pesanan: bentuk bebas, tiga warna cahaya dalam satu sentuhan, opsi antifog, dikirim ke seluruh Indonesia.',
+  brand: { '@type': 'Brand', name: 'Putra Glass' },
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'IDR',
+    // Angka contoh tunggal dari buku harga; bukan rentang karangan.
+    lowPrice: GAMBARAN_HARGA_CONTOH.angka,
+    availability: 'https://schema.org/InStock',
+    url: 'https://putraglass.id/#rancang',
+    seller: { '@type': 'Organization', name: 'Putra Glass' },
+  },
+};
+
+// Sumber tunggal dengan accordion FAQ di halaman, supaya rich result tidak pernah
+// berbeda dari yang dibaca pengunjung (syarat Google untuk FAQPage).
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.pertanyaan,
+    acceptedAnswer: { '@type': 'Answer', text: item.jawaban },
+  })),
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -68,6 +101,7 @@ export default function RootLayout({
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const tiktokPixelId = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
   return (
     <html lang="id">
@@ -89,6 +123,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(produkJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
 
         {/* Meta Pixel */}
@@ -119,6 +161,15 @@ export default function RootLayout({
               }}
             />
           </>
+        )}
+
+        {/* Microsoft Clarity: heatmap, session replay, rage-click. Patuh consent. */}
+        {clarityId && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){try{if(l.localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");`,
+            }}
+          />
         )}
       </head>
       <body>{children}</body>

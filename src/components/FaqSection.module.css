@@ -1,0 +1,253 @@
+/* Pertanyaan umum — latar terang, akordeon Radix. Mobile-first. */
+
+.section {
+  background: var(--paper-cold);
+  color: #1b2233;
+  padding: clamp(64px, 11vw, 104px) 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: start;
+}
+
+.intro {
+  max-width: 34em;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.kickerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--glass-edge);
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 14px 0 0;
+  font-size: clamp(32px, 7vw, 49px);
+  line-height: 0.98;
+  color: var(--navy);
+}
+
+.lead {
+  margin: 14px 0 0;
+  font-size: clamp(15px, 3.6vw, 18px);
+  line-height: 1.6;
+  color: #4a5468;
+  max-width: 38ch;
+}
+
+/* ---------- Akordeon ---------- */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  background: #ffffff;
+  border: 1.5px solid rgba(37, 50, 84, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.item[data-state='open'] {
+  border-color: rgba(156, 207, 194, 0.85);
+  box-shadow: 0 14px 34px rgba(20, 28, 51, 0.09);
+}
+
+.header {
+  margin: 0;
+  display: flex;
+}
+
+.trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px clamp(14px, 3.5vw, 22px);
+  border: none;
+  background: transparent;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: clamp(15px, 3.8vw, 18px);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.trigger:hover {
+  background: rgba(39, 80, 135, 0.04);
+}
+
+.trigger:focus-visible {
+  outline: 3px solid #6e9be0;
+  outline-offset: -3px;
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(39, 80, 135, 0.08);
+  color: var(--blue);
+  transition: transform 220ms ease-out, background 220ms ease-out, color 220ms ease-out;
+}
+
+.trigger[data-state='open'] .chevron {
+  transform: rotate(180deg);
+  background: var(--glass-edge);
+  color: #06301a;
+}
+
+.content {
+  overflow: hidden;
+}
+
+.content[data-state='open'] {
+  animation: faq-turun 200ms ease-out;
+}
+
+.content[data-state='closed'] {
+  animation: faq-naik 200ms ease-in;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 clamp(14px, 3.5vw, 22px) 20px;
+  font-size: clamp(14px, 3.5vw, 16px);
+  line-height: 1.65;
+  color: #4a5468;
+  max-width: 62ch;
+}
+
+@keyframes faq-turun {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes faq-naik {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ---------- CTA penutup ---------- */
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  margin-top: 28px;
+  padding: clamp(18px, 4vw, 24px);
+  border-radius: 16px;
+  background: var(--navy);
+  color: #ffffff;
+}
+
+.ctaText {
+  margin: 0;
+  flex: 1 1 16em;
+  font-size: clamp(15px, 3.6vw, 17px);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.ctaNote {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--silver);
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 12px;
+  background: var(--wa);
+  color: var(--wa-text);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform 180ms ease-out, filter 180ms ease-out;
+}
+
+.ctaButton:hover {
+  color: var(--wa-text);
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+    gap: 64px;
+  }
+
+  .intro {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ctaButton {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content[data-state='open'],
+  .content[data-state='closed'] {
+    animation: none;
+  }
+
+  .item,
+  .trigger,
+  .chevron,
+  .ctaButton {
+    transition: none;
+  }
+
+  .ctaButton:hover {
+    transform: none;
+  }
+}

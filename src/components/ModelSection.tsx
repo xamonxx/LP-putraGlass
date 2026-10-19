@@ -1,7 +1,71 @@
-import React from 'react';
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { PictureImage } from './PictureImage';
+import { trackEvent } from '../lib/tracking';
+import styles from './ModelSection.module.css';
+
+/** Bentuk katalog yang dipajang. Gambar dan alt mengikuti aset yang sudah ada. */
+const MODEL_KATALOG = [
+  { id: 'capsul', nama: 'capsul', gambar: 'model-capsul', alt: 'Cermin LED bentuk capsul' },
+  { id: 'leaf', nama: 'leaf', gambar: 'model-leaf', alt: 'Cermin LED bentuk leaf' },
+  { id: 'halfmoon', nama: 'half moon', gambar: 'model-halfmoon', alt: 'Cermin LED bentuk half moon' },
+  { id: 'rectangle', nama: 'rectangle', gambar: 'model-rectangle', alt: 'Cermin LED bentuk rectangle' },
+] as const;
 
 export function ModelSection() {
+  // Di bawah 768 px kartu bisa digeser; di desktop Embla dimatikan lewat
+  // breakpoint supaya tidak ada transform dan listener yang tidak terpakai.
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    containScroll: 'trimSnaps',
+    loop: false,
+    breakpoints: {
+      '(min-width: 768px)': { active: false },
+    },
+  });
+
+  const [slideAktif, setSlideAktif] = useState(0);
+  const [bisaMundur, setBisaMundur] = useState(false);
+  const [bisaMaju, setBisaMaju] = useState(false);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const sinkron = () => {
+      setSlideAktif(emblaApi.selectedScrollSnap());
+      setBisaMundur(emblaApi.canScrollPrev());
+      setBisaMaju(emblaApi.canScrollNext());
+    };
+
+    sinkron();
+    emblaApi.on('select', sinkron);
+    emblaApi.on('reInit', sinkron);
+
+    return () => {
+      emblaApi.off('select', sinkron);
+      emblaApi.off('reInit', sinkron);
+    };
+  }, [emblaApi]);
+
+  const keSlide = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
+  const mundur = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const maju = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  const padaTombolPanah = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        mundur();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        maju();
+      }
+    },
+    [mundur, maju],
+  );
+
   return (
     <section id="model" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
       <div className="wrap">
@@ -58,51 +122,81 @@ export function ModelSection() {
             <a href="#rancang" style={{ fontSize: '16px', fontWeight: 600, color: '#275087' }}>
               Lihat semua bentuk katalog
             </a>
-            <div className="shapes" style={{ marginTop: '14px' }}>
-              <figure style={{ margin: 0 }}>
-                <PictureImage
-                  name="model-capsul"
-                  alt="Cermin LED bentuk capsul"
-                  sizes="(max-width: 860px) calc(50vw - 30px), 300px"
-                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
-                />
-                <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
-                  capsul
-                </figcaption>
-              </figure>
-              <figure style={{ margin: 0 }}>
-                <PictureImage
-                  name="model-leaf"
-                  alt="Cermin LED bentuk leaf"
-                  sizes="(max-width: 860px) calc(50vw - 30px), 300px"
-                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
-                />
-                <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
-                  leaf
-                </figcaption>
-              </figure>
-              <figure style={{ margin: 0 }}>
-                <PictureImage
-                  name="model-halfmoon"
-                  alt="Cermin LED bentuk half moon"
-                  sizes="(max-width: 860px) calc(50vw - 30px), 300px"
-                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
-                />
-                <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
-                  half moon
-                </figcaption>
-              </figure>
-              <figure style={{ margin: 0 }}>
-                <PictureImage
-                  name="model-rectangle"
-                  alt="Cermin LED bentuk rectangle"
-                  sizes="(max-width: 860px) calc(50vw - 30px), 300px"
-                  style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', display: 'block' }}
-                />
-                <figcaption style={{ marginTop: '10px', fontSize: '15px', fontWeight: 600, color: '#253254' }}>
-                  rectangle
-                </figcaption>
-              </figure>
+
+            <div
+              className={styles.carousel}
+              role="group"
+              aria-roledescription="carousel"
+              aria-label="Bentuk model jadi dari katalog"
+              onKeyDown={padaTombolPanah}
+            >
+              <div className={styles.viewport} ref={emblaRef}>
+                <ul className={styles.container}>
+                  {MODEL_KATALOG.map((model) => (
+                    <li className={styles.slide} key={model.id}>
+                      <a
+                        href="#rancang"
+                        className={styles.card}
+                        onClick={() => trackEvent('model_click', { model: model.id })}
+                      >
+                        <figure style={{ margin: 0 }}>
+                          <span className={styles.media}>
+                            <PictureImage
+                              name={model.gambar}
+                              alt={model.alt}
+                              sizes="(max-width: 767px) 64vw, (max-width: 860px) calc(50vw - 30px), 300px"
+                              className={styles.img}
+                            />
+                          </span>
+                          <figcaption className={styles.caption}>
+                            <span>{model.nama}</span>
+                            <span className={styles.captionHint}>Hitung harga</span>
+                          </figcaption>
+                        </figure>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className={styles.controls}>
+                <div className={styles.dots}>
+                  {MODEL_KATALOG.map((model, i) => (
+                    <button
+                      key={model.id}
+                      type="button"
+                      className={`${styles.dot} ${i === slideAktif ? styles.dotActive : ''}`}
+                      aria-label={`Lihat model ${model.nama}`}
+                      aria-current={i === slideAktif ? 'true' : undefined}
+                      onClick={() => keSlide(i)}
+                    />
+                  ))}
+                </div>
+                <div className={styles.arrows}>
+                  <button
+                    type="button"
+                    className={styles.arrow}
+                    aria-label="Model sebelumnya"
+                    onClick={mundur}
+                    disabled={!bisaMundur}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.arrow}
+                    aria-label="Model berikutnya"
+                    onClick={maju}
+                    disabled={!bisaMaju}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

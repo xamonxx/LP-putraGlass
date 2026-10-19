@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { PictureImage } from './PictureImage';
+import { Reveal } from './Reveal';
 
 export function AntifogDemoSection() {
   const [sliderPos, setSliderPos] = useState<number>(50); // percentage 0 - 100
@@ -12,13 +13,18 @@ export function AntifogDemoSection() {
         <div className="antifog-layout">
           {/* Kolom Kiri: Teks & CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <Reveal trackSection="antifog">
             <h2 className="h2 disp" style={{ margin: 0, color: '#FFFFFF', lineHeight: 1.05 }}>
               tetap jernih setelah mandi air panas.
             </h2>
+            </Reveal>
+            <Reveal delay={90}>
             <p style={{ margin: 0, fontSize: '17px', lineHeight: 1.6, color: '#C9D2E0', maxWidth: '32em' }}>
               Pad pemanas tipis di balik kaca menjaga permukaannya tetap hangat, jadi uap air tidak sempat mengembun. Kamu langsung bisa bercermin selesai mandi.
             </p>
+            </Reveal>
 
+            <Reveal delay={180}>
             <ul style={{ listStyle: 'none', margin: '4px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '15px', color: '#E2E8F0' }}>
                 <span
@@ -47,7 +53,9 @@ export function AntifogDemoSection() {
                 Pilih &quot;Tambah antifog&quot; di langkah 03 saat merancang.
               </li>
             </ul>
+            </Reveal>
 
+            <Reveal delay={260}>
             <div style={{ marginTop: '12px' }}>
               <a
                 href="#rancang"
@@ -69,9 +77,11 @@ export function AntifogDemoSection() {
                 Rancang dengan antifog
               </a>
             </div>
+            </Reveal>
           </div>
 
           {/* Kolom Kanan: Slider 5:4 (Maks 640 px) */}
+          <Reveal variant="scale" delay={120}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
             <div
               className="slider-frame"
@@ -227,6 +237,7 @@ export function AntifogDemoSection() {
               Geser garisnya. Kiri: simulasi kaca berembun. Kanan: kaca dengan antifog. Gambar dari render katalog Putra Glass.
             </p>
           </div>
+          </Reveal>
         </div>
       </div>
 

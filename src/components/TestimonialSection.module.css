@@ -1,0 +1,288 @@
+/* Kata pembeli: kartu kaca di atas latar terang, digeser manual. */
+
+.section {
+  background: var(--paper-cold);
+  color: #1B2233;
+  padding: clamp(56px, 10vw, 96px) 0;
+  overflow-x: clip;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(32px, 8vw, 54px);
+  line-height: 1;
+}
+
+.lead {
+  margin: 14px 0 0;
+  max-width: 34em;
+  font-size: clamp(15px, 4vw, 18px);
+  line-height: 1.6;
+  color: #4A5468;
+}
+
+.carousel {
+  margin-top: clamp(24px, 5vw, 40px);
+}
+
+.viewport {
+  overflow: hidden;
+  margin-inline: -4px;
+  padding-inline: 4px;
+}
+
+.container {
+  display: flex;
+  gap: clamp(12px, 3vw, 20px);
+  touch-action: pan-y pinch-zoom;
+  align-items: stretch;
+}
+
+.slide {
+  flex: 0 0 86%;
+  min-width: 0;
+  display: flex;
+}
+
+/* Kartu kaca: putih transparan di atas latar terang, tepi perak, kilau tepi kaca */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: clamp(18px, 4.5vw, 26px);
+  border: 1px solid rgba(191, 203, 217, 0.6);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.62));
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  box-shadow: 0 14px 36px rgba(20, 28, 51, 0.08);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, transparent, var(--glass-edge), transparent);
+  opacity: 0.8;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--glow-warm);
+}
+
+.starOff {
+  color: var(--silver);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(156, 207, 194, 0.7);
+  background: rgba(156, 207, 194, 0.16);
+  color: #1F5C4C;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.quote {
+  margin: 0;
+  font-size: clamp(15px, 4vw, 17px);
+  line-height: 1.6;
+  color: #1B2233;
+}
+
+.cardFoot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(140deg, var(--navy), var(--blue));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nama {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.meta {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #566178;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--silver);
+  transition: width 200ms ease-out, background 200ms ease-out;
+}
+
+.dotActive::before {
+  width: 22px;
+  background: var(--blue);
+}
+
+.dot:focus-visible,
+.arrow:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrow {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--silver);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 180ms ease-out, border-color 180ms ease-out, opacity 180ms ease-out;
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--blue);
+  background: #fff;
+}
+
+.arrow:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+/* Baris bukti sosial statis */
+.proof {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: clamp(28px, 6vw, 44px);
+  padding-top: clamp(20px, 4vw, 28px);
+  border-top: 1px solid rgba(191, 203, 217, 0.7);
+}
+
+.proofItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proofAngka {
+  font-size: clamp(24px, 6vw, 30px);
+  line-height: 1.05;
+  color: var(--navy);
+}
+
+.proofTeks {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4A5468;
+  max-width: 30em;
+}
+
+@media (min-width: 640px) {
+  .slide {
+    flex: 0 0 58%;
+  }
+  .proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide {
+    flex: 0 0 calc(33.333% - 14px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before,
+  .arrow {
+    transition: none;
+  }
+}

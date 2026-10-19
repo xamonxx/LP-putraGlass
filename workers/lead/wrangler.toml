@@ -1,0 +1,22 @@
+# Worker penerima lead landing page Putra Glass.
+# Jalankan perintah di bawah dari folder ini (workers/lead).
+# Langkah lengkap ada di README.md.
+
+name = "putraglass-lead"
+main = "index.ts"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+# Origin yang boleh memanggil worker (dipisah koma, tanpa garis miring di akhir).
+# GANTI dengan domain aslimu. Untuk uji lokal tambahkan http://localhost:3000.
+[vars]
+ALLOWED_ORIGIN = "https://putraglass.id,https://www.putraglass.id,http://localhost:3000"
+
+# GANTI id di bawah dengan hasil `wrangler kv namespace create LEADS_KV`.
+[[kv_namespaces]]
+binding = "LEADS_KV"
+id = "GANTI_DENGAN_ID_KV_PRODUKSI"
+preview_id = "GANTI_DENGAN_ID_KV_PREVIEW"
+
+# TELEGRAM_BOT_TOKEN dan TELEGRAM_CHAT_ID sengaja TIDAK ditulis di file ini.
+# Keduanya diisi lewat `wrangler secret put` supaya tidak ikut masuk repo.

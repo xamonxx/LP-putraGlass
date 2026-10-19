@@ -1,0 +1,130 @@
+/*
+ * Reveal — animasi muncul saat masuk layar.
+ *
+ * Jalur utama memakai scroll-driven animation murni CSS (`animation-timeline: view()`).
+ * Tidak ada JavaScript yang jalan di main thread, dan tetap bekerja walau JS mati.
+ *
+ * Jalur cadangan (browser tanpa dukungan) memakai IntersectionObserver yang
+ * menambah class `is-visible`. Di jalur ini keadaan dasar elemen sengaja
+ * TERLIHAT: animasi hanya menyala saat class ditambahkan, jadi kalau JS mati
+ * atau observer tidak ada, konten tidak pernah tersembunyi.
+ */
+
+.reveal {
+  /* Geseran titik mulai untuk efek berurutan antar kartu (diisi dari TSX). */
+  --reveal-shift: 0%;
+  /* Panjang rentang scroll yang dipakai untuk menyelesaikan animasi. */
+  --reveal-span: 32%;
+  /* Jeda untuk jalur cadangan berbasis waktu. */
+  --reveal-delay: 0ms;
+}
+
+/* ---------- Jalur utama: scroll-driven ---------- */
+
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation-name: revealFadeUp;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 0.68, 0.24, 1);
+    animation-timeline: view();
+    /*
+     * Rentang sengaja berakhir di awal "entry": elemen terakhir halaman pun
+     * pasti selesai beranimasi walau halaman tidak bisa di-scroll lebih jauh.
+     */
+    animation-range: entry var(--reveal-shift) entry calc(var(--reveal-shift) + var(--reveal-span));
+  }
+
+  .fade {
+    animation-name: revealFade;
+  }
+
+  .scale {
+    animation-name: revealScale;
+  }
+
+  .blur {
+    animation-name: revealBlur;
+  }
+}
+
+/* ---------- Jalur cadangan: IntersectionObserver ---------- */
+
+@supports not (animation-timeline: view()) {
+  .reveal.isVisible {
+    animation-name: revealFadeUp;
+    animation-duration: 620ms;
+    animation-delay: var(--reveal-delay);
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 0.68, 0.24, 1);
+  }
+
+  .fade.isVisible {
+    animation-name: revealFade;
+  }
+
+  .scale.isVisible {
+    animation-name: revealScale;
+  }
+
+  .blur.isVisible {
+    animation-name: revealBlur;
+  }
+}
+
+/* ---------- Keyframes (hanya opacity, transform, filter) ---------- */
+
+@keyframes revealFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes revealFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes revealBlur {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+/* ---------- Hormati "kurangi gerakan" ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.isVisible {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

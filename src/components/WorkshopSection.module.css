@@ -1,0 +1,306 @@
+/* Lightbox foto workshop (Radix Dialog) + tombol pemicunya.
+   Semua gerak dimatikan saat prefers-reduced-motion. */
+
+/* ---------- Pemicu: foto proses jadi tombol ---------- */
+
+.fotoTrigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  position: relative;
+}
+
+.fotoTrigger:focus-visible {
+  outline: 3px solid #6e9be0;
+  outline-offset: 3px;
+}
+
+/* Penanda "perbesar" di pojok foto proses */
+.fotoTrigger::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(20, 28, 51, 0.72) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.6-3.6M11 8.4v5.2M8.4 11h5.2'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
+  opacity: 0.9;
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+  pointer-events: none;
+}
+
+.fotoTrigger:hover::after,
+.fotoTrigger:focus-visible::after {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* Tombol perbesar di kartu foto besar */
+.zoomHero {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: rgba(20, 28, 51, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: zoom-in;
+  transition: background 200ms ease-out, transform 200ms ease-out;
+}
+
+.zoomHero:hover {
+  background: rgba(20, 28, 51, 0.78);
+  transform: translateY(-1px);
+}
+
+.zoomHero:focus-visible {
+  outline: 3px solid #6e9be0;
+  outline-offset: 3px;
+}
+
+/* ---------- Lightbox ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(10, 14, 28, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: lb-masuk 200ms ease-out;
+}
+
+.overlay[data-state='closed'] {
+  animation: lb-keluar 160ms ease-in;
+}
+
+.lightbox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 121;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(94vw, 1080px);
+  max-height: 92vh;
+  color: #ffffff;
+  animation: lb-naik 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox[data-state='closed'] {
+  animation: lb-turun 160ms ease-in;
+}
+
+.lightbox:focus {
+  outline: none;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 180ms ease-out, border-color 180ms ease-out;
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.close:focus-visible,
+.nav:focus-visible {
+  outline: 3px solid #6e9be0;
+  outline-offset: 3px;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0f1528;
+  border: 1px solid rgba(191, 203, 217, 0.22);
+}
+
+.stage picture {
+  display: block;
+  max-width: 100%;
+}
+
+.stage img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: min(66vh, 720px);
+  object-fit: contain;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.judul {
+  margin: 0;
+  font-size: clamp(17px, 4vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.keterangan {
+  margin: 0;
+  font-size: clamp(13px, 3.4vw, 15px);
+  line-height: 1.55;
+  color: var(--silver);
+  max-width: 60ch;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 180ms ease-out, transform 180ms ease-out;
+}
+
+.nav:hover {
+  background: var(--glass-edge);
+  color: #06301a;
+  transform: translateY(-1px);
+}
+
+.hitung {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--silver);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 860px) {
+  .lightbox {
+    width: calc(100vw - 24px);
+    gap: 10px;
+  }
+
+  .stage img {
+    max-height: 56vh;
+  }
+
+  .zoomHero {
+    top: 12px;
+    right: 12px;
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+}
+
+@keyframes lb-masuk {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lb-keluar {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes lb-naik {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 14px)) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes lb-turun {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 10px)) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay[data-state='closed'],
+  .lightbox,
+  .lightbox[data-state='closed'] {
+    animation: none;
+  }
+
+  .fotoTrigger::after,
+  .zoomHero,
+  .close,
+  .nav {
+    transition: none;
+  }
+
+  .zoomHero:hover,
+  .nav:hover,
+  .fotoTrigger:hover::after,
+  .fotoTrigger:focus-visible::after {
+    transform: none;
+  }
+}
