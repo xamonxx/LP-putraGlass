@@ -553,15 +553,16 @@ export function ConfiguratorSection() {
                         setShape(s.id);
                       }}
                       aria-pressed={isSel}
+                      aria-label={`Pilih bentuk ${s.label}`}
                       className={`shape-btn ${isSel ? 'selected' : ''}`}
                     >
-                      <svg width="24" height="34" viewBox="0 0 24 34" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <svg width="24" height="34" viewBox="0 0 24 34" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                         {s.id === 'rectangle' && <rect x="3" y="3" width="18" height="28" rx="2" />}
                         {s.id === 'capsul' && <rect x="3" y="3" width="18" height="28" rx="9" />}
                         {s.id === 'oval' && <ellipse cx="12" cy="17" rx="9" ry="14" />}
                         {s.id === 'round' && <circle cx="12" cy="17" r="10" />}
                       </svg>
-                      <span style={{ fontSize: '13px', fontWeight: 600 }}>{s.label}</span>
+                      <span style={{ fontSize: '13px', fontWeight: 600 }} aria-hidden="true">{s.label}</span>
                     </button>
                   );
                 })}
@@ -675,10 +676,11 @@ export function ConfiguratorSection() {
                     setLed('3_warna');
                   }}
                   aria-pressed={led === '3_warna'}
+                  aria-label="Pilih LED 3 warna: hangat, natural, putih dalam satu cermin"
                   className={`feature-box ${led === '3_warna' ? 'selected' : ''}`}
                 >
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>LED 3 warna</span>
-                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }} aria-hidden="true">LED 3 warna</span>
+                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }} aria-hidden="true">
                     Hangat, natural, putih dalam satu cermin
                   </span>
                 </button>
@@ -690,10 +692,11 @@ export function ConfiguratorSection() {
                     setLed('1_warna');
                   }}
                   aria-pressed={led === '1_warna'}
+                  aria-label="Pilih LED 1 warna: satu warna pilihanmu"
                   className={`feature-box ${led === '1_warna' ? 'selected' : ''}`}
                 >
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>LED 1 warna</span>
-                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }} aria-hidden="true">LED 1 warna</span>
+                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }} aria-hidden="true">
                     Satu warna pilihanmu
                   </span>
                 </button>
@@ -708,10 +711,11 @@ export function ConfiguratorSection() {
                     setCtrl('touchscreen');
                   }}
                   aria-pressed={ctrl === 'touchscreen'}
+                  aria-label="Pilih kontrol touchscreen: sentuh untuk nyala dan ganti warna"
                   className={`feature-box ${ctrl === 'touchscreen' ? 'selected' : ''}`}
                 >
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>Touchscreen</span>
-                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }} aria-hidden="true">Touchscreen</span>
+                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }} aria-hidden="true">
                     Sentuh untuk nyala dan ganti warna
                   </span>
                 </button>
@@ -723,10 +727,11 @@ export function ConfiguratorSection() {
                     setCtrl('sensor_baterai');
                   }}
                   aria-pressed={ctrl === 'sensor_baterai'}
+                  aria-label="Pilih kontrol sensor tangan: pakai baterai, tanpa colokan"
                   className={`feature-box ${ctrl === 'sensor_baterai' ? 'selected' : ''}`}
                 >
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>Sensor tangan</span>
-                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }} aria-hidden="true">Sensor tangan</span>
+                  <span style={{ fontSize: '12px', color: '#9FB0C8', marginTop: '2px' }} aria-hidden="true">
                     Pakai baterai, tanpa colokan
                   </span>
                 </button>
@@ -740,17 +745,18 @@ export function ConfiguratorSection() {
                   setFog(!fog);
                 }}
                 aria-pressed={fog}
+                aria-label={fog ? 'Antifog dipilih: kaca tetap jernih setelah mandi air panas' : 'Tambah antifog: kaca tetap jernih setelah mandi air panas'}
                 className={`antifog-check-btn ${fog ? 'selected' : ''}`}
                 style={{ marginTop: '10px' }}
               >
-                <span className={`check-box-indicator ${fog ? 'active' : ''}`}>
+                <span className={`check-box-indicator ${fog ? 'active' : ''}`} aria-hidden="true">
                   {fog && (
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06301A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   )}
                 </span>
-                <div>
+                <div aria-hidden="true">
                   <div style={{ fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>
                     Tambah antifog
                   </div>
@@ -775,6 +781,7 @@ export function ConfiguratorSection() {
                   onUserInteraction();
                   setCity(e.target.value);
                 }}
+                aria-label="Masukkan kota tujuan pengiriman"
                 className="fld"
               />
             </div>

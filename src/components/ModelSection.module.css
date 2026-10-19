@@ -1,7 +1,7 @@
 /* Carousel model jadi: digeser di HP, tetap grid di desktop. */
 
 .carousel {
-  margin-top: 14px;
+  margin-top: var(--space-4);
 }
 
 .viewport {
@@ -13,7 +13,7 @@
 
 .container {
   display: flex;
-  gap: 14px;
+  gap: var(--space-4);
   touch-action: pan-y pinch-zoom;
   margin: 0;
   padding: 0;
@@ -29,15 +29,18 @@
   display: block;
   width: 100%;
   margin: 0;
-  padding: 10px 10px 12px;
+  padding: var(--space-3);
   text-align: left;
-  border: 1px solid rgba(191, 203, 217, 0.55);
-  border-radius: 16px;
+  border: 1px solid var(--slate-light);
+  border-radius: var(--radius-2xl);
   background: rgba(255, 255, 255, 0.72);
   color: var(--navy);
   text-decoration: none;
-  box-shadow: 0 10px 28px rgba(20, 28, 51, 0.06);
-  transition: transform 220ms ease-out, box-shadow 220ms ease-out, border-color 220ms ease-out;
+  box-shadow: var(--shadow-base);
+  transition: transform var(--duration-fast) var(--ease-smooth),
+    box-shadow var(--duration-fast) var(--ease-smooth),
+    border-color var(--duration-fast) var(--ease-smooth);
+  cursor: pointer;
 }
 
 .card:hover {
@@ -56,7 +59,7 @@
   display: block;
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
   line-height: 0;
 }
 
@@ -66,23 +69,23 @@
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
 }
 
 .caption {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 10px;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
   font-size: clamp(14px, 3.4vw, 15px);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--navy);
 }
 
 .captionHint {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-semibold);
   color: var(--blue);
   white-space: nowrap;
 }
@@ -92,14 +95,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .dots {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .dot {
@@ -111,16 +114,17 @@
   cursor: pointer;
   display: grid;
   place-items: center;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
 }
 
 .dot::before {
   content: '';
   width: 8px;
   height: 8px;
-  border-radius: 999px;
-  background: var(--silver);
-  transition: width 200ms ease-out, background 200ms ease-out;
+  border-radius: var(--radius-full);
+  background: var(--slate-light);
+  transition: width var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth);
 }
 
 .dotActive::before {
@@ -135,7 +139,7 @@
 
 .arrows {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .arrow {
@@ -143,12 +147,15 @@
   height: 40px;
   display: grid;
   place-items: center;
-  border-radius: 999px;
-  border: 1px solid var(--silver);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--slate-light);
   background: rgba(255, 255, 255, 0.86);
   color: var(--navy);
   cursor: pointer;
-  transition: background 180ms ease-out, border-color 180ms ease-out, opacity 180ms ease-out;
+  transition: background var(--duration-micro) var(--ease-smooth),
+    border-color var(--duration-micro) var(--ease-smooth),
+    opacity var(--duration-micro) var(--ease-smooth);
+  font-size: 0;
 }
 
 .arrow:hover:not(:disabled) {

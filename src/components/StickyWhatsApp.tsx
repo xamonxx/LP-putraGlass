@@ -51,6 +51,7 @@ export function StickyWhatsApp() {
         href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Tanya harga cermin LED custom melalui WhatsApp"
         onClick={(e) => {
             // Hitung ulang saat diklik supaya kode sumber iklan (UTM) yang terbaru ikut terkirim
             e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());

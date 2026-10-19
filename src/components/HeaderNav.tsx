@@ -2,7 +2,7 @@
 
 import type { LeadSourceCode } from '../lib/tracking';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { buildWhatsAppLink, getStoredLeadSource, trackLeadClick } from '../lib/tracking';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -35,6 +35,19 @@ export function HeaderNav() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      window.addEventListener('keydown', handleEscapeKey);
+      return () => window.removeEventListener('keydown', handleEscapeKey);
+    }
+  }, [isMenuOpen]);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -134,8 +147,9 @@ export function HeaderNav() {
           onClick={handleMenuToggle}
           aria-expanded={isMenuOpen}
           aria-label="Menu navigasi"
+          aria-controls="mobile-menu"
         >
-          <span className={styles.hamburger} />
+          <span className={styles.hamburger} aria-hidden="true" />
         </button>
       </div>
 
@@ -151,6 +165,7 @@ export function HeaderNav() {
             onClick={() => setIsMenuOpen(false)}
           >
             <motion.nav
+              id="mobile-menu"
               className={styles.mobileMenu}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -160,6 +175,8 @@ export function HeaderNav() {
                 ease: [0.4, 0, 0.2, 1],
               }}
               onClick={(e) => e.stopPropagation()}
+              role="navigation"
+              aria-label="Menu navigasi mobile"
             >
               <div className={styles.mobileMenuHeader}>
                 <button

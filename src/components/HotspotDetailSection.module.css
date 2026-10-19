@@ -1,0 +1,351 @@
+/*
+ * HotspotDetailSection — Interactive feature exploration with hotspot navigation
+ *
+ * Design tokens applied for colors, spacing, typography
+ * Framer-motion handles reveal animations via Reveal component
+ * Enhanced hover/focus states for accessibility
+ * Responsive: stacked mobile, 2-column desktop
+ */
+
+/* ============ LAYOUT ============ */
+
+.section {
+  background: var(--paper-cold);
+  color: var(--navy);
+  padding: var(--space-fluid-xl) 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--space-12);
+  align-items: start;
+  margin-top: var(--space-12);
+}
+
+/* ============ BASE IMAGE COLUMN (LEFT) ============ */
+
+.baseWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: var(--bg-dark);
+  box-shadow: 0 16px 40px rgba(20, 28, 51, 0.12);
+}
+
+.baseImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+/* ============ HOTSPOT DOTS ============ */
+
+.hotspotBtn {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform var(--duration-fast) var(--ease-smooth);
+}
+
+.hotspotBtn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.hotspotBtn:focus-visible {
+  outline: 3px solid var(--accent-glass);
+  outline-offset: 4px;
+  border-radius: var(--radius-full);
+}
+
+.hotspotCircle {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  background: var(--navy);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  color: #FFFFFF;
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-extrabold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-fast) var(--ease-smooth),
+              color var(--duration-fast) var(--ease-smooth),
+              border-color var(--duration-fast) var(--ease-smooth);
+}
+
+.hotspotCircle.active {
+  background: var(--accent-glass);
+  color: var(--wa-text);
+  border-color: #FFFFFF;
+}
+
+.hotspotPulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--accent-glass);
+  animation: hotspotPulse 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes hotspotPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ============ TABS BAR ============ */
+
+.tabsBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  flex-wrap: nowrap;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid #D5DCE6;
+  background: #FFFFFF;
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: var(--font-caption);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.tabBtn:hover {
+  border-color: var(--blue);
+  background: var(--paper);
+}
+
+.tabBtn:focus-visible {
+  outline: 3px solid var(--accent-glass);
+  outline-offset: 2px;
+  border-radius: var(--radius-full);
+}
+
+.tabBtn.active {
+  background: var(--bg-dark);
+  border-color: var(--bg-dark);
+  color: #FFFFFF;
+}
+
+.tabNum {
+  font-size: 12px;
+  font-weight: var(--font-weight-extrabold);
+  opacity: 0.75;
+}
+
+/* ============ DETAIL CARD COLUMN (RIGHT) ============ */
+
+.card {
+  background: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid #E2E8F0;
+  padding: var(--space-6);
+  box-shadow: 0 16px 40px rgba(20, 28, 51, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.mediaWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #111830;
+}
+
+.mediaWrap :global(svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.animationLabel {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: rgba(20, 28, 51, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  letter-spacing: var(--letter-spacing-wide);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.counter {
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-bold);
+  color: var(--blue);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-h3);
+  color: var(--navy);
+  line-height: var(--line-height-snug);
+}
+
+.description {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-body-sm);
+  line-height: var(--line-height-normal);
+  color: #4A5468;
+}
+
+/* ============ NAVIGATION ARROWS ============ */
+
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #D5DCE6;
+  background: #FFFFFF;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-smooth),
+              background var(--duration-fast) var(--ease-smooth),
+              color var(--duration-fast) var(--ease-smooth);
+}
+
+.navBtn:hover {
+  border-color: var(--blue);
+  background: var(--paper);
+  color: var(--blue);
+}
+
+.navBtn:focus-visible {
+  outline: 3px solid var(--accent-glass);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.navBtn:active {
+  transform: scale(0.95);
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .baseWrapper {
+    border-radius: 0;
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+  }
+
+  .card {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .title {
+    font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+  }
+
+  .description {
+    font-size: var(--font-caption);
+    line-height: 1.5;
+  }
+
+  .tabsBar {
+    overflow-x: auto;
+    scroll-padding-inline: var(--space-4);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--space-1);
+    margin-top: var(--space-3);
+  }
+
+  .tabsBar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabBtn {
+    flex-shrink: 0;
+    padding: 0 var(--space-3);
+    font-size: 13px;
+  }
+}
+
+/* ============ ACCESSIBILITY ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspotBtn,
+  .hotspotCircle,
+  .tabBtn,
+  .navBtn {
+    transition: none;
+  }
+
+  .hotspotPulse {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .hotspotBtn:hover {
+    transform: translate(-50%, -50%);
+  }
+}

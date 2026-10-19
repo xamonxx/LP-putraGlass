@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MAPS_URL } from '../lib/constants';
 import { trackEvent } from '../lib/tracking';
@@ -73,7 +75,7 @@ export function WorkshopSection() {
   };
 
   return (
-    <section id="workshop" style={{ background: '#141C33', color: '#FFFFFF', padding: '104px 0' }}>
+    <section id="workshop" className={styles.section}>
       <div className="wrap">
         {/* Large Hero Card */}
         <div className="ws-hero">
@@ -103,7 +105,13 @@ export function WorkshopSection() {
             </svg>
             Perbesar foto
           </button>
-          <div className="ws-content" style={{ position: 'relative', padding: '56px', maxWidth: '820px', zIndex: 2 }}>
+          <motion.div
+            className={styles.content}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.7, ease: [0.22, 0.68, 0.24, 1] }}
+          >
             <p style={{ margin: 0, display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 600, color: '#FFE9C7' }}>
               <span
                 aria-hidden="true"
@@ -170,105 +178,47 @@ export function WorkshopSection() {
               </svg>
               Lihat lokasi workshop
             </a>
-          </div>
+          </motion.div>
         </div>
 
         {/* 4 Process Cards connected by continuous glowing line */}
-        <h3 className="disp" style={{ margin: '88px 0 0', fontSize: '30px' }}>
+        <motion.h3
+          className={styles.processTitle}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 0.68, 0.24, 1] }}
+        >
           dari lembar kaca sampai menyala di tempatmu
-        </h3>
-        <ol className="proc" style={{ listStyle: 'none', margin: '40px 0 0', padding: '26px 0 0' }}>
-          <li className="step">
-            <span className="step-dot" aria-hidden="true" />
-            <button
-              type="button"
-              className={`step-img ${styles.fotoTrigger}`}
-              onClick={() => bukaFoto(1)}
-              aria-label="Perbesar foto: potong dan bevel"
-            >
-              <PictureImage
-                name="workshop-poles"
-                alt="Pekerja memoles tepi kaca cermin"
-                sizes="(max-width: 860px) 72vw, 280px"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </button>
-            <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
-              1. Potong dan bevel
-            </p>
-            <p style={{ margin: '8px 0 0', fontSize: '15px', lineHeight: 1.55, color: '#B7C3D6' }}>
+        </motion.h3>
+        <ol className={styles.processSteps}>
+          <ProcessStep index={0} foto={FOTO_WORKSHOP[1]} bukaFoto={bukaFoto}>
+            <p className={styles.stepTitle}>1. Potong dan bevel</p>
+            <p className={styles.stepDesc}>
               Kaca dipotong sesuai ukuranmu, tepinya dibevel 10 mm lalu dipoles mesin.
             </p>
-          </li>
+          </ProcessStep>
 
-          <li className="step">
-            <span className="step-dot" aria-hidden="true" />
-            <button
-              type="button"
-              className={`step-img ${styles.fotoTrigger}`}
-              onClick={() => bukaFoto(2)}
-              aria-label="Perbesar foto: pasang LED"
-            >
-              <PictureImage
-                name="proses-led"
-                alt="Strip LED menyala di cermin persegi yang sedang dirakit"
-                sizes="(max-width: 860px) 72vw, 280px"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </button>
-            <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
-              2. Pasang LED
-            </p>
-            <p style={{ margin: '8px 0 0', fontSize: '15px', lineHeight: 1.55, color: '#B7C3D6' }}>
+          <ProcessStep index={1} foto={FOTO_WORKSHOP[2]} bukaFoto={bukaFoto}>
+            <p className={styles.stepTitle}>2. Pasang LED</p>
+            <p className={styles.stepDesc}>
               Strip LED dipasang lurus mengikuti bentuk, lengkap dengan touchscreen atau sensor.
             </p>
-          </li>
+          </ProcessStep>
 
-          <li className="step">
-            <span className="step-dot" aria-hidden="true" />
-            <button
-              type="button"
-              className={`step-img ${styles.fotoTrigger}`}
-              onClick={() => bukaFoto(3)}
-              aria-label="Perbesar foto: uji nyala"
-            >
-              <PictureImage
-                name="workshop-led"
-                alt="Uji nyala cermin bentuk leaf pada malam hari"
-                sizes="(max-width: 860px) 72vw, 280px"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </button>
-            <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
-              3. Uji nyala
-            </p>
-            <p style={{ margin: '8px 0 0', fontSize: '15px', lineHeight: 1.55, color: '#B7C3D6' }}>
+          <ProcessStep index={2} foto={FOTO_WORKSHOP[3]} bukaFoto={bukaFoto}>
+            <p className={styles.stepTitle}>3. Uji nyala</p>
+            <p className={styles.stepDesc}>
               Setiap cermin dinyalakan dan dicek tiga warnanya sebelum dikemas.
             </p>
-          </li>
+          </ProcessStep>
 
-          <li className="step">
-            <span className="step-dot" aria-hidden="true" />
-            <button
-              type="button"
-              className={`step-img ${styles.fotoTrigger}`}
-              onClick={() => bukaFoto(4)}
-              aria-label="Perbesar foto: terpasang di tempatmu"
-            >
-              <PictureImage
-                name="pasang-cafe"
-                alt="Cermin LED kapsul terpasang di dinding kafe"
-                sizes="(max-width: 860px) 72vw, 280px"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </button>
-            <p className="disp" style={{ margin: '18px 0 0', fontSize: '20px' }}>
-              4. Terpasang di tempatmu
-            </p>
-            <p style={{ margin: '8px 0 0', fontSize: '15px', lineHeight: 1.55, color: '#B7C3D6' }}>
+          <ProcessStep index={3} foto={FOTO_WORKSHOP[4]} bukaFoto={bukaFoto}>
+            <p className={styles.stepTitle}>4. Terpasang di tempatmu</p>
+            <p className={styles.stepDesc}>
               Dikirim dengan paking kayu bertulang, atau ambil sendiri di workshop.
             </p>
-          </li>
+          </ProcessStep>
         </ol>
       </div>
 
@@ -339,5 +289,47 @@ export function WorkshopSection() {
         </Dialog.Portal>
       </Dialog.Root>
     </section>
+  );
+}
+
+interface ProcessStepProps {
+  index: number;
+  foto: typeof FOTO_WORKSHOP[number];
+  bukaFoto: (index: number) => void;
+  children: React.ReactNode;
+}
+
+function ProcessStep({ index, foto, bukaFoto, children }: ProcessStepProps) {
+  const ref = useRef<HTMLLIElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
+
+  return (
+    <motion.li
+      ref={ref}
+      className={styles.step}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.12,
+        ease: [0.22, 0.68, 0.24, 1],
+      }}
+    >
+      <span className={styles.stepDot} aria-hidden="true" />
+      <button
+        type="button"
+        className={styles.stepImage}
+        onClick={() => bukaFoto(index + 1)}
+        aria-label={`Perbesar foto: ${foto.judul.toLowerCase()}`}
+      >
+        <PictureImage
+          name={foto.name}
+          alt={foto.alt}
+          sizes="(max-width: 860px) 72vw, 280px"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      </button>
+      {children}
+    </motion.li>
   );
 }

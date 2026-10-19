@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import {
   LeadSourceCode,
   buildWhatsAppLink,
   getStoredLeadSource,
   trackLeadClick,
 } from '../lib/tracking';
-import { Reveal } from './Reveal';
-
+import styles from './HowToOrderSection.module.css';
 const TIMELINE_STEPS = [
   {
     num: '02',
@@ -84,119 +84,69 @@ export function HowToOrderSection() {
   };
 
   return (
-    <section id="cara-pesan" style={{ background: '#F3F5F8', color: '#1B2233', padding: '96px 0' }}>
+    <section id="cara-pesan" className={styles.section}>
       <div className="wrap">
-        <Reveal trackSection="cara-pesan">
-          <h2 className="h2 disp" style={{ margin: 0, color: '#253254' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className={`h2 disp ${styles.header}`}>
             cara pesan
           </h2>
-          <p style={{ margin: '14px 0 0', maxWidth: '38em', fontSize: '18px', lineHeight: 1.6, color: '#4A5468' }}>
+          <p className={styles.description}>
             Dari chat pertama sampai cermin terpasang. Di setiap tahap kamu dapat kabar dan fotonya.
           </p>
-        </Reveal>
+        </motion.div>
 
-        <div className="cara-pesan-layout" style={{ marginTop: '48px' }}>
+        <div className={styles.layout}>
           {/* Kolom Kiri: Kartu Navy 01 MULAI DI SINI */}
-          <Reveal>
-          <div
-            className="card-mulai"
-            style={{
-              background: '#141C33',
-              borderRadius: '20px',
-              padding: '36px',
-              border: '1.5px solid rgba(156, 207, 194, 0.25)',
-              boxShadow: '0 20px 50px rgba(20, 28, 51, 0.22)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '18px',
-            }}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className={styles.startCard}
           >
             {/* Badge 01 MULAI DI SINI */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  background: '#9CCFC2',
-                  color: '#06301A',
-                  fontSize: '12px',
-                  fontWeight: 800,
-                }}
-              >
+            <div className={styles.startBadge}>
+              <span className={styles.badgeNumber}>
                 01
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', color: '#9CCFC2', textTransform: 'uppercase' }}>
+              <span className={styles.badgeLabel}>
                 MULAI DI SINI
               </span>
             </div>
 
-            <h3 className="disp" style={{ margin: 0, fontSize: '32px', color: '#FFFFFF', lineHeight: 1.15 }}>
+            <h3 className={`disp ${styles.startHeading}`}>
               konsultasi gratis di WhatsApp.
             </h3>
 
-            <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.65, color: '#D5DCE8' }}>
+            <p className={styles.startDescription}>
               Kirim ukuran dinding, foto ruangan, atau rancangan dari website. Admin bantu pilih bentuk, ukuran, dan lampu, lalu kirim harga final dan PDF penawaran.
             </p>
 
             {/* 3 Poin Centang */}
-            <ul style={{ listStyle: 'none', margin: '6px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: '#BFCBD9', lineHeight: 1.5 }}>
-                <span
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    borderRadius: '999px',
-                    background: 'rgba(156, 207, 194, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '2px',
-                  }}
-                >
+            <ul className={styles.checkList}>
+              <li className={styles.checkItem}>
+                <span className={styles.checkIcon}>
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9CCFC2" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </span>
                 Bisa tanya dulu, belum ada kewajiban beli
               </li>
-              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: '#BFCBD9', lineHeight: 1.5 }}>
-                <span
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    borderRadius: '999px',
-                    background: 'rgba(156, 207, 194, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '2px',
-                  }}
-                >
+              <li className={styles.checkItem}>
+                <span className={styles.checkIcon}>
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9CCFC2" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </span>
                 Harga final dan PDF penawaran resmi
               </li>
-              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: '#BFCBD9', lineHeight: 1.5 }}>
-                <span
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    borderRadius: '999px',
-                    background: 'rgba(156, 207, 194, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '2px',
-                  }}
-                >
+              <li className={styles.checkItem}>
+                <span className={styles.checkIcon}>
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9CCFC2" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
@@ -206,27 +156,13 @@ export function HowToOrderSection() {
             </ul>
 
             {/* Tombol Hijau Mulai Konsultasi */}
-            <div style={{ marginTop: '8px' }}>
+            <div className={styles.ctaWrapper}>
               <a
-                className="wa"
+                className={styles.waButton}
                 href={waHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleSendWA}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '10px',
-                  height: '52px',
-                  padding: '0 24px',
-                  borderRadius: '12px',
-                  background: '#25D366',
-                  color: '#06301A',
-                  fontWeight: 700,
-                  fontSize: '16px',
-                  textDecoration: 'none',
-                }}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06301A" strokeWidth="2.2" strokeLinejoin="round" aria-hidden="true">
                   <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
@@ -234,179 +170,55 @@ export function HowToOrderSection() {
                 Mulai konsultasi
               </a>
             </div>
-          </div>
-          </Reveal>
+          </motion.div>
 
           {/* Kolom Kanan: Timeline Vertikal 02 - 05 */}
-          <div className="timeline-container">
+          <div className={styles.timelineContainer}>
             {/* Garis LED Penghubung Vertikal */}
-            <div className="timeline-line" aria-hidden="true" />
+            <div className={styles.timelineLine} aria-hidden="true" />
 
-            <div className="timeline-list">
+            <div className={styles.timelineList}>
               {TIMELINE_STEPS.map((step, idx) => (
-                <Reveal key={step.num} delay={idx * 110}>
-                <div className="timeline-row">
+                <motion.div
+                  key={step.num}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.2 + idx * 0.1,
+                  }}
+                  className={styles.timelineRow}
+                >
                   {/* Node Berikon */}
-                  <div className={`timeline-node ${step.isSuccess ? 'success-node' : ''}`}>
+                  <div className={`${styles.timelineNode} ${step.isSuccess ? styles.successNode : ''}`}>
                     {step.icon}
                   </div>
 
                   {/* Kartu Putih */}
-                  <div className="timeline-card">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap' }}>
-                      <span className="disp" style={{ fontSize: '18px', color: '#253254' }}>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.cardHeader}>
+                      <span className={`disp ${styles.cardTitle}`}>
                         {step.num} {step.title}
                       </span>
                       <span
-                        style={{
-                          fontSize: '12px',
-                          fontWeight: 600,
-                          padding: '3px 10px',
-                          borderRadius: '6px',
-                          background: step.isSuccess ? 'rgba(156,207,194,0.2)' : 'rgba(39,80,135,0.08)',
-                          color: step.isSuccess ? '#166534' : '#275087',
-                        }}
+                        className={`${styles.stepBadge} ${
+                          step.isSuccess ? styles.stepBadgeSuccess : styles.stepBadgeDefault
+                        }`}
                       >
                         {step.badge}
                       </span>
                     </div>
-                    <p style={{ margin: '6px 0 0', fontSize: '14px', lineHeight: 1.55, color: '#4A5468' }}>
+                    <p className={styles.cardDescription}>
                       {step.desc}
                     </p>
                   </div>
-                </div>
-                </Reveal>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .cara-pesan-layout {
-          display: grid;
-          grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-          gap: 48px;
-          align-items: center;
-        }
-
-        .timeline-container {
-          position: relative;
-          padding-left: 28px;
-        }
-
-        .timeline-line {
-          position: absolute;
-          left: 28px;
-          top: 30px;
-          bottom: 40px;
-          width: 2px;
-          background: linear-gradient(to bottom, #BFCBD9 0%, #FFC98A 50%, #9CCFC2 100%);
-          box-shadow: 0 0 6px rgba(255, 201, 138, 0.4);
-          transform: translateX(-50%);
-        }
-
-        .timeline-list {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .timeline-row {
-          position: relative;
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-
-        .timeline-node {
-          position: relative;
-          width: 56px;
-          height: 56px;
-          border-radius: 14px;
-          background: #FFFFFF;
-          border: 1.5px solid #D5DCE6;
-          box-shadow: 0 4px 14px rgba(20, 28, 51, 0.08);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          color: #253254;
-          z-index: 2;
-        }
-
-        .timeline-node.success-node {
-          background: #9CCFC2;
-          border-color: #9CCFC2;
-          box-shadow: 0 0 16px rgba(156, 207, 194, 0.5);
-        }
-
-        .timeline-card {
-          flex: 1;
-          background: #FFFFFF;
-          border-radius: 14px;
-          border: 1.5px solid #E2E8F0;
-          padding: 18px 22px;
-          box-shadow: 0 4px 14px rgba(20, 28, 51, 0.04);
-        }
-
-        @media (max-width: 860px) {
-          .cara-pesan-layout {
-            grid-template-columns: minmax(0, 1fr) !important;
-            gap: 16px !important;
-          }
-
-          .card-mulai {
-            padding: 16px !important;
-            gap: 12px !important;
-          }
-
-          .card-mulai h3.disp {
-            font-size: 22px !important;
-          }
-
-          .timeline-container {
-            padding-left: 16px;
-          }
-
-          .timeline-line {
-            left: 16px;
-          }
-
-          .timeline-list {
-            gap: 8px !important;
-          }
-
-          .timeline-row {
-            gap: 10px;
-          }
-
-          .timeline-node {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-          }
-
-          .timeline-node svg {
-            width: 15px;
-            height: 15px;
-          }
-
-          .timeline-card {
-            padding: 8px 12px;
-          }
-
-          .timeline-card span.disp {
-            font-size: 15px !important;
-          }
-
-          .timeline-card p {
-            font-size: 12px !important;
-            margin-top: 2px !important;
-            line-height: 1.4 !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

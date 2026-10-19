@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { TESTIMONIALS, type Testimonial } from '../data/testimonials';
 import { trackEvent } from '../lib/tracking';
@@ -59,9 +61,33 @@ export function TestimonialSection() {
   const [slideAktif, setSlideAktif] = useState(0);
   const [bisaMundur, setBisaMundur] = useState(false);
   const [bisaMaju, setBisaMaju] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const kurangiGerak = useRef(false);
   const indeksTerakhir = useRef(0);
+
+  // Motion variants for stagger animation
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
   // Hormati reduced motion: perpindahan slide dibuat langsung, tanpa animasi geser.
   useEffect(() => {
@@ -105,6 +131,7 @@ export function TestimonialSection() {
     if (!node) return;
 
     if (typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
       trackEvent('testimonial_view');
       return;
     }
@@ -113,6 +140,7 @@ export function TestimonialSection() {
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
+            setIsVisible(true);
             trackEvent('testimonial_view');
             observer.disconnect();
             break;
@@ -174,14 +202,20 @@ export function TestimonialSection() {
           onKeyDown={padaTombolPanah}
         >
           <div className={styles.viewport} ref={emblaRef}>
-            <div className={styles.container}>
+            <motion.div
+              className={styles.container}
+              variants={containerVariants}
+              initial="hidden"
+              animate={isVisible ? 'visible' : 'hidden'}
+            >
               {TESTIMONIALS.map((t, i) => (
-                <div
+                <motion.div
                   className={styles.slide}
                   key={t.id}
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`Testimoni ${i + 1} dari ${TESTIMONIALS.length}`}
+                  variants={cardVariants}
                 >
                   <figure className={styles.card}>
                     <div className={styles.cardTop}>
@@ -212,9 +246,9 @@ export function TestimonialSection() {
                       </span>
                     </figcaption>
                   </figure>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           <div className={styles.controls}>

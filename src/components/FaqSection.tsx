@@ -1,16 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
+import { motion } from 'framer-motion';
 import { FAQ_ITEMS } from '../data/faq';
 import { buildWhatsAppLink, getStoredLeadSource, trackEvent, trackLeadClick } from '../lib/tracking';
 import styles from './FaqSection.module.css';
-
 const WA_MSG = 'Halo Putra Glass, saya masih ada pertanyaan sebelum pesan cermin LED.';
 
 export function FaqSection() {
-  // Akordeon dikendalikan supaya event `faq_open` bisa dikirim per pertanyaan
   const [terbuka, setTerbuka] = useState('');
+  const rootRef = useRef<HTMLDivElement>(null);
+  const waHref = buildWhatsAppLink(WA_MSG);
+  const leadSource = getStoredLeadSource();
+
+  const handleCtaClick = () => {
+    trackLeadClick('faq_cta');
+  };
 
   const handleValueChange = (value: string) => {
     setTerbuka(value);
@@ -19,12 +25,35 @@ export function FaqSection() {
     }
   };
 
-  const waHref = buildWhatsAppLink(WA_MSG);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const triggers = rootRef.current?.querySelectorAll('[role="button"]') as NodeListOf<HTMLElement>;
+    if (!triggers || triggers.length === 0) return;
 
-  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // Hitung ulang saat diklik supaya kode sumber iklan (UTM) yang terbaru ikut terkirim
-    e.currentTarget.href = buildWhatsAppLink(WA_MSG, getStoredLeadSource());
-    trackLeadClick('faq_cta');
+    const currentIndex = Array.from(triggers).findIndex((t) => t === document.activeElement);
+    let nextIndex = currentIndex;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        nextIndex = (currentIndex + 1) % triggers.length;
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        nextIndex = (currentIndex - 1 + triggers.length) % triggers.length;
+        break;
+      case 'Home':
+        e.preventDefault();
+        nextIndex = 0;
+        break;
+      case 'End':
+        e.preventDefault();
+        nextIndex = triggers.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    triggers[nextIndex]?.focus();
   };
 
   return (
@@ -42,8 +71,7 @@ export function FaqSection() {
               garansi. Kalau jawabannya belum ada di sini, admin siap menjawab di WhatsApp.
             </p>
           </div>
-
-          <div>
+          <div onKeyDown={handleKeyDown} ref={rootRef}>
             <Accordion.Root
               type="single"
               collapsible
@@ -54,9 +82,14 @@ export function FaqSection() {
               {FAQ_ITEMS.map((item) => (
                 <Accordion.Item key={item.id} value={item.id} className={styles.item}>
                   <Accordion.Header className={styles.header}>
-                    <Accordion.Trigger className={styles.trigger}>
-                      {item.pertanyaan}
-                      <span className={styles.chevron} aria-hidden="true">
+                    <Accordion.Trigger className={styles.trigger} aria-expanded={terbuka === item.id}>
+                      <span className={styles.triggerText}>{item.pertanyaan}</span>
+                      <motion.span
+                        className={styles.chevron}
+                        animate={{ rotate: terbuka === item.id ? 180 : 0 }}
+                        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                        aria-hidden="true"
+                      >
                         <svg
                           width="16"
                           height="16"
@@ -69,11 +102,19 @@ export function FaqSection() {
                         >
                           <polyline points="6 9 12 15 18 9" />
                         </svg>
-                      </span>
+                      </motion.span>
                     </Accordion.Trigger>
                   </Accordion.Header>
                   <Accordion.Content className={styles.content}>
-                    <p className={styles.answer}>{item.jawaban}</p>
+                    <motion.p
+                      className={styles.answer}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, delay: 0.05, ease: [0.4, 0, 0.2, 1] }}
+                    >
+                      {item.jawaban}
+                    </motion.p>
                   </Accordion.Content>
                 </Accordion.Item>
               ))}
