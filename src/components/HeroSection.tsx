@@ -112,11 +112,16 @@ export function HeroSection() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.h1
-            className={`h1 disp`}
-            style={{ margin: 0, color: '#FFFFFF' }}
+            className="disp"
+            style={{ 
+              margin: '0 0 24px 0',
+              fontSize: 'var(--font-display-lg)',
+              color: '#FFFFFF',
+              lineHeight: 1.2,
+            }}
             variants={itemVariants}
           >
-            cermin LED yang ukurannya kamu tentukan.
+            Cermin LED yang ukurannya kamu tentukan.
           </motion.h1>
           <motion.p
             style={{
