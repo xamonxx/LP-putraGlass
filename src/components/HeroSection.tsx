@@ -324,21 +324,37 @@ export function HeroSection() {
           >
             <defs>
               <linearGradient id="mirrorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor={cur.glow} stopOpacity="0.2" />
+                <stop offset="0%" stopColor={cur.glow} stopOpacity="0.15" />
+                <stop offset="50%" stopColor={cur.glow} stopOpacity="0.3" />
                 <stop offset="100%" stopColor={cur.glow} stopOpacity="0.5" />
               </linearGradient>
+              <radialGradient id="glassReflection" cx="35%" cy="30%">
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+              </radialGradient>
             </defs>
 
-            {/* Mirror body */}
+            {/* Mirror body with premium glass effect */}
             <rect
               x="40"
               y="40"
               width="240"
               height="320"
-              rx="16"
+              rx="20"
               fill="url(#mirrorGradient)"
               stroke={cur.glow}
-              strokeWidth="2"
+              strokeWidth="3"
+              opacity="0.95"
+            />
+            
+            {/* Glass reflection highlight */}
+            <ellipse
+              cx="100"
+              cy="90"
+              rx="60"
+              ry="80"
+              fill="url(#glassReflection)"
+              opacity="0.6"
             />
 
             {/* LED edge highlight */}
