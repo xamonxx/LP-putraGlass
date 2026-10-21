@@ -1,4 +1,24 @@
 {
+  "hero-blue-room": {
+    "originalWidth": 1672,
+    "originalHeight": 941,
+    "aspectRatio": 1.7768,
+    "files": {
+      "webp": {
+        "768": "/img/hero/lighting/desktop-768.webp",
+        "1280": "/img/hero/lighting/desktop-1280.webp",
+        "1672": "/img/hero/lighting/desktop-1672.webp",
+        "default": "/img/hero/lighting/desktop-1672.webp"
+      },
+      "avif": {
+        "768": "/img/hero/lighting/desktop-768.avif",
+        "1280": "/img/hero/lighting/desktop-1280.avif",
+        "1672": "/img/hero/lighting/desktop-1672.avif",
+        "default": "/img/hero/lighting/desktop-1672.avif"
+      },
+      "fallback": "/img/hero/lighting/desktop-1672.webp"
+    }
+  },
   "antifog-dengan": {
     "originalWidth": 1300,
     "originalHeight": 1040,
@@ -48,8 +68,8 @@
     }
   },
   "custom-octagon": {
-    "originalWidth": 1200,
-    "originalHeight": 900,
+    "originalWidth": 1440,
+    "originalHeight": 1080,
     "aspectRatio": 1.3333,
     "files": {
       "webp": {
@@ -57,7 +77,6 @@
         "480": "/img/custom-octagon-480w.webp",
         "640": "/img/custom-octagon-640w.webp",
         "1024": "/img/custom-octagon-1024w.webp",
-        "1600": "/img/custom-octagon-1600w.webp",
         "default": "/img/custom-octagon.webp"
       },
       "avif": {
@@ -65,7 +84,6 @@
         "480": "/img/custom-octagon-480w.avif",
         "640": "/img/custom-octagon-640w.avif",
         "1024": "/img/custom-octagon-1024w.avif",
-        "1600": "/img/custom-octagon-1600w.avif",
         "default": "/img/custom-octagon.avif"
       },
       "fallback": "/assets/custom-octagon.webp"
@@ -96,8 +114,8 @@
     }
   },
   "model-capsul": {
-    "originalWidth": 900,
-    "originalHeight": 900,
+    "originalWidth": 1600,
+    "originalHeight": 1600,
     "aspectRatio": 1,
     "files": {
       "webp": {
@@ -120,8 +138,8 @@
     }
   },
   "model-halfmoon": {
-    "originalWidth": 900,
-    "originalHeight": 900,
+    "originalWidth": 1520,
+    "originalHeight": 1520,
     "aspectRatio": 1,
     "files": {
       "webp": {
@@ -129,7 +147,6 @@
         "480": "/img/model-halfmoon-480w.webp",
         "640": "/img/model-halfmoon-640w.webp",
         "1024": "/img/model-halfmoon-1024w.webp",
-        "1600": "/img/model-halfmoon-1600w.webp",
         "default": "/img/model-halfmoon.webp"
       },
       "avif": {
@@ -137,15 +154,14 @@
         "480": "/img/model-halfmoon-480w.avif",
         "640": "/img/model-halfmoon-640w.avif",
         "1024": "/img/model-halfmoon-1024w.avif",
-        "1600": "/img/model-halfmoon-1600w.avif",
         "default": "/img/model-halfmoon.avif"
       },
       "fallback": "/assets/model-halfmoon.webp"
     }
   },
   "model-leaf": {
-    "originalWidth": 900,
-    "originalHeight": 900,
+    "originalWidth": 1600,
+    "originalHeight": 1600,
     "aspectRatio": 1,
     "files": {
       "webp": {
@@ -168,8 +184,8 @@
     }
   },
   "model-rectangle": {
-    "originalWidth": 900,
-    "originalHeight": 900,
+    "originalWidth": 1600,
+    "originalHeight": 1600,
     "aspectRatio": 1,
     "files": {
       "webp": {
@@ -309,6 +325,52 @@
         "default": "/img/workshop-poles.avif"
       },
       "fallback": "/assets/workshop-poles.webp"
+    }
+  },
+  "model-oval": {
+    "originalWidth": 1280,
+    "originalHeight": 1280,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-oval-320w.webp",
+        "480": "/img/model-oval-480w.webp",
+        "640": "/img/model-oval-640w.webp",
+        "1024": "/img/model-oval-1024w.webp",
+        "default": "/img/model-oval.webp"
+      },
+      "avif": {
+        "320": "/img/model-oval-320w.avif",
+        "480": "/img/model-oval-480w.avif",
+        "640": "/img/model-oval-640w.avif",
+        "1024": "/img/model-oval-1024w.avif",
+        "default": "/img/model-oval.avif"
+      },
+      "fallback": "/assets/model-oval.webp"
+    }
+  },
+  "model-round": {
+    "originalWidth": 1600,
+    "originalHeight": 1600,
+    "aspectRatio": 1,
+    "files": {
+      "webp": {
+        "320": "/img/model-round-320w.webp",
+        "480": "/img/model-round-480w.webp",
+        "640": "/img/model-round-640w.webp",
+        "1024": "/img/model-round-1024w.webp",
+        "1600": "/img/model-round-1600w.webp",
+        "default": "/img/model-round.webp"
+      },
+      "avif": {
+        "320": "/img/model-round-320w.avif",
+        "480": "/img/model-round-480w.avif",
+        "640": "/img/model-round-640w.avif",
+        "1024": "/img/model-round-1024w.avif",
+        "1600": "/img/model-round-1600w.avif",
+        "default": "/img/model-round.avif"
+      },
+      "fallback": "/assets/model-round.webp"
     }
   }
 }

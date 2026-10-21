@@ -104,6 +104,7 @@ export function trackEvent(
   standard: { meta?: string; tiktok?: string } = {},
 ) {
   if (typeof window === 'undefined') return;
+  try { if (window.localStorage.getItem('pg_cookie_consent') !== 'granted') return; } catch { return; }
   try {
     const payload = {
       ...params,

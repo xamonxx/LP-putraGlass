@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-20T03:25:29.074Z",
+  "method": "Chromium cold cache, 390x844, DPR 1, CPU x4, 150ms latency, 1.6Mbps down; 3 runs",
+  "runs": [
+    {
+      "lcp": 3980,
+      "cls": 0,
+      "resources": 15,
+      "transferredBytes": 365278
+    },
+    {
+      "lcp": 3952,
+      "cls": 0,
+      "resources": 15,
+      "transferredBytes": 365278
+    },
+    {
+      "lcp": 4300,
+      "cls": 0,
+      "resources": 15,
+      "transferredBytes": 365278
+    }
+  ],
+  "median": {
+    "lcp": 3980,
+    "cls": 0,
+    "transferredBytes": 365278
+  },
+  "inp": "Not measured: no representative interaction sample; field p75 requires real traffic."
+}

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
-import type { Variants } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
+import type { Variants } from 'motion/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MAPS_URL } from '../lib/constants';
 import { trackEvent } from '../lib/tracking';

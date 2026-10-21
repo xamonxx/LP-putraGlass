@@ -306,3 +306,14 @@
     font-size: 12px;
   }
 }
+.section { background:var(--stone); color:var(--ink); padding:95px 0; }
+.wrap { max-width:1408px; padding:0 64px; }
+.title { color:var(--ink); font-size:clamp(34px,4vw,58px); letter-spacing:-.055em; line-height:1.1; font-weight:400; }
+.description,.caption,.feature { color:var(--muted); }
+.description { font-size:15px; line-height:1.85; }
+.sliderFrame { border-radius:2px; border:0; box-shadow:none; touch-action:pan-y; }
+.handle { width:42px; height:42px; color:var(--ink); background:var(--ivory); border:1px solid var(--line); font-size:22px; }
+.input { touch-action:pan-y; }
+.input:focus-visible { outline:3px solid var(--brand-blue); outline-offset:-5px; }
+@media(max-width:1023px) { .wrap { padding:0 32px; } }
+@media(max-width:760px) { .wrap { padding:0 24px; } .layout { grid-template-columns:1fr; gap:30px; } .section { padding:65px 0; } }

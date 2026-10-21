@@ -11,3 +11,10 @@ screenshot-*.png
 lampiran-*.png
 recordings/
 *.webm
+test-results/
+playwright-report/
+tsconfig.tsbuildinfo
+.claude/
+
+# Original image sources (~389 MB); optimised copies live in public/ — see scripts/import-site-assets.cjs
+aset-img-for-website/

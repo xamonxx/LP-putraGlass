@@ -1,234 +1,49 @@
 'use client';
-
-import type { LeadSourceCode } from '../lib/tracking';
-
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { buildWhatsAppLink, getStoredLeadSource, trackLeadClick } from '../lib/tracking';
-import { motion, AnimatePresence } from 'framer-motion';
-import styles from './HeaderNav.module.css';
-
-const NAV_ITEMS = [
-  { label: 'Model', href: '#model' },
-  { label: 'Rancang', href: '#rancang' },
-  { label: 'Cara pesan', href: '#cara-pesan' },
-  { label: 'Workshop', href: '#workshop' },
-  { label: 'FAQ', href: '#faq' },
-];
-
-const WA_MSG = 'Halo Putra Glass, saya mau tanya cermin LED.';
-
-export function HeaderNav() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const [leadCode, setLeadCode] = useState<LeadSourceCode>('LP-LANGSUNG');
+import * as Dialog from '@radix-ui/react-dialog';
+import { SITE_PAGES } from '../lib/site-pages';
+import styles from './Showroom.module.css';
+const LINKS = [{ label: 'Home', href: '/' }, ...[SITE_PAGES.catalog, SITE_PAGES.showroom, SITE_PAGES.about, SITE_PAGES.order, SITE_PAGES.faq].map(page => ({ label: page.label, href: page.path }))];
+// Mark traced from the official logo (aset-img-for-website/LOGO PUTRA GLASS): three overlapping diamonds.
+export function Brand() { return <><svg viewBox="0 0 65 38" fill="none" aria-hidden="true"><path d="M0 19 19 0l19 19-19 19Z" fill="#a6a6a6"/><path d="M13.5 19 32.5 0l19 19-19 19Z" fill="#273153"/><path d="M26.8 19 45.8 0l19 19-19 19Z" fill="#c0cbda"/></svg><span>PUTRA GLASS</span></>; }
+export function HeaderNav({ overlay = false }: { overlay?: boolean }) {
+  const ref = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    setLeadCode(getStoredLeadSource());
+    document.body.dataset.mobileMenuOpen = String(open);
+    return () => { delete document.body.dataset.mobileMenuOpen; };
+  }, [open]);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 761px)');
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
   }, []);
-
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 16);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const measure = () => document.documentElement.style.setProperty('--header-height', `${ref.current?.offsetHeight ?? 85}px`);
+    const observer = new ResizeObserver(measure);
+    if (ref.current) observer.observe(ref.current);
+    measure();
+    const scroll = () => setScrolled(window.scrollY > 20);
+    scroll(); window.addEventListener('scroll', scroll, { passive: true });
+    return () => { observer.disconnect(); window.removeEventListener('scroll', scroll); };
   }, []);
-
-  useEffect(() => {
-    const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    if (isMenuOpen) {
-      window.addEventListener('keydown', handleEscapeKey);
-      return () => window.removeEventListener('keydown', handleEscapeKey);
-    }
-  }, [isMenuOpen]);
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleMenuItemClick = () => {
-    setIsMenuOpen(false);
-  };
-
-  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.href = buildWhatsAppLink(WA_MSG, leadCode);
-    trackLeadClick('header_nav');
-  };
-
-  const waUrl = buildWhatsAppLink(WA_MSG, leadCode);
-
-  return (
-    <header
-      ref={headerRef}
-      className={styles.header}
-      data-scrolled={isScrolled}
-    >
-      <div className={styles.container}>
-        {/* Logo */}
-        <Link
-          href="/"
-          className={styles.logo}
-          aria-label="Putra Glass Beranda"
-        >
-          <svg
-            width="44"
-            height="24"
-            viewBox="0 0 44 24"
-            aria-hidden="true"
-            className={styles.logoSvg}
-          >
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              transform="rotate(45 12 12)"
-              fill="var(--slate)"
-            />
-            <rect
-              x="15"
-              y="5"
-              width="14"
-              height="14"
-              transform="rotate(45 22 12)"
-              fill="var(--navy)"
-              stroke="rgba(255,255,255,.45)"
-              strokeWidth="1"
-            />
-            <rect
-              x="25"
-              y="5"
-              width="14"
-              height="14"
-              transform="rotate(45 32 12)"
-              fill="var(--slate-light)"
-            />
-          </svg>
-          <span className={styles.brandText}>PUTRA GLASS</span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav
-          className={styles.navDesktop}
-          aria-label="Menu utama"
-        >
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={styles.navLink}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA */}
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleWhatsAppClick}
-          className={styles.ctaPrimary}
-        >
-          Chat WhatsApp
-        </a>
-
-        {/* Mobile Menu Button */}
-        <button
-          className={styles.menuButton}
-          onClick={handleMenuToggle}
-          aria-expanded={isMenuOpen}
-          aria-label="Menu navigasi"
-          aria-controls="mobile-menu"
-        >
-          <span className={styles.hamburger} aria-hidden="true" />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className={styles.mobileMenuBackdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <motion.nav
-              id="mobile-menu"
-              className={styles.mobileMenu}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{
-                duration: 0.3,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              onClick={(e) => e.stopPropagation()}
-              role="navigation"
-              aria-label="Menu navigasi mobile"
-            >
-              <div className={styles.mobileMenuHeader}>
-                <button
-                  className={styles.closeButton}
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label="Tutup menu"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className={styles.mobileMenuContent}>
-                {NAV_ITEMS.map((item, idx) => (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    className={styles.mobileNavLink}
-                    onClick={handleMenuItemClick}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: idx * 0.05,
-                      duration: 0.3,
-                    }}
-                  >
-                    {item.label}
-                  </motion.a>
-                ))}
-              </div>
-
-              <motion.a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  handleWhatsAppClick(e as React.MouseEvent<HTMLAnchorElement>);
-                  handleMenuItemClick();
-                }}
-                className={styles.mobileCtaPrimary}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: NAV_ITEMS.length * 0.05,
-                  duration: 0.3,
-                }}
-              >
-                Chat WhatsApp
-              </motion.a>
-            </motion.nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  );
+  return <header ref={ref} className={`${styles.header} ${overlay ? styles.headerHome : ''}`} data-overlay={overlay} data-scrolled={scrolled}>
+    <div className={`wrap ${styles.nav}`}>
+      <Link href="/" className={styles.brand} aria-label="Putra Glass Beranda"><Brand /></Link>
+      <nav className={styles.links} aria-label="Menu utama">{LINKS.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav>
+      <Link className={styles.navCta} href="/konsultasi">Konsultasi <span aria-hidden="true">↗</span></Link>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Trigger asChild><button className={styles.menuButton} aria-label="Buka menu navigasi">Menu ☰</button></Dialog.Trigger>
+        <Dialog.Portal><Dialog.Overlay className={styles.overlay}/><Dialog.Content className={styles.drawer} aria-describedby={undefined}>
+          <Dialog.Close asChild><button className="button-plain" aria-label="Tutup menu navigasi">Tutup ×</button></Dialog.Close>
+          <Dialog.Title>Jelajahi Putra Glass</Dialog.Title>
+          <nav aria-label="Navigasi mobile" className="mobile-links">{LINKS.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}</nav>
+          <Link href="/konsultasi" onClick={() => setOpen(false)}>Konsultasi & penawaran ↗</Link>
+        </Dialog.Content></Dialog.Portal>
+      </Dialog.Root>
+    </div>
+  </header>;
 }

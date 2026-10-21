@@ -2,13 +2,14 @@
 
 import React, { useState, useRef } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FAQ_ITEMS } from '../data/faq';
 import { buildWhatsAppLink, getStoredLeadSource, trackEvent, trackLeadClick } from '../lib/tracking';
 import styles from './FaqSection.module.css';
 const WA_MSG = 'Halo Putra Glass, saya masih ada pertanyaan sebelum pesan cermin LED.';
 
-export function FaqSection() {
+export function FaqSection({ asPage = false }: { asPage?: boolean }) {
+  const Title = asPage ? 'h1' : 'h2';
   const [terbuka, setTerbuka] = useState('');
   const rootRef = useRef<HTMLDivElement>(null);
   const waHref = buildWhatsAppLink(WA_MSG);
@@ -65,7 +66,7 @@ export function FaqSection() {
               <span className={styles.kickerDot} aria-hidden="true" />
               Sebelum kamu pesan
             </p>
-            <h2 className={`${styles.title} disp`}>pertanyaan umum</h2>
+            <Title className={`${styles.title} disp`}>pertanyaan umum</Title>
             <p className={styles.lead}>
               Yang paling sering ditanyakan sebelum DP: harga, lama pengerjaan, pengiriman, dan
               garansi. Kalau jawabannya belum ada di sini, admin siap menjawab di WhatsApp.

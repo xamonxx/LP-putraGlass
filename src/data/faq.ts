@@ -5,7 +5,7 @@
  * Jawaban ditulis tanpa HTML supaya aman dipakai langsung di schema.
  */
 
-import { GAMBARAN_HARGA_CONTOH } from '../config/harga-contoh';
+
 
 export interface FaqItem {
   id: string;
@@ -18,9 +18,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: 'harga',
     pertanyaan: 'Berapa harga cermin LED custom?',
     jawaban:
-      'Cermin custom dihitung per meter persegi: LED 3 warna premium Rp1.750.000/m² dan LED 1 warna basic Rp1.550.000/m². Sensor tangan + baterai menambah Rp250.000 per unit, antifog Rp200.000 per unit. ' +
-      GAMBARAN_HARGA_CONTOH.teks +
-      ' Luas dihitung dari lebar × tinggi ÷ 10.000, dan bentuk bulat atau oval dihitung dari kotak luarnya. Pakai kalkulator di bagian "Rancang cerminmu" untuk estimasi ukuranmu sendiri; ongkir selalu dihitung terpisah oleh admin.',
+      'Harga mengikuti bentuk, ukuran, lampu, kontrol, dan kebutuhan tambahan. Susun rancangan Anda lalu kirim melalui WhatsApp. Admin mengonfirmasi harga akhir dan ongkir sebelum pemesanan.',
   },
   {
     id: 'lama-produksi',
@@ -52,7 +50,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: 'antifog',
     pertanyaan: 'Antifog itu apa dan bagaimana merawatnya?',
     jawaban:
-      'Antifog adalah pemanas tipis di balik kaca yang membuat cermin tetap bening saat ruangan penuh uap setelah mandi air panas; tambahannya Rp200.000 per unit. Bedanya bisa kamu lihat di bagian demo antifog pada halaman ini. Untuk panduan perawatan dan pembersih yang aman dipakai, tanyakan ke admin lewat WhatsApp supaya kamu dapat jawaban yang sesuai unit yang dipesan.',
+      'Antifog adalah pemanas tipis di balik kaca yang membuat cermin tetap bening saat ruangan penuh uap setelah mandi air panas; ketersediaannya dikonfirmasi sesuai pesanan. Bedanya bisa kamu lihat di bagian demo antifog pada halaman ini. Untuk panduan perawatan dan pembersih yang aman dipakai, tanyakan ke admin lewat WhatsApp supaya kamu dapat jawaban yang sesuai unit yang dipesan.',
   },
   // TODO isi fakta dari owner — batas ukuran custom paling kecil dan paling besar masih "keputusan terbuka" di PRD
   {
@@ -65,7 +63,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: 'cara-ukur',
     pertanyaan: 'Bagaimana cara mengukur sebelum pesan?',
     jawaban:
-      'Ukur lebar dan tinggi area dinding yang mau diisi dalam sentimeter (untuk cermin bulat cukup diameternya), lalu kurangi sedikit supaya masih ada ruang di kiri-kanan. Di konfigurator, ukuranmu ditampilkan di samping siluet orang 170 cm dan wastafel 80 cm sebagai pembanding, jadi kelihatan seberapa besar hasilnya. Kalau masih ragu, kirim foto ruangan dan ukuran kasarnya ke admin untuk dicek dulu.',
+      'Ukur lebar dan tinggi area dinding yang mau diisi dalam sentimeter (untuk cermin bulat cukup diameternya), lalu kurangi sedikit supaya masih ada ruang di kiri-kanan. Di showroom, masukkan ukuranmu untuk melihat simulasi proporsinya. Kalau masih ragu, kirim foto ruangan dan ukuran kasarnya ke admin untuk dicek dulu.',
   },
   {
     id: 'pembayaran',

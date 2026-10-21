@@ -43,15 +43,15 @@ export function PictureImage({
     );
   }
 
-  const widths = ['320', '480', '640', '1024', '1600'];
+  const sourceWidths = (format: 'avif' | 'webp') => Object.keys(meta.files[format])
+    .filter((width) => width !== 'default' && /^\d+$/.test(width))
+    .sort((a, b) => Number(a) - Number(b));
 
-  const avifSrcSet = widths
-    .filter((w) => meta.files.avif[w])
+  const avifSrcSet = sourceWidths('avif')
     .map((w) => `${meta.files.avif[w]} ${w}w`)
     .join(', ');
 
-  const webpSrcSet = widths
-    .filter((w) => meta.files.webp[w])
+  const webpSrcSet = sourceWidths('webp')
     .map((w) => `${meta.files.webp[w]} ${w}w`)
     .join(', ');
 
@@ -73,6 +73,7 @@ export function PictureImage({
         }}
         loading={priority ? 'eager' : loading}
         decoding={priority ? 'sync' : 'async'}
+        fetchPriority={priority ? 'high' : undefined}
       />
     </picture>
   );

@@ -1,178 +1,24 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ExperienceProvider } from '../components/ExperienceProvider';
+import { TrackingConsent } from '../components/TrackingConsent';
+import { ClientInit } from '../components/ClientInit';
+import { CookieBanner } from '../components/CookieBanner';
+import { StickyWhatsApp } from '../components/StickyWhatsApp';
 import { INSTAGRAM_URL, TIKTOK_URL } from '../lib/constants';
-import { GAMBARAN_HARGA_CONTOH } from '../config/harga-contoh';
-import { FAQ_ITEMS } from '../data/faq';
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://putraglass.id'),
-  title: 'Cermin LED Custom Bandung – Putra Glass',
-  description: 'Dibuat per pesanan di workshop Citatah, Bandung Barat. Cermin LED bentuk bebas, tiga warna cahaya dalam satu sentuhan. Kirim ke seluruh Indonesia.',
-  keywords: ['cermin led', 'cermin custom bandung', 'cermin led bandung', 'putra glass', 'cermin wastafel', 'cermin kamar mandi led'],
-  authors: [{ name: 'Putra Glass' }],
-  creator: 'Putra Glass',
-  openGraph: {
-    title: 'Cermin LED Custom Bandung – Putra Glass',
-    description: 'Dibuat per pesanan di workshop Citatah, Bandung Barat. Bentuk bebas, tiga warna cahaya dalam satu sentuhan.',
-    url: 'https://putraglass.id',
-    siteName: 'Putra Glass',
-    locale: 'id_ID',
-    type: 'website',
-    images: [
-      {
-        url: '/og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Cermin LED Putra Glass',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Cermin LED Custom Bandung – Putra Glass',
-    description: 'Dibuat per pesanan di workshop Citatah, Bandung Barat. Bentuk bebas, tiga warna cahaya dalam satu sentuhan.',
-    images: ['/og.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: 'https://putraglass.id',
-  },
+  title: { default: 'Putra Glass — Cermin LED & Showroom Interaktif', template: '%s | Putra Glass' },
+  description: 'Jelajahi koleksi cermin LED Putra Glass. Lihat simulasi 3D, rancang ukuran Anda, dan konsultasikan kebutuhan langsung dengan workshop Citatah, Bandung Barat.',
+  openGraph: { title: 'Putra Glass — Cahaya yang membentuk ruang', description: 'Koleksi cermin LED dan custom. Jelajahi bentuk, cahaya, dan kemungkinan untuk ruang Anda.', url: 'https://putraglass.id', siteName: 'Putra Glass', locale: 'id_ID', type: 'website', images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Cermin LED Putra Glass' }] },
+  twitter: { card: 'summary_large_image', images: ['/og.jpg'] },
+  alternates: { canonical: 'https://putraglass.id' }, robots: { index: true, follow: true },
 };
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'Putra Glass',
-  image: 'https://putraglass.id/og.jpg',
-  description: 'Spesialis fabrikasi cermin LED custom, kaca es, kaca moru, dan kaca arsitektural di Bandung Barat.',
-  telephone: '+6281237533173',
-  hasMap: 'https://maps.app.goo.gl/EfXTbzY7PCQ4TPUn6',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Jalan Nasional III, Citatah',
-    addressLocality: 'Kec. Cipatat',
-    addressRegion: 'Kabupaten Bandung Barat',
-    postalCode: '40554',
-    addressCountry: 'ID',
-  },
-  url: 'https://putraglass.id',
-  sameAs: [INSTAGRAM_URL, TIKTOK_URL],
-};
-
-const produkJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'Cermin LED Custom Putra Glass',
-  image: 'https://putraglass.id/og.jpg',
-  description:
-    'Cermin LED custom dibuat per pesanan: bentuk bebas, tiga warna cahaya dalam satu sentuhan, opsi antifog, dikirim ke seluruh Indonesia.',
-  brand: { '@type': 'Brand', name: 'Putra Glass' },
-  offers: {
-    '@type': 'AggregateOffer',
-    priceCurrency: 'IDR',
-    // Angka contoh tunggal dari buku harga; bukan rentang karangan.
-    lowPrice: GAMBARAN_HARGA_CONTOH.angka,
-    availability: 'https://schema.org/InStock',
-    url: 'https://putraglass.id/#rancang',
-    seller: { '@type': 'Organization', name: 'Putra Glass' },
-  },
-};
-
-// Sumber tunggal dengan accordion FAQ di halaman, supaya rich result tidak pernah
-// berbeda dari yang dibaca pengunjung (syarat Google untuk FAQPage).
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    '@type': 'Question',
-    name: item.pertanyaan,
-    acceptedAnswer: { '@type': 'Answer', text: item.jawaban },
-  })),
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-  const tiktokPixelId = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-
-  return (
-    <html lang="id">
-      <head>
-        {/* Preload font bobot 800 wajib sesuai PRD */}
-        <link
-          rel="preload"
-          href="/fonts/plus-jakarta-sans-latin-800.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-          fetchPriority="high"
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/plus-jakarta-sans-latin-800.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}`,
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(produkJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
-
-        {/* Meta Pixel */}
-        {metaPixelId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(){try{if(localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '${metaPixelId}');fbq('track', 'PageView');})();`,
-            }}
-          />
-        )}
-
-        {/* TikTok Pixel */}
-        {tiktokPixelId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(){try{if(localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('${tiktokPixelId}');ttq.page();}(window, document, 'ttq');})();`,
-            }}
-          />
-        )}
-
-        {/* Google Analytics 4 */}
-        {gaId && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}try{if(localStorage.getItem('pg_cookie_consent')==='denied'){gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});}}catch(e){}gtag('js', new Date());gtag('config', '${gaId}');`,
-              }}
-            />
-          </>
-        )}
-
-        {/* Microsoft Clarity: heatmap, session replay, rage-click. Patuh consent. */}
-        {clarityId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(c,l,a,r,i,t,y){try{if(l.localStorage.getItem('pg_cookie_consent')==='denied')return;}catch(e){}c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");`,
-            }}
-          />
-        )}
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+const business = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Putra Glass', image: 'https://putraglass.id/og.jpg', telephone: '+6281237533173', url: 'https://putraglass.id', hasMap: 'https://maps.app.goo.gl/EfXTbzY7PCQ4TPUn6', address: { '@type': 'PostalAddress', streetAddress: 'Jalan Nasional III, Citatah', addressLocality: 'Kec. Cipatat', addressRegion: 'Kabupaten Bandung Barat', postalCode: '40554', addressCountry: 'ID' }, sameAs: [INSTAGRAM_URL, TIKTOK_URL] };
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <html lang="id"><head><link rel="preload" href="/fonts/plus-jakarta-sans-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }}/></head><body>
+    <a href="#main-content" className="skip-link">Lewati ke konten utama</a>
+    <ExperienceProvider><ClientInit/>{children}<StickyWhatsApp/><CookieBanner/></ExperienceProvider>
+    <TrackingConsent config={{ meta: process.env.NEXT_PUBLIC_META_PIXEL_ID, tiktok: process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID, ga: process.env.NEXT_PUBLIC_GA_ID, clarity: process.env.NEXT_PUBLIC_CLARITY_ID }}/>
+  </body></html>;
 }

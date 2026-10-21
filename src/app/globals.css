@@ -521,3 +521,54 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* V3 architectural system. Legacy aliases keep retained business components compatible. */
+:root {
+ /* Palette extracted from the Putra Glass logo: navy #273153, wordmark blue #2c5084, sky #c0cbda, grey #a6a6a6. */
+ --brand-navy:#273153; --brand-blue:#2c5084; --brand-sky:#c0cbda; --brand-grey:#a6a6a6;
+ --ivory:#f5f7fa; --stone:#e4e9f0; --ink:var(--brand-navy); --muted:#596277; --bronze:var(--brand-blue); --line:#cfd8e4;
+ --header-height:85px; --ease-editorial:cubic-bezier(.22,1,.36,1);
+ --paper-cold:var(--ivory); --paper:#fff; --navy:var(--ink); --blue:var(--brand-blue); --slate:var(--muted); --bg-dark:#1b2238;
+ --slate-light:#dbe2ec; --accent-glass:var(--brand-sky); --glass-edge:var(--brand-sky); --accent-conversion:#166849;
+ --radius-sm:2px; --radius-md:3px; --radius-lg:4px; --radius-xl:4px; --radius-2xl:4px;
+ --font-h2:clamp(34px,4vw,58px); --font-weight-bold:600;
+}
+* { box-sizing:border-box; }
+/* Anchor clearance lives on section scroll-margin. Root scroll-padding makes
+   focusing the sticky mobile menu jump the document on Chromium. */
+body { background:var(--ivory); color:var(--ink); overflow-x:clip; }
+button,input,select,textarea { font:inherit; }
+button,a,input,select,textarea { -webkit-tap-highlight-color:transparent; }
+a { color:inherit; }
+a:hover { color:var(--bronze); }
+button { cursor:pointer; }
+button:disabled { cursor:not-allowed; opacity:.55; }
+:focus-visible { outline:2px solid var(--brand-blue); outline-offset:5px; }
+::selection { background:var(--brand-sky); color:var(--brand-navy); }
+.wrap { max-width:1408px; padding:0 64px; width:100%; }
+.pg { position:relative; }
+main { min-width:0; }
+section[id], main[id] { scroll-margin-top:calc(var(--header-height) + 15px); }
+h1,h2,h3,p { overflow-wrap:break-word; }
+.h2 { font-weight:400; line-height:1.12; letter-spacing:-.05em; }
+.eyebrow { font-size:11px; line-height:1.7; letter-spacing:.12em; text-transform:uppercase; }
+.small-line { display:inline-block; width:26px; height:1px; background:var(--bronze); vertical-align:middle; margin-right:8px; }
+.button-primary,.button-light { display:inline-flex; justify-content:center; align-items:center; gap:25px; min-height:50px; padding:16px 24px; background:var(--ink); border:1px solid var(--ink); color:var(--ivory); border-radius:2px; font-size:13px; line-height:1.4; transition:background .2s,transform .2s; text-decoration:none; }
+.button-primary:hover { background:var(--brand-blue); border-color:var(--brand-blue); color:white; }
+.button-light { background:var(--ivory); color:var(--ink)!important; border-color:var(--ivory); }
+.button-light:hover { background:var(--stone); }
+.button-primary:active,.button-light:active { transform:translateY(1px); }
+.text-link { background:none; border:0; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:16px; border-bottom:1px solid currentColor; padding:8px 0; color:inherit; font-size:13px; line-height:1.4; }
+.button-plain { background:none; color:inherit; border:1px solid var(--line); padding:10px 14px; }
+.mobile-links { display:flex; flex-direction:column; gap:26px; }
+.skip-link { position:fixed; top:10px; left:15px; z-index:100; padding:15px; background:var(--ivory); color:var(--ink); transform:translateY(-180%); }
+.skip-link:focus { transform:none; }
+.sr-only { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media(max-width:1023px) { .wrap { padding:0 32px; } }
+@media(max-width:760px) { :root { --header-height:71px; } .wrap { padding:0 24px; } body { padding-bottom:0; } footer { padding-bottom:105px!important; } }
+@media(max-width:360px) { .wrap { padding:0 20px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation:none!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+@media print { header,.sticky-wa-wrapper { display:none!important; } }
+/* Keep focus/validation scrolling immediate so mobile controls do not move under a tap. */
+html { scroll-behavior:auto; }
+.disp { font-weight:400; }

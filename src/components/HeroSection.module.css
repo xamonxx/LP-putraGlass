@@ -1,173 +1,156 @@
-/*
- * HeroSection — seluruh gerak hero ditulis dengan CSS murni, tanpa library
- * animasi dan tanpa scroll listener di JavaScript.
- *
- * Tiga efek:
- * 1. Masuknya isi kolom kiri (transform saja, tanpa opacity 0) supaya judul
- *    hero tetap terbaca penuh walau JS mati dan LCP tidak tertunda.
- * 2. Parallax dekorasi memakai scroll-driven animation. Browser tanpa
- *    dukungan cukup memakai posisi diam — parallax murni penyedap, bukan
- *    syarat; tidak ada JS pengganti supaya main thread tetap lega.
- * 3. Cahaya cermin yang "bernapas" (scale + opacity) selama hero terlihat.
- *
- * Semua gerak mati saat pengunjung memilih "kurangi gerakan".
- */
-
-/* ---------- 1. Masuknya judul, teks, CTA, dan baris bukti ---------- */
-
-.enter {
-  animation: heroEnter 650ms cubic-bezier(0.22, 0.68, 0.24, 1) both;
+.hero {
+  position: relative;
+  isolation: isolate;
+  background: #aeb9c8;
+  color: var(--brand-navy);
 }
-
-/* Jeda bertingkat: 80 ms untuk anak pertama, lalu selisih 90 ms. */
-.enterStep1 {
-  animation-delay: 80ms;
-}
-
-.enterStep2 {
-  animation-delay: 170ms;
-}
-
-.enterStep3 {
-  animation-delay: 260ms;
-}
-
-.enterStep4 {
-  animation-delay: 350ms;
-}
-
-/* ---------- 2. Parallax dekorasi (scroll-driven) ---------- */
-
-/*
- * Keadaan diam motif belah ketupat. Browser tanpa scroll-driven animation
- * berhenti di sini: parallax hanya penyedap, bukan syarat tampilan.
- */
-.diamondsShift {
-  transform: translate3d(0, 0, 0);
-}
-
-/*
- * Pembungkus halo hanya mengurus geseran parallax, sementara elemen halo di
- * dalamnya mengurus cahaya. Dipisah supaya dua animasi tidak saling menimpa
- * lewat properti `animation` yang sama.
- */
-.haloShift {
+.hero::after {
+  content: '';
   position: absolute;
-  inset: -80px;
+  inset: auto 0 -1px;
+  height: clamp(150px, 14vw, 260px);
+  z-index: -1;
   pointer-events: none;
+  background: linear-gradient(180deg,
+    #e4e9f000 0%,
+    #e4e9f00a 18%,
+    #e4e9f02e 42%,
+    #e4e9f080 65%,
+    #e4e9f0d6 85%,
+    var(--stone) 100%);
 }
-
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .diamondsShift {
-      animation: heroParallaxDiamonds linear both;
-      animation-timeline: scroll(root block);
-      /* Rentang kira-kira setinggi hero: gerak selesai saat hero tergulung keluar. */
-      animation-range: 0 100vh;
-    }
-
-    .haloShift {
-      animation: heroParallaxHalo linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 100vh;
-    }
-  }
+.background, .wash, .glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.background { display: block; overflow: hidden; }
+.background img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+/* Cool navy shade for depth, tuned to the blue showroom artwork. */
+.wash {
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(ellipse 85% 95% at 38% 42%, transparent 52%, #111c3040 100%),
+    linear-gradient(180deg, transparent 70%, #111c302b 100%);
+  /* Keep the navbar band unshaded so its dark text holds contrast. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 10%, #000 26%);
+  mask-image: linear-gradient(180deg, transparent 0, transparent 10%, #000 26%);
 }
-
-/* ---------- 3. Cahaya cermin "bernapas" ---------- */
-
-.halo {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  pointer-events: none;
-  opacity: 1;
-  /* Cahaya mekar sekali setelah garis LED selesai tergambar. */
-  animation: heroHaloBloom 500ms ease-out 900ms both;
-  /* Kembali tenang dengan halus saat napas dimatikan (hero keluar layar). */
-  transition: background 350ms ease-out, scale 350ms ease-out, opacity 350ms ease-out;
+.glow {
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse 48% 78% at -4% 38%, #fff0d92b, #e5edfa12 45%, transparent 72%),
+    linear-gradient(104deg, #fff2df17 0%, transparent 34%),
+    linear-gradient(180deg, #eef6ff20 0%, transparent 15%);
 }
-
-/*
- * `scale` dan `opacity` dipakai sebagai properti tersendiri, bukan lewat
- * `transform`, supaya tidak bertabrakan dengan parallax di pembungkusnya.
- *
- * `heroHaloBloom` sengaja ikut disebut ulang di daftar: namanya tetap ada
- * saat class napas dilepas, jadi animasi mekar tidak diputar ulang dan tidak
- * ada kedipan ketika hero keluar layar.
- */
-.isBreathing {
-  animation: heroHaloBloom 500ms ease-out 900ms both, heroGlowBreathe 6400ms ease-in-out infinite;
+.hero .layout {
+  min-height: max(760px, 100svh);
+  padding-top: calc(var(--header-height) + 58px);
+  padding-bottom: 28px;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
-
-/* ---------- Keyframes ---------- */
-
-@keyframes heroEnter {
-  from {
-    transform: translate3d(0, 20px, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
+.content { width: 43%; max-width: 590px; align-self: center; padding: 30px 0 66px; }
+.kicker { display: flex; align-items: center; gap: 14px; font-size: 11px; line-height: 1.6; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--brand-navy); }
+.kicker::before { content: ''; width: 32px; height: 1px; background: currentColor; flex-shrink: 0; }
+/* Tight tracking, but word-spacing restores the gaps that -.065em used to swallow ("Cahayayang"). */
+/* Copy sits "in" the wall: multiply lets the plaster texture and light streaks through the letters. */
+.copy { mix-blend-mode: multiply; }
+.title { font-size: clamp(50px, 5.4vw, 88px); line-height: 1.02; letter-spacing: -.04em; word-spacing: .06em; font-weight: 600; margin: 24px 0; color: var(--brand-navy); text-wrap: balance; }
+/* Text behaves like pigment on the wall: lighter at the left light source, deeper toward the mirrors. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .title, .title em { background: linear-gradient(100deg, #526b9b 0%, #2c3a63 37%, #18213c 78%) 0 0 / 100% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .title { filter: drop-shadow(7px 5px 10px #14233a24) drop-shadow(1px 1px 0 #f5f8fc24); }
+  .title em { background-image: linear-gradient(100deg, #4471b0 0%, #2c5084 60%); }
 }
-
-@keyframes heroParallaxDiamonds {
-  from {
-    transform: translate3d(0, 0, 0);
+@media (min-width: 1350px) {
+  /* Match source artwork ratio (1672×941). Full room stays visible instead of cover-cropping. */
+  .hero .layout { min-height: 56.28vw; }
+  /* The tree occupies the first 18% of the artwork; the mirror wall starts at 52%.
+     Anchor copy to that clear wall rather than the page container's left edge. */
+  .content {
+    margin-left: max(0px, calc(21vw - max(64px, calc((100vw - 1280px) / 2))));
+    width: 31vw;
+    max-width: 580px;
+    padding-bottom: 32px;
   }
-
-  to {
-    transform: translate3d(0, 88px, 0);
-  }
+  .title { font-size: clamp(57px, 4.5vw, 86px); line-height: 1.04; margin: 26px 0; }
+  .kicker { font-size: 11px; gap: 10px; letter-spacing: .1em; }
+  .kicker::before { width: 22px; }
+  .description { max-width: 29em; font-size: clamp(16px, 1.15vw, 20px); }
+  .actions { gap: 18px; }
+  .actions .primary { padding: 18px 22px; font-size: 15px; gap: 20px; }
+  .actions .secondary { font-size: 15px; }
 }
-
-@keyframes heroParallaxHalo {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 44px, 0);
-  }
+@media (min-width: 1100px) and (max-width: 1349px) and (min-height: 701px) {
+  .content { margin-left: calc(20vw - 64px); width: 29vw; }
+  .title { font-size: 3.9vw; }
+  .kicker { font-size: 9px; gap: 8px; letter-spacing: .08em; }
+  .kicker::before { width: 18px; }
+  .description { font-size: 13px; }
+  .actions { gap: 14px; }
+  .actions .primary { padding: 14px; font-size: 11px; gap: 12px; }
+  .actions .secondary { font-size: 11px; }
 }
-
-@keyframes heroGlowBreathe {
-  0%,
-  100% {
-    opacity: 0.78;
-    scale: 1;
-  }
-
-  50% {
-    opacity: 1;
-    scale: 1.05;
-  }
+@media (forced-colors: active) { .title, .title em { -webkit-text-fill-color: currentColor; background: none; } .copy { mix-blend-mode: normal; } }
+.title em { font-style: normal; color: var(--brand-blue); }
+.description { max-width: 30em; font-size: 16px; line-height: 1.7; color: #1f2740; margin: 0; text-wrap: pretty; }
+.actions { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 30px; }
+.actions .primary { background: var(--brand-navy); border-color: var(--brand-navy); color: #ffffff; }
+.actions .primary:hover { background: var(--brand-blue); border-color: var(--brand-blue); color: #ffffff; }
+.actions .secondary { color: var(--brand-navy); font-weight: 600; }
+.footer { display: flex; justify-content: space-between; gap: 24px; align-items: center; padding-top: 18px; border-top: 1px solid #27315324; font-size: 11px; line-height: 1.6; color: #2e3754; }
+.caption { margin: 0; }
+.footer .scroll { color: var(--brand-navy); white-space: nowrap; }
+@media (max-width: 1023px) and (orientation: portrait) {
+  .background img { object-position: right center; }
+  .wash { background: radial-gradient(ellipse 110% 70% at 50% 40%, transparent 55%, #111c303b 100%), linear-gradient(180deg, transparent 74%, #111c3026 100%); }
+  .glow { background: radial-gradient(ellipse 90% 45% at 0% 12%, #eaf4ff60, #dcecff24 50%, transparent 78%); }
+  .hero .layout { min-height: max(740px, 100svh); padding-top: calc(var(--header-height) + 38px); padding-bottom: 22px; }
+  .content { align-self: stretch; display: flex; flex-direction: column; width: 100%; max-width: none; padding: 0; }
+  .copy { max-width: 570px; }
+  .title { max-width: 12em; font-size: clamp(34px, 6.7vw, 64px); margin: 17px 0 18px; line-height: 1.06; }
+  .description { max-width: 32em; font-size: 14px; line-height: 1.65; }
+  .actions { margin-top: auto; padding-top: 30px; gap: 22px; }
+  .footer { margin-top: 22px; }
 }
-
-@keyframes heroHaloBloom {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+@media (max-width: 600px) and (orientation: portrait) {
+  .hero .layout { padding-top: calc(var(--header-height) + 29px); padding-bottom: 18px; }
+  .kicker { font-size: 9px; letter-spacing: .11em; gap: 10px; }
+  .kicker::before { width: 23px; }
+  .title { font-size: clamp(31px, 8.6vw, 48px); margin: 17px 0 16px; }
+  .description { max-width: min(27em, 84%); font-size: 13px; }
+  .title { filter: drop-shadow(3px 2px 4px #14233a2e) drop-shadow(1px 1px 0 #14233a14); }
+  .actions .primary { font-size: 12px; padding: 14px 16px; gap: 15px; min-height: 48px; }
+  .actions .secondary { font-size: 12px; gap: 10px; }
+  .actions { gap: 18px; }
+  .footer { font-size: 10px; gap: 10px 16px; padding-top: 12px; margin-top: 20px; }
+  .footer .scroll { font-size: 10px; gap: 6px; }
 }
-
-/* ---------- Hormati "kurangi gerakan" ---------- */
-
-@media (prefers-reduced-motion: reduce) {
-  .enter {
-    animation: none;
-  }
-
-  /* Napas dimatikan; mekar hanya opacity, aman untuk yang sensitif gerak. */
-  .isBreathing {
-    animation: heroHaloBloom 500ms ease-out 900ms both;
-  }
-
-  .halo {
-    transition: background 350ms ease-out;
-  }
+@media (max-width: 380px) and (orientation: portrait) {
+  .actions { flex-direction: column; align-items: stretch; gap: 9px; }
+  .actions .secondary { align-self: center; padding: 5px 0; }
+}
+@media (min-width: 601px) and (max-width: 1023px) and (orientation: portrait) {
+  .copy { margin-left: 22vw; max-width: calc(100% - 22vw); }
+}
+@media (max-height: 700px) and (max-width: 600px) and (orientation: portrait) {
+  .glow { background: radial-gradient(ellipse 110% 55% at 0% 14%, #eaf4ff78, #dcecff32 50%, transparent 80%); }
+}
+@media (max-width: 760px) and (orientation: portrait) {
+  .copy { text-align: center; mix-blend-mode: normal; }
+  .kicker { justify-content: center; font-size: 8px; letter-spacing: .09em; }
+  .title { max-width: none; color: var(--brand-navy); background: none; -webkit-text-fill-color: currentColor; filter: none; text-shadow: 0 1px 0 #ffffffbf, 0 3px 10px #182a4326; }
+  .title em { background: none; -webkit-text-fill-color: currentColor; color: var(--brand-blue); }
+  .description { max-width: 29em; margin-inline: auto; color: #18243e; text-shadow: 0 1px 3px #ffffffb3; }
+  .glow { mix-blend-mode: normal; background: linear-gradient(180deg, #e4e9f080 0%, #e4e9f0ad 18%, #e4e9f080 32%, #e4e9f000 46%); }
+  .actions { justify-content: center; gap: 12px; }
+  .actions .primary, .actions .secondary { border: 1px solid #ffffffb3; border-radius: 999px; min-height: 48px; padding: 14px 18px; color: var(--brand-navy); font-weight: 600; background: linear-gradient(115deg, #ffffffbf, #e5edf5a6); -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%); box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 #ffffff80, 0 6px 20px #172b4524; }
+  .actions .primary:hover, .actions .secondary:hover { background: #f5f7fae6; color: var(--brand-blue); }
+}
+/* Compact landscape treatment is for laptops/tablets only. On wide desktop
+   screens it used to override the artwork-ratio layout above, shrinking hero
+   to 600px and widening copy across the mirrors. */
+@media (orientation: landscape) and (max-height: 700px) and (max-width: 1349px) {
+  .hero .layout { min-height: 600px; padding-top: calc(var(--header-height) + 24px); }
+  .content { width: 46%; padding: 20px 0 36px; }
+  .title { font-size: clamp(38px, 5.3vw, 62px); margin: 18px 0; }
+  .description { font-size: 13px; }
+  .actions { margin-top: 20px; gap: 16px; }
 }

@@ -13,7 +13,7 @@ import { useForm, type DefaultValues, type FieldErrors, type Resolver } from 're
 
 import styles from './LeadFormSection.module.css';
 import { buildWhatsAppLink, getStoredLeadSource, trackEvent } from '../lib/tracking';
-import { getAllVariants, getVariant, type VariantOf } from '../lib/experiments';
+import { getAllVariants } from '../lib/experiments';
 import {
   buildLeadMessage,
   hasSessionFlag,
@@ -75,12 +75,12 @@ const leadResolver: Resolver<LeadFormValues> = (values) => {
   return { values: {}, errors };
 };
 
-export function LeadFormSection() {
+export function LeadFormSection({ asPage = false }: { asPage?: boolean }) {
+  const Title = asPage ? 'h1' : 'h2';
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [waLink, setWaLink] = useState('');
   const [tersimpanDiServer, setTersimpanDiServer] = useState(false);
-  const [ctaVariant, setCtaVariant] = useState<VariantOf<'cta_style'>>('kontrol');
 
   const startedRef = useRef(false);
   const submittedRef = useRef(false);
@@ -109,10 +109,6 @@ export function LeadFormSection() {
   const panjangCm = watch('panjangCm');
   const lebarCm = watch('lebarCm');
 
-  // Varian A/B hanya dibaca di klien supaya HTML statis tetap netral.
-  useEffect(() => {
-    setCtaVariant(getVariant('cta_style'));
-  }, []);
 
   // Pulihkan draft dari sesi sebelumnya (refresh tidak menghapus isian).
   useEffect(() => {
@@ -274,14 +270,14 @@ export function LeadFormSection() {
       ? ((panjangCm * lebarCm) / 10000).toFixed(2).replace('.', ',')
       : null;
 
-  const labelKirim = ctaVariant === 'urgensi' ? 'Kirim sekarang, slot produksi terbatas' : 'Kirim & lanjut ke WhatsApp';
+  const labelKirim = 'Kirim & lanjut ke WhatsApp';
 
   return (
     <section id="konsultasi" className={styles.section} aria-labelledby="konsultasi-judul">
       <div className={styles.inner}>
         <div className={styles.layout}>
           <div className={styles.intro}>
-            <h2 id="konsultasi-judul">minta penawaran dalam 3 langkah.</h2>
+            <Title id="konsultasi-judul">minta penawaran dalam 3 langkah.</Title>
             <p className={styles.lead}>
               Isi model dan ukuran yang kamu butuhkan. Pesan WhatsApp-nya kami siapkan otomatis, jadi admin
               langsung bisa menghitung dan membalas dengan harga.
@@ -319,7 +315,7 @@ export function LeadFormSection() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} onFocusCapture={tandaiMulai} onKeyDown={onKeyDown} noValidate>
+              <form data-clarity-mask="true" onSubmit={onSubmit} onFocusCapture={tandaiMulai} onKeyDown={onKeyDown} noValidate>
                 <div className={styles.progress}>
                   <div
                     className={styles.progressTrack}
@@ -474,7 +470,7 @@ export function LeadFormSection() {
                   </div>
 
                   <p className={styles.note}>
-                    Nomor hanya dipakai untuk membalas penawaran ini. Tidak dikirim ke pihak lain.
+                    Nomor dipakai admin untuk membalas penawaran Anda.
                   </p>
                 </div>
 

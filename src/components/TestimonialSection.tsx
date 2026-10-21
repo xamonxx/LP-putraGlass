@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
+import { motion } from 'motion/react';
+import type { Variants } from 'motion/react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { TESTIMONIALS, type Testimonial } from '../data/testimonials';
 import { trackEvent } from '../lib/tracking';

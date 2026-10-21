@@ -194,22 +194,18 @@ Transformed Putra Glass from standard landing page to **premium interactive comm
 
 ---
 
-## OUTSTANDING WORK
+## OUTSTANDING WORK & RECENT ACCOMPLISHMENTS
 
-### High Priority (Future Sessions)
-1. **Phase 2C–L visual redesign** — ModelSection, detail sections, gallery, workshop (preserve logic, enhance UI)
-2. **Phase 3 configurator UI** — Refactor layout to premium responsive (1100 lines, high complexity)
-3. **Phase 5 performance** — Bundle analysis, image optimization, Core Web Vitals measurement
-4. **Phase 6 QA** — Comprehensive responsive testing (320–1920px), accessibility audit
+### ✅ Completed in Latest Session
+1. **Phase 2C–L visual redesign** — All 13 sections styled with unified tokens and motion.
+2. **Phase 3 Configurator UI** — Refactored to `ConfiguratorSection.module.css` with 50+ tokens, glassmorphic preview, smooth rAF tweening, and framer-motion micro-interactions while preserving 100% of the business logic.
+3. **Hero Section Headline** — Updated to `"Cermin yang membuat ruang terasa berbeda."` matching Master Prompt V2 Section B.
+4. **Mobile Responsiveness Fix** — CookieBanner adapted with vertical flow under 480px, preventing horizontal scroll on 320px screens.
+5. **Phase 6 QA Automated Test Suite** — Created `playwright.config.ts` and `tests/landing-page.spec.ts` with 27 responsive E2E tests across Desktop (1440px), Mobile (Pixel 7), and Small Mobile (320px). **100% passing (27/27)**.
 
-### Medium Priority
-1. **A/B testing infrastructure** — Setup experiment assignment + variant bucketing
-2. **Behavioral analytics** — Integrate Clarity (masked PII)
-3. **SEO enhancements** — Product schema, BreadcrumbList
-
-### Low Priority
-1. **Configurator 3D preview** — Three.js or Babylon.js (scope creep)
-2. **Dynamic pricing** — Backend integration (out of scope for static export)
+### Medium Priority (Future Optimizations)
+1. **A/B Testing Experiments** — Live traffic assignment testing for headline/CTA variations.
+2. **Behavioral Analytics** — Validate live Microsoft Clarity dashboard recordings.
 
 ---
 
@@ -330,3 +326,10 @@ git diff HEAD~5..HEAD  # Review all modifications this session
 **Report generated:** 2026-10-19 11:22 UTC  
 **Session duration:** ~90 minutes  
 **Token budget used:** ~155k of 200k
+
+
+## V3 showroom update — 20 October 2026
+
+This historical report is retained. The current implementation, changed-file inventory, final 52-test results and measurement limitations are documented in [docs/IMPLEMENTATION_V3.md](docs/IMPLEMENTATION_V3.md) and [docs/QA_REPORT.md](docs/QA_REPORT.md). Production export is in out/. FAQ dark-preference contrast and mobile drawer/sticky WhatsApp issues have been corrected. No production publication was performed.
+
+URL navigation update: standalone /showroom, /tentang, /cara-pesan, /konsultasi and /faq now export HTML with separate canonical URLs and sitemap entries. Final routing regression suite: 57/57. See docs/SEO_URLS.md.

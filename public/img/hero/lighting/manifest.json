@@ -1,0 +1,72 @@
+[
+  {
+    "file": "desktop-768.avif",
+    "width": 768,
+    "bytes": 35517
+  },
+  {
+    "file": "desktop-768.webp",
+    "width": 768,
+    "bytes": 48640
+  },
+  {
+    "file": "desktop-1280.avif",
+    "width": 1280,
+    "bytes": 80225
+  },
+  {
+    "file": "desktop-1280.webp",
+    "width": 1280,
+    "bytes": 113176
+  },
+  {
+    "file": "desktop-1672.avif",
+    "width": 1672,
+    "bytes": 125609
+  },
+  {
+    "file": "desktop-1672.webp",
+    "width": 1672,
+    "bytes": 181208
+  },
+  {
+    "file": "mobile-320.avif",
+    "width": 320,
+    "bytes": 21324
+  },
+  {
+    "file": "mobile-320.webp",
+    "width": 320,
+    "bytes": 28728
+  },
+  {
+    "file": "mobile-480.avif",
+    "width": 480,
+    "bytes": 41545
+  },
+  {
+    "file": "mobile-480.webp",
+    "width": 480,
+    "bytes": 55730
+  },
+  {
+    "file": "mobile-768.avif",
+    "width": 768,
+    "bytes": 86915
+  },
+  {
+    "file": "mobile-768.webp",
+    "width": 768,
+    "bytes": 122102
+  },
+  {
+    "file": "mobile-941.avif",
+    "width": 941,
+    "bytes": 119351
+  },
+  {
+    "file": "mobile-941.webp",
+    "width": 941,
+    "bytes": 170766
+  }
+]
