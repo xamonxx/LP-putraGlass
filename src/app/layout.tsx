@@ -19,6 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return <html lang="id"><head><link rel="preload" href="/fonts/plus-jakarta-sans-latin-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }}/></head><body>
     <a href="#main-content" className="skip-link">Lewati ke konten utama</a>
     <ExperienceProvider><ClientInit/>{children}<StickyWhatsApp/><CookieBanner/></ExperienceProvider>
-    <TrackingConsent config={{ meta: process.env.NEXT_PUBLIC_META_PIXEL_ID, tiktok: process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID, ga: process.env.NEXT_PUBLIC_GA_ID, clarity: process.env.NEXT_PUBLIC_CLARITY_ID }}/>
+    <TrackingConsent config={{ meta: process.env.NEXT_PUBLIC_META_PIXEL_ID, tiktok: process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID, ga: process.env.NEXT_PUBLIC_GA_ID || 'G-SPGNYQYQCX', clarity: process.env.NEXT_PUBLIC_CLARITY_ID }}/>
   </body></html>;
 }

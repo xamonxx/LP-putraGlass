@@ -119,7 +119,7 @@ export function trackEvent(
     if (window.ttq?.track) {
       window.ttq.track(standard.tiktok || name, payload);
     }
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_ID) {
+    if (window.gtag && (process.env.NEXT_PUBLIC_GA_ID || 'G-SPGNYQYQCX')) {
       window.gtag('event', name, payload);
     }
     if (window.clarity) {
